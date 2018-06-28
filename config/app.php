@@ -150,7 +150,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Intervention\Image\ImageServiceProvider::class,
+        Devfactory\Imagecache\ImagecacheServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -208,7 +209,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Imagecache' => Devfactory\Imagecache\Facades\ImagecacheFacade::class,
     ],
 
 ];
