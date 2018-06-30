@@ -38,7 +38,7 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-window.domain = document.head.querySelector("[name=domain]").content;
+window.domain = document.head.querySelector("[name=domain]").content + '/';
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

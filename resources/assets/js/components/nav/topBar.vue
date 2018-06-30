@@ -89,6 +89,11 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
     export default {
+        data(){
+            return {
+                domain: domain,
+            }
+        },
         components: {
             'font-awesome-icon': FontAwesomeIcon
         },
