@@ -40,7 +40,7 @@
                                 </select>
                             </div>
 
-                            <checkbox-field :value="user.publish" :label="'Publikovano'" @changeValue="user.publish = $event"></checkbox-field>
+                            <checkbox-field :value="user.block" :label="'Blokiran'" @changeValue="user.block = $event"></checkbox-field>
 
                             <div class="form-group">
                                 <button class="btn btn-primary">Kreiraj</button>
@@ -71,7 +71,7 @@
     export default {
         data(){
           return {
-              image: null,
+              fillable: ['name', 'email', 'password', 'password_confirmation', 'image', 'role_id', 'block'],
               user: {
                   role_id: 0,
               },
@@ -84,10 +84,10 @@
         },
         methods: {
             submit(){
-                axios.post('api/users', this.user)
+                let data = fillForm(this.fillable, this.user);
+                axios.post('api/users', data)
                     .then(res => {
                         this.user = res.data.user;
-                        this.sendImage();
                         swal({
                             position: 'center',
                             type: 'success',
@@ -103,27 +103,8 @@
             },
             prepare(image){
                 this.user.imagePath = image.src;
-                this.user.file = image.file;
+                this.user.image = image.file;
             },
-            sendImage(){
-                let data = new FormData();
-                data.append('image', this.user.file);
-                axios.post('api/users/' + this.user.id + '/image', data)
-                    .then(res => {
-                        this.user.image = res.data.image;
-                        this.error = null;
-                        swal({
-                            position: 'center',
-                            type: 'success',
-                            title: 'Success',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }).catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            }
         }
     }
 </script>

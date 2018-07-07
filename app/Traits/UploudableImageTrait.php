@@ -27,7 +27,7 @@ trait UploudableImageTrait{
                 'public'
                 );
         }
-        return $this->image;
+        return 'test';
     }
 
     protected function getFolderName($path){

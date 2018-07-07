@@ -27,6 +27,7 @@ class UsersController extends Controller
 
     public function store(CreateUserRequest $request){
         $user = User::create($request->except('image'));
+        $user->update(['image' => $user->storeImage()]);
 
         return response()->json([
             'user' => $user
@@ -43,6 +44,7 @@ class UsersController extends Controller
     public function update(EditUserRequest $request, $id){
         $user = User::find($id);
         $user->update($request->except('image'));
+        $user->update(['image' => $user->storeImage()]);
 
         return response()->json([
             'user' => $user,

@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-8">
+                <div class="col-sm-8" v-if="user">
                     <div class="card">
                         <form @submit.prevent="submit()">
 
@@ -35,15 +35,12 @@
                             <div class="form-group">
                                 <label for="role">Pravo pristupa</label>
                                 <select name="role" class="form-control" id="role" v-model="user.role_id">
-                                    <option value="0" :selected="user.role_id == 0">Kupac</option>
-                                    <option value="1" :selected="user.role_id == 1">Klijent</option>
+                                    <option value="1" :selected="user.role_id == 1">Urednik</option>
                                     <option value="2" :selected="user.role_id == 2">Admin</option>
                                 </select>
                             </div>
 
-                            <select-multiple-field v-if="clients" :labela="'Klijenti'" :options="clients" :error="error? error.client_ids : ''" :value="user.client_lists" @changeValue="user.client_ids = $event"></select-multiple-field>
-
-                            <checkbox-field :value="user.publish" :label="'Publikovano'" @changeValue="user.publish = $event"></checkbox-field>
+                            <checkbox-field :value="user.block" :label="'Blokiran'" @changeValue="user.block = $event"></checkbox-field>
 
                             <div class="form-group">
                                 <button class="btn btn-primary">Izmeni</button>
@@ -52,7 +49,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <upload-image-helper :image="user.image" :defaultImage="'img/user-image.png'" :titleImage="'korisnika'" :error="error" @uploadImage="upload($event)"></upload-image-helper>
+                    <upload-image-helper :image="user.imagePath" :defaultImage="'img/user-image.png'" :titleImage="'korisnika'" :error="error" @uploadImage="prepare($event)"></upload-image-helper>
                 </div>
             </div>
         </div>
@@ -67,8 +64,8 @@
     export default {
         data(){
           return {
-              user: {},
-              clients: false,
+              fillable: ['name', 'email', 'password', 'password_confirmation', 'image', 'role_id', 'block'],
+              user: false,
               error: null
           }
         },
@@ -80,9 +77,24 @@
             this.getUser();
         },
         methods: {
-            submit(){
-                axios.patch('api/users/' + this.user.id, this.user)
+            getUser(){
+                axios.get('api/users/' + this.$route.params.id)
                     .then(res => {
+                        this.user = res.data.user;
+                        this.user.imagePath = res.data.user.image;
+                        this.user.image = null;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            submit(){
+                let data = fillForm(this.fillable, this.user, 'PUT');
+                axios.post('api/users/' + this.user.id, data)
+                    .then(res => {
+                        this.user = res.data.user;
+                        this.user.imagePath = res.data.user.image;
                         swal({
                             position: 'center',
                             type: 'success',
@@ -96,40 +108,9 @@
                         this.error = e.response.data.errors;
                     });
             },
-            getUser(){
-                axios.get('api/users/' + this.$route.params.id)
-                    .then(res => {
-                        this.clients = res.data.clients;
-                        this.user = res.data.user;
-                        this.user.client_lists = res.data.client_ids;
-                        this.user.client_ids = res.data.client_ids.map(({id}) => {
-                            return id;
-                        });
-                        console.log(this.user.client_ids);
-                    })
-                    .catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            upload(image){
-                let data = new FormData();
-                data.append('image', image.file);
-                axios.post('api/users/' + this.user.id + '/image', data)
-                    .then(res => {
-                        this.user.image = res.data.image;
-                        this.error = null;
-                        swal({
-                            position: 'center',
-                            type: 'success',
-                            title: 'Success',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }).catch(e => {
-                        console.log(e);
-                        this.error = e.response.data.errors;
-                    });
+            prepare(image){
+                this.user.imagePath = image.src;
+                this.user.image = image.file;
             },
         }
     }

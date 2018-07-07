@@ -41,6 +41,18 @@ if (token) {
 window.domain = document.head.querySelector("[name=domain]").content + '/';
 
 /**
+ * Helper function for fill forms
+ */
+window.fillForm = function(formArray, model, method = 'POST'){
+    let data = new FormData();
+    data.append('_method', method);
+    formArray.forEach(item => {
+        data.append(item, model[`${item}`]);
+    });
+    return data;
+};
+
+/**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
