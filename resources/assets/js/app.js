@@ -38,6 +38,7 @@ Vue.component('select-field', require('./components/helper/form/Select.vue'));
 import { store } from './store/store';
 import { router } from './routes';
 import Auth from './packages/auth/Auth';
+import { abilitiesPlugin } from '@casl/vue'
 
 import fontawesome from '@fortawesome/fontawesome';
 import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
@@ -73,6 +74,7 @@ fontawesome.library.add(
 );
 
 Vue.use(Auth);
+Vue.use(abilitiesPlugin);
 
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.auth.getToken();
 

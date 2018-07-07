@@ -152,6 +152,8 @@ return [
          */
         Intervention\Image\ImageServiceProvider::class,
         Devfactory\Imagecache\ImagecacheServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -210,6 +212,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Imagecache' => Devfactory\Imagecache\Facades\ImagecacheFacade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
