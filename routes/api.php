@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('users/logout', 'Api\UsersController@logout');
+Route::post('users/change-password', 'Api\UsersController@changePassword');
+Route::resource('users', 'Api\UsersController');
+Route::post('users/{id}/image', 'Api\UsersController@uploadImage');

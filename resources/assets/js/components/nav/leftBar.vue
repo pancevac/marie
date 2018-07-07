@@ -18,30 +18,13 @@
                 <font-awesome-icon icon="cogs"/>
                 <ul>
                     <li><router-link tag="a" :to="'/settings/1/edit'">SEO</router-link></li>
-                    <li><router-link tag="a" :to="'/currencies'">Valute</router-link></li>
                     <li><router-link tag="a" :to="'/themes'">Teme</router-link></li>
-                </ul>
-            </li>
-            <li :class="{ 'active': showTemplatesItemActive }" :style="{ 'display': showTemplatesItem ? 'block' : 'none' }"  v-if="admin">
-                <font-awesome-icon icon="angle-right" />
-                <a href="#" @click="changeShowTemplatesItemActive()">Šabloni</a>
-                <font-awesome-icon icon="th-large" />
-                <ul>
-                    <li><router-link tag="a" :to="'/blocks'">Šabloni</router-link></li>
-                    <li><router-link tag="a" :to="'/boxes'">Slajdovi</router-link></li>
-                    <li><router-link tag="a" :to="'/shop-bars'">ShopBars</router-link></li>
                     <li><router-link tag="a" :to="'/menus'">Meni</router-link></li>
                 </ul>
             </li>
-            <li :class="{ 'active': showUsersItemActive }" :style="{ 'display': showUsersItem ? 'block' : 'none' }" v-if="admin">
-                <font-awesome-icon icon="angle-right" />
-                <a href="#" @click="changeShowUsersItemActive()">Korisnici</a>
+            <li v-if="admin">
                 <font-awesome-icon icon="users" />
-                <ul>
-                    <li><router-link tag="a" :to="'/users'">Korisnici</router-link></li>
-                    <li><router-link tag="a" :to="'/customers'">Kupci</router-link></li>
-                    <li><router-link tag="a" :to="'/clients'">Klijenti</router-link></li>
-                </ul>
+                <router-link tag="a" :to="'/users'">Korisnici</router-link>
             </li>
             <li :class="{ 'active': showProductsItemActive }" :style="{ 'display': showProductsItem ? 'block' : 'none' }">
                 <font-awesome-icon icon="angle-right" />
@@ -55,7 +38,6 @@
                         <li><router-link tag="a" :to="'/collections'">Kolekcije</router-link></li>
                         <li><router-link tag="a" :to="'/properties'">Osobine</router-link></li>
                         <li><router-link tag="a" :to="'/attributes'">Atributi</router-link></li>
-                        <!--<li><router-link tag="a" :to="'/sets'">Setovi</router-link></li>-->
                     </template>
                 </ul>
             </li>
