@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
@@ -382,5 +383,8 @@ export const store = new Vuex.Store({
         changeSearchClientPage: (context, data) => {
             context.commit('changeSearchClientPage', data);
         },
-    }
+    },
+
+    plugins: [createPersistedState()],
+
 });
