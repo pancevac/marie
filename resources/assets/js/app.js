@@ -38,7 +38,7 @@ Vue.component('select-field', require('./components/helper/form/Select.vue'));
 import { store } from './store/store';
 import { router } from './routes';
 import Auth from './packages/auth/Auth';
-import { abilitiesPlugin } from '@casl/vue'
+import { abilitiesPlugin } from '@casl/vue';
 
 import fontawesome from '@fortawesome/fontawesome';
 import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
@@ -91,7 +91,7 @@ router.beforeEach(
             } else next();
         }
         else if(to.matched.some(record => record.meta.forAdmin)){
-            if(!store.getters.isAdmin){
+            if(!store.getters['user/isAdmin']){
                 next({ path: "/home" });
             } else next();
         }
@@ -101,7 +101,7 @@ router.beforeEach(
 
 const app = new Vue({
     el: '#app',
-    store: store,
-    router: router
+    store,
+    router,
 });
 

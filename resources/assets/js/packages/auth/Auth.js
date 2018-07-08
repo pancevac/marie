@@ -24,6 +24,7 @@ export default function (Vue) {
         destroyToken(){
             localStorage.removeItem('l4m_token');
             localStorage.removeItem('l4m_expiration');
+            localStorage.removeItem('vuex');
         },
 
         isAuth(){

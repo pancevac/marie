@@ -99,13 +99,13 @@
         },
         computed: {
             showRightBar(){
-                return this.$store.getters.getShowRightBar;
+                return this.$store.getters['nav/getShowRightBar'];
             },
             user(){
-                return this.$store.getters.getUser;
+                return this.$store.getters['user/getUser'];
             },
             admin(){
-                return this.$store.getters.isAdmin;
+                return this.$store.getters['user/isAdmin'];
             },
         },
         mounted(){
@@ -114,10 +114,10 @@
         methods: {
             /** auth **/
             storeUser(){
-                if(this.$store.getters.getUser == null && this.$auth.isAuth()){
+                if(this.$store.getters['user/getUser'] == null && this.$auth.isAuth()){
                     axios.get('api/user')
                         .then(res => {
-                            this.$store.dispatch('changeUser', res.data);
+                            this.$store.user.dispatch('user/changeUser', res.data);
                         })
                         .catch(e => {
                             if(e.response.status == 401){
@@ -129,10 +129,10 @@
             },
 
             changeShowRightBar(){
-                this.$store.dispatch('changeShowRightBar');
+                this.$store.dispatch('nav/changeShowRightBar');
             },
             changeHideLeftBar(){
-                this.$store.dispatch('changeHideLeftBar');
+                this.$store.dispatch('nav/changeHideLeftBar');
             },
             newUser(){
                 this.$router.push('/users/create');

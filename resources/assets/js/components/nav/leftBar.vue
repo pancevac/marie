@@ -95,108 +95,108 @@
         computed: {
             /** auth **/
             user(){
-                return this.$store.getters.getUser;
+                return this.$store.getters['user/getUser'];
             },
 
             admin(){
-                return this.$store.getters.isAdmin;
+                return this.$store.getters['user/isAdmin'];
             },
 
             /** nav **/
             hideLeftBar(){
-                return this.$store.getters.getHideLeftBar;
+                return this.$store.getters['nav/getHideLeftBar'];
             },
 
             /** settings **/
             showSettingsItem(){
-                return this.$store.getters.getShowSettingsItem;
+                return this.$store.getters['nav/getShowSettingsItem'];
             },
             showSettingsItemActive(){
-                return this.$store.getters.getSettingsItemActive;
+                return this.$store.getters['nav/getSettingsItemActive'];
             },
 
             /** users **/
             showUsersItem(){
-                return this.$store.getters.getShowUsersItem;
+                return this.$store.getters['nav/getShowUsersItem'];
             },
             showUsersItemActive(){
-                return this.$store.getters.getUsersItemActive;
+                return this.$store.getters['nav/getUsersItemActive'];
             },
 
             /** posts **/
             showPostsItem(){
-                return this.$store.getters.getShowPostsItem;
+                return this.$store.getters['nav/getShowPostsItem'];
             },
             showPostsItemActive(){
-                return this.$store.getters.getPostsItemActive;
+                return this.$store.getters['nav/getPostsItemActive'];
             },
 
             /** products **/
             showProductsItem(){
-                return this.$store.getters.getShowProductsItem;
+                return this.$store.getters['nav/getShowProductsItem'];
             },
             showProductsItemActive(){
-                return this.$store.getters.getProductsItemActive;
+                return this.$store.getters['nav/getProductsItemActive'];
             },
 
             /** newsletters **/
             showNewslettersItem(){
-                return this.$store.getters.getShowNewslettersItem;
+                return this.$store.getters['nav/getShowNewslettersItem'];
             },
             showNewslettersItemActive(){
-                return this.$store.getters.getNewslettersItemActive;
+                return this.$store.getters['nav/getNewslettersItemActive'];
             },
 
             /** templates **/
             showTemplatesItem(){
-                return this.$store.getters.getShowTemplatesItem;
+                return this.$store.getters['nav/getShowTemplatesItem'];
             },
             showTemplatesItemActive(){
-                return this.$store.getters.getTemplatesItemActive;
+                return this.$store.getters['nav/getTemplatesItemActive'];
             },
 
             /** orders **/
             showOrdersItem(){
-                return this.$store.getters.getShowOrdersItem;
+                return this.$store.getters['nav/getShowOrdersItem'];
             },
             showOrdersItemActive(){
-                return this.$store.getters.getOrdersItemActive;
+                return this.$store.getters['nav/getOrdersItemActive'];
             },
         },
         methods: {
             /** settings **/
             changeShowSettingsItemActive(){
-                this.$store.dispatch('changeSettingsItemActive');
+                this.$store.dispatch('nav/changeSettingsItemActive');
             },
 
             /** users **/
             changeShowUsersItemActive(){
-                this.$store.dispatch('changeUsersItemActive');
+                this.$store.dispatch('nav/changeUsersItemActive');
             },
 
             /** posts **/
             changeShowPostsItemActive(){
-                this.$store.dispatch('changePostsItemActive');
+                this.$store.dispatch('nav/changePostsItemActive');
             },
 
             /** products **/
             changeShowProductsItemActive(){
-                this.$store.dispatch('changeProductsItemActive');
+                this.$store.dispatch('nav/changeProductsItemActive');
             },
 
             /** products **/
             changeShowNewslettersItemActive(){
-                this.$store.dispatch('changeNewslettersItemActive');
+                this.$store.dispatch('nav/changeNewslettersItemActive');
             },
 
             /** galleries **/
             changeShowTemplatesItemActive(){
-                this.$store.dispatch('changeTemplatesItemActive');
+                this.$store.dispatch('nav/changeTemplatesItemActive');
             },
 
             /** orders **/
             changeShowOrdersItemActive(){
-                this.$store.dispatch('changeOrdersItemActive');
+                this.$store.dispatch('nav/changeOrdersItemActive');
             },
         }
     }

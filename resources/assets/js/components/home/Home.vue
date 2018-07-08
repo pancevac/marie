@@ -28,7 +28,7 @@
     export default {
         computed: {
             user(){
-                return this.$store.getters.getUser;
+                return this.$store.getters['user/getUser'];
             }
         },
         created(){
@@ -38,14 +38,14 @@
             /** auth **/
             storeUser(){
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$auth.getToken();
-                if(this.$store.getters.getUser == null){
+                if(this.$store.getters['user/getUser'] == null){
                     axios.get('api/user')
                         .then(res => {
                             if(res.data.role_id < 1){
                                 this.$auth.destroyToken();
                                 this.$router.push('/login');
                             }else{
-                                this.$store.dispatch('changeUser', res.data);
+                                this.$store.dispatch('user/changeUser', res.data);
                             }
                         })
                         .catch(e => {
