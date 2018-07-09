@@ -16,4 +16,6 @@ mix.options({
 });
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+  .js('resources/assets/client/scripts/main.js', 'public/client/scripts')
+  .sass('resources/assets/sass/app.scss', 'public/css')
+  .sass('resources/assets/client/styles/main.scss', 'public/client/styles');
