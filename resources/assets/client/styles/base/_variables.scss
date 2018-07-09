@@ -4,16 +4,27 @@ $blue: skyblue;
 $theme-primary: $black;
 $theme-secondary: $blue;
 
+$text-primary-on-light: rgba(0, 0, 0, .87);
+$text-secondary-on-light: rgba(0, 0, 0, .54);
+$text-hint-on-light: rgba(0, 0, 0, .38);
+
+$text-primary-on-dark: rgba(255, 255, 255, 1);
+$text-secondary-on-dark: rgba(255, 255, 255, .7);
+$text-hint-on-dark: rgba(255, 255, 255, .5);
+
+$font-family-sans-serif: "Roboto", sans-serif;
+$font-family-serif: "Playfair Display", serif;
+
+$font-family-body: $font-family-sans-serif;
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 600;
+
 $baseline: 4px;
 
 $grid-gutter-width: 8 * $baseline;
-
-$grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 980px
-);
 
 $grid-breakpoints: (
   xs: 0,

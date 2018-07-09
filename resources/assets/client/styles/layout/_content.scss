@@ -15,7 +15,6 @@
   flex-grow: 10;
   padding: 0 16px;
   margin: 0 auto;
-  background: skyblue;
   
   @include media-breakpoint-down(md) {
     max-width: 600px;
@@ -27,5 +26,4 @@
   flex-shrink: 0;
   padding: 0 16px;
   margin: 0 auto;
-  background: royalblue;
 }

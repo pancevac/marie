@@ -13,7 +13,7 @@
 
     @yield('content')
   </div>
-  <footer>
+  <footer class="footer">
     footer
   </footer>
   <script src="{{ url('client/scripts/main.js') }}"></script>
