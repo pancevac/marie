@@ -1,3 +1,31 @@
 .content {
   flex-grow: 1;
 }
+
+.content-wrap {
+  margin-left: -16px;
+  margin-right: -16px;
+
+  @include media-breakpoint-up(lg) {
+    display: flex;
+  }
+}
+
+.content-main {
+  flex-grow: 10;
+  padding: 0 16px;
+  margin: 0 auto;
+  background: skyblue;
+  
+  @include media-breakpoint-down(md) {
+    max-width: 600px;
+  }
+}
+
+.content-aside {
+  width: 332px;
+  flex-shrink: 0;
+  padding: 0 16px;
+  margin: 0 auto;
+  background: royalblue;
+}

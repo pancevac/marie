@@ -1,0 +1,24 @@
+$black: #212121;
+$blue: skyblue;
+
+$theme-primary: $black;
+$theme-secondary: $blue;
+
+$baseline: 4px;
+
+$grid-gutter-width: 8 * $baseline;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 980px
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 600px,
+  md: 720px,
+  lg: 840px,
+  xl: 980px,
+);

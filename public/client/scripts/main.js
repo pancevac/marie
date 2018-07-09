@@ -521,6 +521,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
@@ -550,10 +552,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("header", [
-    _c("button", { on: { click: _vm.onClick } }, [_vm._v("click me")]),
-    _vm._v(" "),
-    _vm.visible ? _c("span", [_vm._v("visible")]) : _vm._e()
+  return _c("header", { staticClass: "header" }, [
+    _c("div", { staticClass: "container header-wrap" }, [
+      _c("button", { on: { click: _vm.onClick } }, [_vm._v("click me")]),
+      _vm._v(" "),
+      _vm.visible ? _c("span", [_vm._v("visible")]) : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []

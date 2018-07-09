@@ -1,7 +1,9 @@
 <template>
-  <header>
-    <button v-on:click='onClick'>click me</button>
-    <span v-if='visible'>visible</span>
+  <header class="header">
+    <div class="container header-wrap">
+      <button v-on:click='onClick'>click me</button>
+      <span v-if='visible'>visible</span>
+    </div>
   </header>
 </template>
 
