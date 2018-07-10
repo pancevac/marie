@@ -1,0 +1,26 @@
+.image {
+  position: relative;
+  display: block;
+  background-color: #BABABA;
+  margin: 0;
+  
+  > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+  }
+
+  &--4-3 {
+    padding-top: (3/4) * 100%;
+  }
+
+  &--16-9 {
+    padding-top: (9/16) * 100%;
+  }
+
+  &--21-9 {
+    padding-top: (9/21) * 100%;
+  }
+}

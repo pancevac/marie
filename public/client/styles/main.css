@@ -413,6 +413,34 @@ body {
   margin: 0 auto;
 }
 
+.image {
+  position: relative;
+  display: block;
+  background-color: #BABABA;
+  margin: 0;
+}
+
+.image > img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.image--4-3 {
+  padding-top: 75%;
+}
+
+.image--16-9 {
+  padding-top: 56.25%;
+}
+
+.image--21-9 {
+  padding-top: 42.85714286%;
+}
+
 .content {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
