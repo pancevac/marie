@@ -13,36 +13,55 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth:api');
-    }
 
+    /**
+     * method used to show users paginate by 50
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(){
         $users = User::orderBy('created_at', 'DESC')->paginate(50);
 
         return response()->json([
-            'users' => $users
+            'users' => $users,
         ]);
     }
 
+    /**
+     * method used to store new user and return
+     *
+     * @param CreateUserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(CreateUserRequest $request){
         $user = User::create($request->except('image'));
         $user->update(['image' => $user->storeImage()]);
 
         return response()->json([
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
-    public function show($id){
-        $user = User::find($id);
+    /**
+     * method used to return user
+     *
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(User $user){
         return response()->json([
             'user' => $user,
         ]);
     }
 
-    public function update(EditUserRequest $request, $id){
-        $user = User::find($id);
+    /**
+     * method used to update user and return
+     *
+     * @param EditUserRequest $request
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(EditUserRequest $request, User $user){
         $user->update($request->except('image'));
         $user->update(['image' => $user->storeImage()]);
 
@@ -51,39 +70,41 @@ class UsersController extends Controller
         ]);
     }
 
-    public function destroy($id){
-        $user = User::find($id);
+    /**
+     * method used to destroy user
+     *
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(User $user){
         if(!empty($user->image)) File::delete($user->image);
         $user->delete();
+
         return response()->json([
-            'message' => 'deleted'
+            'message' => 'deleted',
         ]);
     }
 
-    public function uploadImage($id){
-        $user = User::find($id);
-        $user->update(['image' => $user->storeImage()]);
-        return response()->json([
-            'image' => $user->image
-        ]);
-    }
-
+    /**
+     * method used to change user password
+     *
+     * @param ChangePasswordRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function changePassword(ChangePasswordRequest $request){
         $user = $request->user();
         if (Hash::check(request('oldpassword'), $user->password)) {
             $user->password = bcrypt(request('password'));
             $user->update();
 
-            $user->update(['image' => $user->storeImage()]);
-
             return response()->json([
-                'message' => 'done'
+                'message' => 'done',
             ]);
         }else{
             return response()->json([
                 'errors' => [
                     'oldpassword' => [
-                        0 => 'the old password mismatch'
+                        0 => 'the old password mismatch',
                     ]
                 ]
             ], 422);

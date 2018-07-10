@@ -13,11 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-Route::get('users/logout', 'Api\UsersController@logout');
-Route::post('users/change-password', 'Api\UsersController@changePassword');
-Route::resource('users', 'Api\UsersController');
-Route::post('users/{id}/image', 'Api\UsersController@uploadImage');
+Route::middleware('auth:api')->group(function () {
+
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::resource('/blogs', 'Api\BlogsController');
+
+    Route::resource('/users', 'Api\UsersController');
+    Route::post('/users/{id}/change-password', 'Api\UsersController@changePassword');
+
+});
