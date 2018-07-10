@@ -2,23 +2,31 @@
 
 @section('content')
   <div class="container">
+    <h1>content</h1>
     <div class="content-wrap">  
       <div class="content-main">
-        <h1>main stuff</h1>
-        <button class="btn">button</button>
-        <a href="#" class="btn">link</a>
+        
+        @article_teaser([
+          'featured' => true,
+        ])
+        @endarticle_teaser
+        
+        @article_teaser([
+          'featured' => true,
+        ])
+        @endarticle_teaser
         
         @article_teaser([
           'featured' => true,
         ])
         @endarticle_teaser
 
-        <div style="width: 50%;">
-          @article_teaser()
-          @endarticle_teaser
-        </div>
       </div>
-      <aside class="content-aside">side stuff</aside>
+      <aside class="content-aside">
+        <div style="width:300px; height:300px; background:hotpink;">banner</div>
+      </aside>
     </div>
+
+    <h2 class="title title--lines">section title</h2>
   </div>
 @endsection

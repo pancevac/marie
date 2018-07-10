@@ -25,7 +25,7 @@
       <span class="details-item details-item--secondary">12/3/2018</span>
     </div>
     <h3 class="teaser_title"><a href="#">Article title</a></h3>
-    <p class="{{$body}}">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+    <p class="{{$body}}">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero qui, dignissimos voluptas maiores voluptatem adipisci. Itaque reprehenderit maxime iure repellendus libero fugit, sequi esse rem molestias velit, ea perferendis recusandae..</p>
   </div>
   @if($hasActions)
   <div class="teaser_actions">

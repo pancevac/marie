@@ -5,19 +5,25 @@
 .content-wrap {
   margin-left: -16px;
   margin-right: -16px;
-
+  
   @include media-breakpoint-up(lg) {
     display: flex;
   }
 }
 
 .content-main {
-  flex-grow: 10;
+  flex-grow: 1;
   padding: 0 16px;
   margin: 0 auto;
+  max-width: 100%;
+  // this is just stupid
+  // https://css-tricks.com/flexbox-truncated-text/
+  min-width: 0;
   
-  @include media-breakpoint-down(md) {
-    max-width: 600px;
+  &--article {
+    @include media-breakpoint-down(md) {
+      max-width: 600px;
+    }
   }
 }
 

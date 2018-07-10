@@ -1,0 +1,28 @@
+.title {
+  font-family: $font-family-body;
+  font-weight: $font-weight-bold;
+  font-size: 18px;
+  text-transform: uppercase;
+
+  &--lines {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &::before,
+    &::after {
+      content: "";
+      background-color: $theme-primary;
+      height: 2px;
+      flex-grow: 1;
+    }
+
+    &::before {
+      margin-right: (8 * $baseline);
+    }
+
+    &::after {
+      margin-left: (8 * $baseline);
+    }
+  }
+}
