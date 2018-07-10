@@ -6,20 +6,12 @@
     <div class="content-wrap">  
       <div class="content-main">
         
+        @for($i = 0; $i < 3; $i++)
         @article_teaser([
           'featured' => true,
         ])
         @endarticle_teaser
-        
-        @article_teaser([
-          'featured' => true,
-        ])
-        @endarticle_teaser
-        
-        @article_teaser([
-          'featured' => true,
-        ])
-        @endarticle_teaser
+        @endfor
 
       </div>
       <aside class="content-aside">
@@ -30,6 +22,25 @@
       </aside>
     </div>
 
-    <h2 class="title title--lines">section title</h2>
+    <!-- most read -->
+    <div style="border-bottom: 2px solid #222; margin-bottom: 32px;">
+      <h2 class="title title--lines">Najčitaniji članci</h2>
+    </div>
+
+    <div class="content-wrap">
+      <div class="content-main">
+        <div class="row">
+          
+          @for($i = 0; $i < 6; $i++)
+          <div class="col col--6">
+            @article_teaser()
+            @endarticle_teaser
+          </div>
+          @endfor
+          
+        </div>
+      </div>
+      <aside class="content-aside"></aside>
+    </div>
   </div>
 @endsection

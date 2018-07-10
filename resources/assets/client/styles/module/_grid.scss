@@ -4,3 +4,29 @@
   padding: 0 (4 * $baseline);
   margin: 0 auto;
 }
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: -8px;
+  margin-right: -8px;
+
+  @include media-breakpoint-up(sm) {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}
+
+.col {
+  min-width: 0;
+  padding: 0 8px;
+
+  &--6 {
+    flex: 1 1 50%;
+    
+    @include media-breakpoint-up(sm) {
+      padding: 0 16px;
+    }
+  }
+}

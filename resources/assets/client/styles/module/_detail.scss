@@ -3,6 +3,8 @@
   padding: (2 * $baseline) 0;
   background-color: white;
   font-family: $font-family-sans-serif;
+  border: 1px solid white;
+  outline: 1px solid white;
 
   &--fixed {
     position: absolute;
@@ -14,7 +16,7 @@
   }
 
   &-item {
-    font-size: 14px;
+    font-size: 12px;
     font-variant: small-caps;
     font-weight: $font-weight-bold;
     text-decoration: none;
