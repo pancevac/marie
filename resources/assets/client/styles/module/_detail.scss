@@ -1,0 +1,43 @@
+.details {
+  display: inline-flex;
+  padding: (2 * $baseline) 0;
+  background-color: white;
+  font-family: $font-family-sans-serif;
+
+  &--fixed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: (2 * $baseline) (4 * $baseline);
+    transform: translateY(-100%);
+    z-index: 2;
+  }
+
+  &-item {
+    font-size: 14px;
+    font-variant: small-caps;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+
+    @include media-breakpoint-up(md) {
+      font-size: 16px;
+    }
+
+    &--primary {
+      color: $text-primary-on-light;
+    }
+
+    &--secondary {
+      color: $text-hint-on-light;
+    }
+  
+    &::before {
+      content: "|";
+      padding: 0 (2 * $baseline);
+    }
+
+    &:first-child::before {
+      display: none;
+    }
+  }
+}

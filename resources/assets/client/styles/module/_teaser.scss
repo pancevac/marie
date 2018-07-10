@@ -1,0 +1,47 @@
+.teaser {
+  display: flex;
+  flex-direction: column;
+
+  &_primary {
+    position: relative;
+    padding: 0;
+    
+    .teaser--featured & {
+      padding: 0 (4 * $baseline);
+    }
+  }
+
+  &_title {
+    font-family: $font-family-heading;
+    font-weight: $font-weight-bold;
+    color: $text-primary-on-light;
+    text-decoration: none;
+    margin: 8px 0 16px;
+
+    .teaser--featured & {
+      font-size: 1.875rem;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: inherit;
+    }
+  }
+
+  &_body {
+    font-size: 15px;
+
+    @include media-breakpoint-down(xs) {
+      display: none;
+    }
+  }
+
+  &_actions {
+    display: flex;
+    justify-content: flex-end;
+
+    @include media-breakpoint-down(xs) {
+      display: none;
+    }
+  }
+}

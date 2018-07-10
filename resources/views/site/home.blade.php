@@ -8,10 +8,15 @@
         <button class="btn">button</button>
         <a href="#" class="btn">link</a>
         
-        <div class="image image--21-9 js-lazy-image"
-          data-src="http://www.marieclaire.cz/sites/default/files/styles/610x300/public/images/vuitton_unicef_masthead_landscape-1600w_0.jpg?itok=t58_V63v&c=62b3fccd430a72c4837d98721097b76d"
-          data-alt="image alt"
-        ></div>
+        @article_teaser([
+          'featured' => true,
+        ])
+        @endarticle_teaser
+
+        <div style="width: 50%;">
+          @article_teaser()
+          @endarticle_teaser
+        </div>
       </div>
       <aside class="content-aside">side stuff</aside>
     </div>

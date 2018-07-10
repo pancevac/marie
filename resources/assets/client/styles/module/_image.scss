@@ -13,6 +13,10 @@
     transform: translate(-50%, -50%);
   }
 
+  &--1-1 {
+    padding-top: 100%;
+  }
+
   &--4-3 {
     padding-top: (3/4) * 100%;
   }
