@@ -6,6 +6,6 @@ use App\Http\Controllers\Controller;
 
 class DevController extends Controller {
   public function render($view) {
-    return view('site.'.$view);
+    return view('site.pages.'.$view);
   }
 }
