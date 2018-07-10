@@ -17,6 +17,20 @@ class Blog extends Model
     protected $fillable = ['title', 'slug', 'short', 'order', 'parent', 'level', 'image', 'is_visible'];
 
     /**
+     *method used when instance of this model is created
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function($blog){
+            self::where('parent', $blog->id)->get()->each(function($item){
+                $item->update(['parent' => 0]);
+            });
+        });
+    }
+
+    /**
      * method used to set slug attribute
      *
      * @param $value
