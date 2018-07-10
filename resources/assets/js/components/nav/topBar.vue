@@ -67,7 +67,7 @@
                     <li class="user">
                         <a class="btn btn-primary transparent dropdown-toggle" href="#" role="button" id="dropdownMenuLink4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img :src="domain + 'img/user-image.png'" class="avatar-image" alt="User image" v-if="!user">
-                            <img :src="user.image" alt="User image" class="avatar-image" v-if="user">
+                            <img :src="user.imagePath" alt="User image" class="avatar-image" v-if="user">
                             <font-awesome-icon icon="chevron-circle-down" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink4">

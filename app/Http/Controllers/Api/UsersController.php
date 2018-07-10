@@ -94,11 +94,10 @@ class UsersController extends Controller
     public function changePassword(ChangePasswordRequest $request){
         $user = $request->user();
         if (Hash::check(request('oldpassword'), $user->password)) {
-            $user->password = bcrypt(request('password'));
-            $user->update();
+            $user->update(['password' => request('password'), 'image' => $user->storeImage()]);
 
             return response()->json([
-                'message' => 'done',
+                'user' => $user,
             ]);
         }else{
             return response()->json([

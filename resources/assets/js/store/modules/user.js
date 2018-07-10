@@ -24,11 +24,20 @@ export default {
                 state.admin = true;
             }
         },
+
+        /** auth image **/
+        changeUserImage: (state, callback) => {
+            state.user.image = callback;
+        },
     },
     actions: {
         /** auth **/
         changeUser: (context, callback) => {
             context.commit('changeUser', callback);
+        },
+        /** auth image **/
+        changeUserImage: (context, callback) => {
+            context.commit('changeUserImage', callback);
         },
     },
 };

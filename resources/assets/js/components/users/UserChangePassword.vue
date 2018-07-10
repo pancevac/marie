@@ -38,11 +38,11 @@
                 </div>
                 <div class="col-sm-4">
                     <upload-image-helper
-                            :image="user.image"
+                            :image="user.imagePath"
                             :defaultImage="'img/user-image.png'"
                             :titleImage="'korisnika'"
                             :error="error"
-                            @uploadImage="upload($event)"
+                            @uploadImage="prepare($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
                 </div>
@@ -59,7 +59,7 @@
     export default {
         data(){
           return {
-              user: {},
+              fillable: ['oldpassword', 'password', 'password_confirmation', 'image'],
               error: null
           }
         },
@@ -68,14 +68,19 @@
             'upload-image-helper': UploadImageHelper,
         },
         computed: {
-            user_id(){
-                return this.$store.getters.getUser.id;
+            user(){
+                return this.$store.getters['user/getUser'];
+            },
+            'user.imagePath'(){
+                return this.$store.getters['user/getUser'].image;
             }
         },
         methods: {
             submit(){
-                axios.post('api/users/change-password', this.user)
+                let data = fillForm(this.fillable, this.user);
+                axios.post('api/users/' + this.user.id + '/change-password', data)
                     .then(res => {
+                        this.$store.dispatch('user/changeUserImage', res.data.user.image);
                         swal({
                             position: 'center',
                             type: 'success',
@@ -89,27 +94,10 @@
                         this.error = e.response.data.errors;
                     });
             },
-            upload(image){
-                axios.post('api/users/' + this.user_id + '/image', {image: image[0]})
-                    .then(res => {
-                        this.user.image = res.data.image;
-                        swal({
-                            position: 'center',
-                            type: 'success',
-                            title: 'Success',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        this.error = null;
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+            prepare(image){
+                this.user.imagePath = image.src;
+                this.user.image = image.file;
             },
         }
     }
 </script>
-
-<style>
-
-</style>
