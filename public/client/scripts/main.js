@@ -449,7 +449,11 @@ module.exports = __webpack_require__(209);
 /***/ }),
 
 /***/ 209:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_lazy_images__ = __webpack_require__(221);
 
 window.Vue = __webpack_require__(6);
 
@@ -458,6 +462,8 @@ Vue.component('my-header', __webpack_require__(210));
 var mc = new Vue({
   el: '#app'
 });
+
+__WEBPACK_IMPORTED_MODULE_0__components_lazy_images__["a" /* default */].init();
 
 /***/ }),
 
@@ -569,6 +575,202 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-625f5b1c", module.exports)
   }
 }
+
+/***/ }),
+
+/***/ 220:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return preloadImage; });
+/**
+ * Preloads the image with the given src.
+ *
+ * @param {string} src image source url
+ * @return {Promise}
+ */
+var preloadImage = function preloadImage(src) {
+  return new Promise(function (resolve, reject) {
+    var img = new Image();
+    img.src = src;
+    img.onload = resolve;
+    img.onerror = reject;
+  });
+};
+
+/***/ }),
+
+/***/ 221:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(220);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+/**
+ * LazyImages controller.
+ */
+
+var LazyImages = function () {
+  _createClass(LazyImages, null, [{
+    key: 'init',
+
+
+    /**
+     * Initializes LazyImage controller.
+     */
+    value: function init() {
+      this._instance = new LazyImages();
+    }
+
+    /**
+     * Creates new LazyImages instence.
+     */
+
+  }, {
+    key: 'HANDLED_CLASS',
+
+    /**
+     * @type {string}
+     */
+    get: function get() {
+      return 'loaded';
+    }
+
+    /**
+     * Feature detect.
+     * @type {boolean}
+     */
+
+  }, {
+    key: 'SUPPORTS_INTERSECTION_OBSERVER',
+    get: function get() {
+      return 'IntersectionObserver' in window && 'IntersectionObserverEntry' in window;
+    }
+  }]);
+
+  function LazyImages() {
+    var _this = this;
+
+    _classCallCheck(this, LazyImages);
+
+    var wraps = Array.from(document.querySelectorAll('.js-lazy-image'));
+
+    if (!LazyImages.SUPPORTS_INTERSECTION_OBSERVER) {
+      this._loadImagesImmediately(wraps);
+      return;
+    }
+
+    this._onIntersection = this._onIntersection.bind(this);
+    this._io = new IntersectionObserver(this._onIntersection);
+    wraps.forEach(function (wrap) {
+      // image has been handled and loaded.
+      if (wrap.classList.contains(LazyImages.HANDLED_CLASS)) {
+        return;
+      }
+
+      _this._io.observe(wrap);
+    });
+  }
+
+  /**
+   * Intersection handler
+   * 
+   * @param {IntersectionObserverEntry[]}
+   */
+
+
+  _createClass(LazyImages, [{
+    key: '_onIntersection',
+    value: function _onIntersection(entries) {
+      var _this2 = this;
+
+      entries.forEach(function (entry) {
+        // image not in view, just ignore.
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        // ignore loaded images...
+        if (entry.target.classList.contains(LazyImages.HANDLED_CLASS)) {
+          return;
+        }
+
+        entry.target.classList.add(LazyImages.HANDLED_CLASS);
+        _this2._preloadImage(entry.target);
+      });
+    }
+
+    /**
+     * Loads images immediately.
+     *
+     * @param {HTMLElement[]} wraps image wraps.
+     */
+
+  }, {
+    key: '_loadImagesImmediately',
+    value: function _loadImagesImmediately(wraps) {
+      var _this3 = this;
+
+      wraps.forEach(function (wrap) {
+        return _this3._preloadImage(wrap);
+      });
+    }
+
+    /**
+     * Preloads the given image.
+     *
+     * @param {HTMLElement} wrap image wrap.
+     */
+
+  }, {
+    key: '_preloadImage',
+    value: function _preloadImage(wrap) {
+      var _this4 = this;
+
+      var _wrap$dataset = wrap.dataset,
+          src = _wrap$dataset.src,
+          alt = _wrap$dataset.alt;
+      // ignore if `src` is not set.
+
+      if (!src) {
+        return;
+      }
+
+      Object(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* preloadImage */])(src).then(function (evt) {
+        return _this4._applyImage(wrap, evt.target, alt);
+      }).catch(function (err) {
+        return console.error(err.message);
+      });
+    }
+
+    /**
+     * Inserts the image in to the dom.
+     *
+     * @param {HTMLElement} wrap image wrap
+     * @param {HTMLImageElement} img image element
+     * @param {string} alt alt description
+     */
+
+  }, {
+    key: '_applyImage',
+    value: function _applyImage(wrap, img) {
+      var alt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'lazy image';
+
+      img.alt = alt;
+      img.classList.add('fade-in');
+      wrap.appendChild(img);
+    }
+  }]);
+
+  return LazyImages;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (LazyImages);
 
 /***/ }),
 

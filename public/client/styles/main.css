@@ -418,6 +418,7 @@ body {
   display: block;
   background-color: #BABABA;
   margin: 0;
+  overflow: hidden;
 }
 
 .image > img {
@@ -491,4 +492,21 @@ body {
   position: sticky;
   top: 0;
   background-color: #212121;
+}
+
+.fade-in {
+  -webkit-animation: fade-in .21s;
+          animation: fade-in .21s;
+}
+
+@-webkit-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
 }
