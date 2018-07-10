@@ -714,6 +714,7 @@ a:hover, a:focus {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  margin-bottom: 32px;
 }
 
 .teaser_primary {
@@ -817,6 +818,7 @@ a:hover, a:focus {
   position: sticky;
   top: 0;
   background-color: #212121;
+  z-index: 10;
 }
 
 .fade-in {
