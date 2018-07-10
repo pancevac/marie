@@ -47,7 +47,7 @@ window.fillForm = function(formArray, model, method = 'POST'){
     let data = new FormData();
     data.append('_method', method);
     formArray.forEach(item => {
-        data.append(item, model[`${item}`]);
+        data.append(item, model[`${item}`] !== undefined? model[`${item}`] : null );
     });
     return data;
 };

@@ -1,7 +1,7 @@
 <template>
     <div class="form-group">
         <label>{{ labela }} <span v-if="required">*</span></label><br>
-        <multiselect v-model="selected" :options="lists" :multiple="false" :custom-label="customLabel" :allow-empty="true"></multiselect>
+        <multiselect v-model="selected" :options="lists" :close-on-select="true" :custom-label="customLabel" :allow-empty="true"></multiselect>
         <small class="form-text text-muted" v-if="error != null">{{ error[0] }}</small>
     </div>
 </template>
@@ -25,7 +25,6 @@
         },
         watch: {
             selected(value){
-                console.log(value);
                 this.$emit('changeValue', value.id);
             },
         },

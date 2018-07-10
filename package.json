@@ -39,6 +39,7 @@
         "laravel-mix-purgecss": "^2.2.0",
         "moment": "^2.22.1",
         "siema": "^1.5.1",
+        "slug": "^0.9.1",
         "sweetalert2": "^7.21.0",
         "vue-ckeditor2": "^1.26.0",
         "vue-draggable-nested-tree": "^1.0.6",

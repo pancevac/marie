@@ -16,13 +16,14 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::get('/user', function (Request $request) {
+    Route::get('user', function (Request $request) {
         return $request->user();
     });
 
-    Route::resource('/blogs', 'Api\BlogsController');
+    Route::get('blogs/lists', 'Api\BlogsController@lists');
+    Route::resource('blogs', 'Api\BlogsController');
 
-    Route::resource('/users', 'Api\UsersController');
-    Route::post('/users/{id}/change-password', 'Api\UsersController@changePassword');
+    Route::resource('users', 'Api\UsersController');
+    Route::post('users/{id}/change-password', 'Api\UsersController@changePassword');
 
 });

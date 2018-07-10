@@ -13,7 +13,7 @@ class CreateBlogRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,19 @@ class CreateBlogRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required',
+        ];
+    }
+
+    /**
+     * method used to translate error message
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'title.required' => 'Naziv kategorije je obavezan',
         ];
     }
 }

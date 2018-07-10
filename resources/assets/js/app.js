@@ -8,6 +8,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.Slug = require('slug');
+Slug.defaults.mode = 'rfc3986';
 
 /** NAVIGATION **/
 Vue.component('side-bar', require('./components/nav/sideBar.vue'));

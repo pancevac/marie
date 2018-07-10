@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use File;
 
-class BlogsContoller extends Controller
+class BlogsController extends Controller
 {
     /**
      * method used to show blogs paginate by 50
@@ -16,7 +16,7 @@ class BlogsContoller extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(){
-        $blogs = Blog::orderBy('created_at', 'DESC')->paginate(50);
+        $blogs = Blog::with('parentBlog')->orderBy('created_at', 'DESC')->paginate(50);
 
         return response()->json([
             'blogs' => $blogs,
@@ -47,7 +47,8 @@ class BlogsContoller extends Controller
      */
     public function show(Blog $blog){
         return response()->json([
-            'blog' => $blog,
+            'blog' => $blog->load('parentBlog'),
+            'lists' => Blog::select('id', 'title')->where(['parent' => 0, 'is_visible' => 1])->where('id', '<>', $blog->id)->get(),
         ]);
     }
 
@@ -69,12 +70,34 @@ class BlogsContoller extends Controller
     }
 
 
+    /**
+     * method used to destroy blog
+     *
+     * @param Blog $blog
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(Blog $blog){
         if(!empty($blog->image)) File::delete($blog->image);
         $blog->delete();
 
         return response()->json([
             'message' => 'deleted',
+        ]);
+    }
+
+    /**
+     * method used to return lists of blogs
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function lists(){
+        $parent = request('parent');
+        $blogs = Blog::select('id', 'title')->where(function($query) use ($parent){
+            if(!empty($parent)) $query->where('parent', $parent);
+        })->where('is_visible', 1)->latest()->get();
+
+        return response()->json([
+            'blogs' => $blogs,
         ]);
     }
 }

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 208);
+/******/ 	return __webpack_require__(__webpack_require__.s = 217);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -175,7 +175,7 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 10:
+/***/ 11:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -231,7 +231,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(11);
+__webpack_require__(12);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -242,11 +242,11 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
 
-/***/ 11:
+/***/ 12:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -436,28 +436,28 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(9)))
 
 /***/ }),
 
-/***/ 208:
+/***/ 217:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(209);
+module.exports = __webpack_require__(218);
 
 
 /***/ }),
 
-/***/ 209:
+/***/ 218:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_lazy_images__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_lazy_images__ = __webpack_require__(219);
 
-window.Vue = __webpack_require__(6);
+window.Vue = __webpack_require__(7);
 
-Vue.component('my-header', __webpack_require__(212));
+Vue.component('my-header', __webpack_require__(221));
 
 var mc = new Vue({
   el: '#app'
@@ -467,11 +467,11 @@ __WEBPACK_IMPORTED_MODULE_0__components_lazy_images__["a" /* default */].init();
 
 /***/ }),
 
-/***/ 210:
+/***/ 219:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(220);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -641,7 +641,7 @@ var LazyImages = function () {
 
 /***/ }),
 
-/***/ 211:
+/***/ 220:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -663,15 +663,15 @@ var preloadImage = function preloadImage(src) {
 
 /***/ }),
 
-/***/ 212:
+/***/ 221:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(213)
+var __vue_script__ = __webpack_require__(222)
 /* template */
-var __vue_template__ = __webpack_require__(214)
+var __vue_template__ = __webpack_require__(223)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -711,7 +711,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 213:
+/***/ 222:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -747,7 +747,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 214:
+/***/ 223:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -774,7 +774,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /***/ (function(module, exports) {
 
 var g;
@@ -802,7 +802,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 6:
+/***/ 7:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11765,11 +11765,11 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(10).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(11).setImmediate))
 
 /***/ }),
 
-/***/ 7:
+/***/ 9:
 /***/ (function(module, exports) {
 
 // shim for using process in browser
