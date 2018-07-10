@@ -20,10 +20,8 @@
   // https://css-tricks.com/flexbox-truncated-text/
   min-width: 0;
   
-  &--article {
-    @include media-breakpoint-down(md) {
-      max-width: 600px;
-    }
+  @include media-breakpoint-down(md) {
+    max-width: 600px;
   }
 }
 

@@ -845,7 +845,7 @@ a:hover, a:focus {
 }
 
 @media (max-width: 839.98px) {
-  .content-main--article {
+  .content-main {
     max-width: 600px;
   }
 }
