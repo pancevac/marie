@@ -1,0 +1,12 @@
+.text-input {
+  padding: 2 * $baseline;
+  width: 100%;
+  border: 1px solid $border-color-dark;
+  margin: (2 * $baseline) 0 (4 * $baseline);
+  font-size: 14px;
+
+  &:focus {
+    border-color: $theme-primary;
+    outline: none;
+  }
+}

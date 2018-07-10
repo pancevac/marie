@@ -666,6 +666,19 @@ a:hover, a:focus {
   display: none;
 }
 
+.text-input {
+  padding: 8px;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  margin: 8px 0 16px;
+  font-size: 14px;
+}
+
+.text-input:focus {
+  border-color: #212121;
+  outline: none;
+}
+
 .container {
   width: 100%;
   max-width: 1012px;
@@ -845,6 +858,10 @@ a:hover, a:focus {
   margin: 0 auto;
 }
 
+.aside-box {
+  margin-bottom: 32px;
+}
+
 .footer {
   background-color: #212121;
 }
@@ -855,6 +872,15 @@ a:hover, a:focus {
   top: 0;
   background-color: #212121;
   z-index: 10;
+}
+
+.newsletter {
+  background-color: #f7f7f7;
+  padding: 24px;
+}
+
+.newsletter-text {
+  text-transform: uppercase;
 }
 
 .fade-in {
@@ -872,4 +898,9 @@ a:hover, a:focus {
   from {
     opacity: 0;
   }
+}
+
+.double-border {
+  border: 1px solid #FFF;
+  outline: 1px solid rgba(0, 0, 0, 0.12);
 }
