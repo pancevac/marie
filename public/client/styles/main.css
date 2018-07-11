@@ -564,7 +564,14 @@ a:hover, a:focus {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  vertical-align: middle;
+  cursor: pointer;
   background: none;
+  overflow: hidden;
   color: #212121;
   font-family: "Roboto", sans-serif;
   font-weight: 600;
@@ -573,12 +580,6 @@ a:hover, a:focus {
   font-size: 14px;
   height: 32px;
   padding: 0 16px;
-  margin: 0;
-  border: 0;
-  outline: none !important;
-  overflow: hidden;
-  vertical-align: middle;
-  cursor: pointer;
 }
 
 .btn::after {
@@ -615,6 +616,30 @@ a:hover, a:focus {
 .btn--secondary {
   color: rgba(0, 0, 0, 0.54);
   border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.icon-btn {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  vertical-align: middle;
+  cursor: pointer;
+  background: none;
+  overflow: hidden;
+  width: 48px;
+  height: 48px;
+  color: inherit;
 }
 
 .details {
@@ -757,6 +782,22 @@ a:hover, a:focus {
 
 .image--21-9 {
   padding-top: 42.85714286%;
+}
+
+.icon {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  pointer-events: none;
 }
 
 .nav-item {
@@ -956,6 +997,7 @@ a:hover, a:focus {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  color: white;
   background-color: #212121;
   z-index: 10;
 }

@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="{{ url('client/styles/main.css') }}">
 </head>
 <body>
+  @include('site.partials.graphics')
+
   <div id="app" class="content">
     @include('site.partials.header')
 
