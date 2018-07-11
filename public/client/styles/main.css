@@ -126,14 +126,14 @@ sup {
 }
 
 a {
-  color: skyblue;
+  color: #1ca9c7;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
 
 a:hover {
-  color: #45b3e0;
+  color: #137084;
   text-decoration: underline;
 }
 
@@ -435,11 +435,11 @@ template {
 }
 
 .text-primary {
-  color: skyblue !important;
+  color: #1ca9c7 !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
-  color: #5bbce4 !important;
+  color: #16839a !important;
 }
 
 .text-secondary {
@@ -757,6 +757,42 @@ a:hover, a:focus {
 
 .image--21-9 {
   padding-top: 42.85714286%;
+}
+
+.nav-item {
+  padding: 0 8px;
+}
+
+@media (min-width: 720px) {
+  .nav-item {
+    padding: 0 4px;
+  }
+}
+
+.nav-link {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: white;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 48px;
+}
+
+@media (min-width: 720px) {
+  .nav-link {
+    font-size: 15px;
+    height: 36px;
+  }
+}
+
+.nav-link:hover, .nav-link:focus {
+  color: #1ca9c7;
+  text-decoration: none;
 }
 
 .teaser {

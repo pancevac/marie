@@ -1,11 +1,13 @@
 <template>
-  <div class="host"
-    v-on:touchstart='onTouchStart'
-    v-on:mousedown='onTouchStart'
-    v-bind:style='{transform: translateX}'
-  >
-    <div class="track" ref="track">
-      <slot></slot>
+  <div class="wrap" ref="wrap">
+    <div class="host"
+      v-on:touchstart='onTouchStart'
+      v-on:mousedown='onTouchStart'
+      v-bind:style='{transform: translateX}'
+    >
+      <div class="track" ref="track">
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -39,7 +41,7 @@ export default {
      */
     init() {
       const width = this.$refs.track.getBoundingClientRect().width;
-      const clientWidth = document.documentElement.clientWidth;
+      const clientWidth = this.$refs.wrap.getBoundingClientRect().width;
 
       this.isTouching = false;
       this.delta = 0;
@@ -138,6 +140,10 @@ export default {
     transform: translateX(0);
     will-change: transform;
     font-size: 0;
+  }
+
+  .wrap {
+    overflow: hidden;
   }
 
   .track {

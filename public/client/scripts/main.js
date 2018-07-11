@@ -1174,7 +1174,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.host[data-v-4ba9cfa3] {\n  display: block;\n  white-space: nowrap;\n  overflow-x: visible;\n  -webkit-transform: translateX(0);\n          transform: translateX(0);\n  will-change: transform;\n  font-size: 0;\n}\n.track[data-v-4ba9cfa3] {\n  display: inline-block;\n  overflow: hidden;\n  font-size: initial;\n}\n.track > *[data-v-4ba9cfa3] {\n  display: inline-block;\n}\n", ""]);
+exports.push([module.i, "\n.host[data-v-4ba9cfa3] {\n  display: block;\n  white-space: nowrap;\n  overflow-x: visible;\n  -webkit-transform: translateX(0);\n          transform: translateX(0);\n  will-change: transform;\n  font-size: 0;\n}\n.wrap[data-v-4ba9cfa3] {\n  overflow: hidden;\n}\n.track[data-v-4ba9cfa3] {\n  display: inline-block;\n  overflow: hidden;\n  font-size: initial;\n}\n.track > *[data-v-4ba9cfa3] {\n  display: inline-block;\n}\n", ""]);
 
 // exports
 
@@ -1186,6 +1186,8 @@ exports.push([module.i, "\n.host[data-v-4ba9cfa3] {\n  display: block;\n  white-
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -1228,7 +1230,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      */
     init: function init() {
       var width = this.$refs.track.getBoundingClientRect().width;
-      var clientWidth = document.documentElement.clientWidth;
+      var clientWidth = this.$refs.wrap.getBoundingClientRect().width;
 
       this.isTouching = false;
       this.delta = 0;
@@ -1336,15 +1338,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "host",
-      style: { transform: _vm.translateX },
-      on: { touchstart: _vm.onTouchStart, mousedown: _vm.onTouchStart }
-    },
-    [_c("div", { ref: "track", staticClass: "track" }, [_vm._t("default")], 2)]
-  )
+  return _c("div", { ref: "wrap", staticClass: "wrap" }, [
+    _c(
+      "div",
+      {
+        staticClass: "host",
+        style: { transform: _vm.translateX },
+        on: { touchstart: _vm.onTouchStart, mousedown: _vm.onTouchStart }
+      },
+      [
+        _c(
+          "div",
+          { ref: "track", staticClass: "track" },
+          [_vm._t("default")],
+          2
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

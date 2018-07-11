@@ -9,20 +9,29 @@
 </head>
 <body>
   <div id="app" class="content">
-    <my-header></my-header>
+    <header class="header">
+      <div class="container header-wrap">
 
-    <div style="overflow: hidden;">
-      <tab-bar>
-        <div>i'm slotterd.</div>
-        <div>me too!</div>
-        <div>i'm slotterd.</div>
-        <div>me too!</div>
-        <div>i'm slotterd.</div>
-        <div>me too!</div>
-        <div>i'm slotterd.</div>
-        <div>me too!</div>
-      </tab-bar>
-    </div>
+        <tab-bar>
+          <div class="nav-item">
+            <a class="nav-link" href="#">moda</a>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link" href="#">lepota</a>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link" href="#">lifestyle</a>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link" href="#">ljubav</a>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link" href="#">biznis</a>
+          </div>
+        </tab-bar>
+
+      </div>
+    </header>
 
     @yield('content')
   </div>
