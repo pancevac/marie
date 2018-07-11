@@ -23,6 +23,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('blogs/lists', 'Api\BlogsController@lists');
     Route::resource('blogs', 'Api\BlogsController');
 
+    Route::resource('posts', 'Api\PostsController');
+
     Route::resource('users', 'Api\UsersController');
     Route::post('users/{id}/change-password', 'Api\UsersController@changePassword');
 

@@ -75,6 +75,7 @@ class BlogsController extends Controller
      *
      * @param Blog $blog
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Blog $blog){
         if(!empty($blog->image)) File::delete($blog->image);
