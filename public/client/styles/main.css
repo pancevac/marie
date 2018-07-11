@@ -786,7 +786,7 @@ a:hover, a:focus {
 }
 
 .teaser--featured .teaser_primary {
-  padding: 0 16px;
+  padding: 3% 16px 0;
 }
 
 .teaser_title {

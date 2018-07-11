@@ -11,6 +11,19 @@
   <div id="app" class="content">
     <my-header></my-header>
 
+    <div style="overflow: hidden;">
+      <tab-bar>
+        <div>i'm slotterd.</div>
+        <div>me too!</div>
+        <div>i'm slotterd.</div>
+        <div>me too!</div>
+        <div>i'm slotterd.</div>
+        <div>me too!</div>
+        <div>i'm slotterd.</div>
+        <div>me too!</div>
+      </tab-bar>
+    </div>
+
     @yield('content')
   </div>
   <footer class="footer">
