@@ -31,7 +31,7 @@
             login(){
                 let data = {
                     client_id: 2,
-                    client_secret: '8PfKFl5XWx5YhNbeKhLkWfuOAoVvOvqWEmyqjwMm',
+                    client_secret: 'tZvJyMk0xQMW5CGjSHsDzuavlE9PzZ4784s9a87J',
                     grant_type: 'password',
                     username: this.email,
                     password: this.password

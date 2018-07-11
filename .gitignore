@@ -2,6 +2,8 @@
 /public/hot
 /public/css
 /public/js
+/public/client/scripts/main.js
+/public/client/styles/main.css
 /public/themes/marie/css
 /public/themes/marie/js
 /public/storage
