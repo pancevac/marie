@@ -24,23 +24,39 @@ export default {
     },
   },
 
-  created() {
-    this.isTouching = false;
-    this.delta = 0;
-    this.currentX = 0;
-    this.max = 0;
-    this.min = 0;
+  mounted() {
+    this.init();
+    window.addEventListener('resize', this.onResize);
   },
 
-  mounted() {
-    const width = this.$refs.track.getBoundingClientRect().width;
-    const clientWidth = document.documentElement.clientWidth;
-    if (width > clientWidth) {
-      this.min = -(width - clientWidth);
-    }
+  destroyed() {
+    window.removeEventListener('resize', this.onResize);
   },
 
   methods: {
+    /**
+     * Sets everything up.
+     */
+    init() {
+      const width = this.$refs.track.getBoundingClientRect().width;
+      const clientWidth = document.documentElement.clientWidth;
+
+      this.isTouching = false;
+      this.delta = 0;
+      this.currentX = 0;
+      this.min = 0;
+
+      if (width > clientWidth) {
+        this.min = -(width - clientWidth);
+      }
+
+      // reset state
+      this.screenX = 0;
+    },
+
+    /**
+     * Touchstart/mousedown event handler.
+     */
     onTouchStart(evt) {
       evt.preventDefault();
       this.isTouching = true;
@@ -50,18 +66,27 @@ export default {
       window.requestAnimationFrame(this.update);
     },
 
+    /**
+     * Touchmove, mousemove event handler.
+     */
     onTouchMove(evt) {
       this.delta = (evt.pageX || evt.touches[0].pageX) - this.startX;
     },
 
+    /**
+     * Touchend/touchcancel/mouseup event handler.
+     */
     onTouchEnd(evt) {
       this.isTouching = false;
       this.removeEventListeners();
     },
 
+    /**
+     * Responds to user gestures and updates the state accordingly.
+     */
     update() {
       let screenX = this.delta + this.currentX;
-      const x = Math.min(Math.max(this.min, screenX), this.max);
+      const x = Math.min(Math.max(this.min, screenX), 0);
       this.screenX = x;
 
       if (this.isTouching) {
@@ -69,14 +94,34 @@ export default {
         return;
       }
 
+      // update the state for re-render.
       this.currentX = x;
     },
 
+    /**
+     * Resize event handler. Fires after the resize has finished.
+     * https://css-tricks.com/snippets/jquery/done-resizing-event/
+     */
+    onResize(evt) {
+      clearTimeout(this.resizeTimer);
+      this.resizeTimer = setTimeout(() => {
+        this.init();
+      }, 250);
+    },
+
+    /**
+     * Convinience method for attaching event handlers to the
+     * document object. Fires on touchstart
+     */
     addEventListeners() {
       document.addEventListener('mousemove', this.onTouchMove);
       document.addEventListener('mouseup', this.onTouchEnd);
     },
 
+    /**
+     * Convinience method for detaching event listeners from the
+     * docuement object. Fires on touchend.
+     */
     removeEventListeners() {
       document.removeEventListener('mousemove', this.onTouchMove);
       document.removeEventListener('mouseup', this.onTouchEnd);
@@ -97,12 +142,12 @@ export default {
 
   .track {
     display: inline-block;
+    overflow: hidden;
+    font-size: initial;
   }
 
   .track > * {
     display: inline-block;
-    overflow: hidden;
-    font-size: initial;
   }
 </style>
 

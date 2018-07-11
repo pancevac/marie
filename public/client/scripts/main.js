@@ -1174,7 +1174,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.host[data-v-4ba9cfa3] {\n  display: block;\n  white-space: nowrap;\n  overflow-x: visible;\n  -webkit-transform: translateX(0);\n          transform: translateX(0);\n  will-change: transform;\n  font-size: 0;\n}\n.track[data-v-4ba9cfa3] {\n  display: inline-block;\n}\n.track > *[data-v-4ba9cfa3] {\n  display: inline-block;\n  overflow: hidden;\n  font-size: initial;\n}\n", ""]);
+exports.push([module.i, "\n.host[data-v-4ba9cfa3] {\n  display: block;\n  white-space: nowrap;\n  overflow-x: visible;\n  -webkit-transform: translateX(0);\n          transform: translateX(0);\n  will-change: transform;\n  font-size: 0;\n}\n.track[data-v-4ba9cfa3] {\n  display: inline-block;\n  overflow: hidden;\n  font-size: initial;\n}\n.track > *[data-v-4ba9cfa3] {\n  display: inline-block;\n}\n", ""]);
 
 // exports
 
@@ -1213,23 +1213,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
 
-  created: function created() {
-    this.isTouching = false;
-    this.delta = 0;
-    this.currentX = 0;
-    this.max = 0;
-    this.min = 0;
-  },
   mounted: function mounted() {
-    var width = this.$refs.track.getBoundingClientRect().width;
-    var clientWidth = document.documentElement.clientWidth;
-    if (width > clientWidth) {
-      this.min = -(width - clientWidth);
-    }
+    this.init();
+    window.addEventListener('resize', this.onResize);
+  },
+  destroyed: function destroyed() {
+    window.removeEventListener('resize', this.onResize);
   },
 
 
   methods: {
+    /**
+     * Sets everything up.
+     */
+    init: function init() {
+      var width = this.$refs.track.getBoundingClientRect().width;
+      var clientWidth = document.documentElement.clientWidth;
+
+      this.isTouching = false;
+      this.delta = 0;
+      this.currentX = 0;
+      this.min = 0;
+
+      if (width > clientWidth) {
+        this.min = -(width - clientWidth);
+      }
+
+      // reset state
+      this.screenX = 0;
+    },
+
+
+    /**
+     * Touchstart/mousedown event handler.
+     */
     onTouchStart: function onTouchStart(evt) {
       evt.preventDefault();
       this.isTouching = true;
@@ -1238,16 +1255,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.addEventListeners();
       window.requestAnimationFrame(this.update);
     },
+
+
+    /**
+     * Touchmove, mousemove event handler.
+     */
     onTouchMove: function onTouchMove(evt) {
       this.delta = (evt.pageX || evt.touches[0].pageX) - this.startX;
     },
+
+
+    /**
+     * Touchend/touchcancel/mouseup event handler.
+     */
     onTouchEnd: function onTouchEnd(evt) {
       this.isTouching = false;
       this.removeEventListeners();
     },
+
+
+    /**
+     * Responds to user gestures and updates the state accordingly.
+     */
     update: function update() {
       var screenX = this.delta + this.currentX;
-      var x = Math.min(Math.max(this.min, screenX), this.max);
+      var x = Math.min(Math.max(this.min, screenX), 0);
       this.screenX = x;
 
       if (this.isTouching) {
@@ -1255,12 +1287,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return;
       }
 
+      // update the state for re-render.
       this.currentX = x;
     },
+
+
+    /**
+     * Resize event handler. Fires after the resize has finished.
+     * https://css-tricks.com/snippets/jquery/done-resizing-event/
+     */
+    onResize: function onResize(evt) {
+      var _this = this;
+
+      clearTimeout(this.resizeTimer);
+      this.resizeTimer = setTimeout(function () {
+        _this.init();
+      }, 250);
+    },
+
+
+    /**
+     * Convinience method for attaching event handlers to the
+     * document object. Fires on touchstart
+     */
     addEventListeners: function addEventListeners() {
       document.addEventListener('mousemove', this.onTouchMove);
       document.addEventListener('mouseup', this.onTouchEnd);
     },
+
+
+    /**
+     * Convinience method for detaching event listeners from the
+     * docuement object. Fires on touchend.
+     */
     removeEventListeners: function removeEventListeners() {
       document.removeEventListener('mousemove', this.onTouchMove);
       document.removeEventListener('mouseup', this.onTouchEnd);
