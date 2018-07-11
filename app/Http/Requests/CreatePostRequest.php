@@ -13,7 +13,7 @@ class CreatePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,26 @@ class CreatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required',
+            'slug' => 'required',
+            'short' => 'required',
+            'blog_ids' => 'required|array',
+        ];
+    }
+
+    /**
+     * method used to translate error message
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'title.required' => 'Naziv članka je obavezan',
+            'slug.required' => 'Slug je obavezan',
+            'short.required' => 'Kratak opis je obavezan',
+            'blog_ids.required' => 'Jedna kategorija je obavezna',
+            'blog_ids.array' => 'Jedna kategorija je obavezna',
         ];
     }
 }

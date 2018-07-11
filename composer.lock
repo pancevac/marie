@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "abf5959df7b6578c22d3df49795da0a1",
+    "content-hash": "6e3ea417294252223dd820ba6d61fffc",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -1230,16 +1230,16 @@
         },
         {
             "name": "laravel/passport",
-            "version": "v6.0.4",
+            "version": "v6.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/passport.git",
-                "reference": "86d8157c67d95aa0200c8d677ea31cac53f3c56f"
+                "reference": "0e961d99ed1717d39fb1ea99dc02a4226e9d8b5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/passport/zipball/86d8157c67d95aa0200c8d677ea31cac53f3c56f",
-                "reference": "86d8157c67d95aa0200c8d677ea31cac53f3c56f",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/0e961d99ed1717d39fb1ea99dc02a4226e9d8b5c",
+                "reference": "0e961d99ed1717d39fb1ea99dc02a4226e9d8b5c",
                 "shasum": ""
             },
             "require": {
@@ -1295,7 +1295,7 @@
                 "oauth",
                 "passport"
             ],
-            "time": "2018-07-10T13:45:55+00:00"
+            "time": "2018-07-11T13:22:38+00:00"
         },
         {
             "name": "laravel/tinker",

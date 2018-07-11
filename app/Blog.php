@@ -58,6 +58,35 @@ class Blog extends Model
     }
 
     /**
+     * method used to return list of blogs without parents
+     *
+     * @return mixed
+     */
+    public static function getNoParentBlogList(){
+        return self::select('id', 'title')->where('parent', 0)->published()->orderBy('order', 'ASC')->get();
+    }
+
+    /**
+     * method used to return custom level deep tree of Blog model
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public static function tree($level=2) {
+        return static::with(implode('.', array_fill(0, $level, 'children')))
+            ->where('parent', 0)->orderBy('order', 'ASC')->published()->get();
+    }
+
+    /**
+     * method use to centralise is visible Blog logic
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopePublished($query){
+        return $query->where('is_visible', 1);
+    }
+
+    /**
      * method used to make connection to parent blog
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

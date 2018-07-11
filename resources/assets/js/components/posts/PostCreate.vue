@@ -24,13 +24,11 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <select-field v-if="lists" :labela="'Kategorija'" :options="lists" :value="null" :error="error? error.blog_id : ''" @changeValue="post.blog_id = $event"></select-field>
-
-                            <date-time-picker :labela="'Publikovano od'" :value="null" :error="error? error.publish_at : ''" @changeValue="post.publish_at = $event"></date-time-picker>
-
                             <text-field :value="post.title" :label="'Naslov'" :error="error? error.title : ''" :required="true" @changeValue="post.title = $event"></text-field>
 
                             <text-field :value="post.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="post.slug = $event"></text-field>
+
+                            <date-time-picker :label="'Publikovano od'" :value="null" :error="error? error.publish_at : ''" @changeValue="post.publish_at = $event"></date-time-picker>
 
                             <text-area-field :value="post.short" :label="'Kratak opis'" :error="error? error.short : ''" :required="true" @changeValue="post.short = $event"></text-area-field>
 
@@ -57,6 +55,22 @@
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
+                    <div class="card" v-if="lists">
+                        <div class="card-body">
+                            <h3>Kategorije</h3>
+                            <ul class="no-parent">
+                                <li v-for="blog in lists" :key="blog.id">
+                                    <input type="checkbox" v-model="post.blog_ids" :value="blog.id"><label :for="'check-' + blog.id"> {{ blog.title }}</label>
+                                    <ul class="blogs" v-if="blog.children.length > 0">
+                                        <li v-for="sub_blog in blog.children" :key="sub_blog.id">
+                                            <label><input type="checkbox" v-model="post.blog_ids" :value="sub_blog.id"> {{ sub_blog.title }}</label>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -71,14 +85,11 @@
     export default {
         data(){
           return {
-              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'is_visible'],
+              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'is_visible', 'blog_ids'],
               image: {},
-              slider: {},
-              clients: false,
               post: {
-                  desc: null,
+                  blog_ids: [],
                   is_visible: false,
-                  blog_id: 0,
               },
               lists: false,
               tags: false,
@@ -88,9 +99,6 @@
         computed: {
             user(){
                 return this.$store.getters['user/getUser'];
-            },
-            publish_at(){
-                return this.post.date + ' ' + this.post.time + ':00'
             },
             admin(){
                 return this.$store.getters['user/isAdmin'];
@@ -108,6 +116,7 @@
             submit(){
                 this.post.user_id = this.user.id;
                 let data = fillForm(this.fillable, this.post);
+                console.log(this.post);
                 axios.post('api/posts', data)
                     .then(res => {
                         this.post = res.data.post;
@@ -129,7 +138,7 @@
                 this.post.image = image.file;
             },
             getList(){
-                axios.get('api/blogs/lists')
+                axios.get('api/blogs/tree')
                     .then(res => {
                         this.lists = res.data.blogs;
                     }).catch(e => {
@@ -151,6 +160,35 @@
                         this.error = e.response.data.errors;
                     });
             },
-        }
+        },
+        watch: {
+            'post.title'(){
+                this.post.slug = Slug(this.post.title);
+            }
+        },
     }
 </script>
+
+<style scoped>
+
+    ul.blogs{
+        list-style: none;
+    }
+
+    ul.no-parent{
+        padding-left: 0;
+        list-style: none;
+    }
+
+    ul.blogs li {
+        margin-top: 1em;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    ul.blogs li input[type="checkbox"]{
+        margin-right: 5px;
+    }
+</style>

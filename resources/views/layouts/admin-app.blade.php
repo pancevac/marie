@@ -24,7 +24,7 @@
     <router-view></router-view>
 
     <footer>
-        <p>Developed by Mini STUDIO Publishing Group <i class="fa fa-user"></i></p>
+        <p>Developed by Mini STUDIO Publishing Group</p>
     </footer>
 </div>
 

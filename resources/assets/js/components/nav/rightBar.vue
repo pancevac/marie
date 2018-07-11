@@ -49,25 +49,5 @@
                 return this.$store.getters.getShowRightBar;
             }
         },
-        mounted(){
-            this.getUsers();
-        },
-        methods: {
-            getUsers(){
-                axios.get('api/users/get-users')
-                    .then( res => {
-                        this.loginUsers = res.data.loginUsers;
-                        this.logoutUsers = res.data.logoutUsers;
-                    })
-                    .catch( e => {
-                        console.log(e.response);
-                        this.error = e.response.data;
-                    });
-            }
-        }
     }
 </script>
-
-<style>
-
-</style>

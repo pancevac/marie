@@ -30,7 +30,6 @@
                                 <th scope="col">id</th>
                                 <th scope="col">naslov</th>
                                 <th scope="col">kategorija</th>
-                                <th scope="col">proizvodi</th>
                                 <th scope="col">vidljivo</th>
                                 <th scope="col">vidljivo od</th>
                                 <th>akcija</th>
@@ -41,7 +40,6 @@
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
                                 <td v-if="row.blog">{{ row.blog.title }}</td> <td v-else>/</td>
-                                <td v-if="row.product.length > 0">[<span v-for="product in row.product">{{ product.title }},</span>]</td> <td v-else>/</td>
                                 <td>{{ row.is_visible? 'Da' : 'Ne' }}</td>
                                 <td>{{ row.publish_at }}</td>
                                 <td>
@@ -91,13 +89,13 @@
         },
         mounted(){
             this.getPosts();
-            this.getBlogs();
         },
         methods: {
             getPosts(){
                 this.$store.dispatch('search/changeSearchPostPage', 1);
                 axios.post('api/posts/search', this.searchPost)
                     .then(res => {
+                        this.blogs = res.data.blogs;
                         this.posts = res.data.posts.data;
                         this.paginate = res.data.posts;
                     })
@@ -148,15 +146,6 @@
                         console.log(e);
                     });
             },
-            getBlogs(){
-                axios.get('api/blogs/lists')
-                    .then(res => {
-                        this.blogs = res.data.lists;
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
             search(value){
                 this.$store.dispatch('search/changeSearchPostPage', 1);
                 this.$store.dispatch('search/changeSearchPost', value);
@@ -174,9 +163,6 @@
             },
             previewRow(row){
                 window.open(row.link, '_blank');
-            },
-            productRow(row){
-                this.$router.push('/posts/' + row.id + '/products');
             },
         }
     }

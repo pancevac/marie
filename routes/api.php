@@ -20,7 +20,7 @@ Route::middleware('auth:api')->group(function () {
         return $request->user();
     });
 
-    Route::get('blogs/lists', 'Api\BlogsController@lists');
+    Route::get('blogs/tree', 'Api\BlogsController@tree');
     Route::resource('blogs', 'Api\BlogsController');
 
     Route::resource('posts', 'Api\PostsController');
