@@ -800,6 +800,14 @@ a:hover, a:focus {
   pointer-events: none;
 }
 
+.logo {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 50px;
+  fill: currentColor;
+}
+
 .nav-item {
   padding: 0 8px;
 }
