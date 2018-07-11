@@ -1,6 +1,5 @@
 <?php
 
-Route::get('/{view}', 'DevController@render');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin', function () {
@@ -10,3 +9,5 @@ Route::get('/admin', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/{view}', 'DevController@render');

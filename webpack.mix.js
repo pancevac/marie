@@ -11,6 +11,13 @@ let mix = require('laravel-mix');
  |
  */
 
+// webpack.mix.js
+mix.autoload({
+    'jquery': ['$', 'window.jQuery', 'jQuery'],
+    'vue': ['Vue','window.Vue'],
+    'moment': ['moment','window.moment'],
+});
+
 mix.options({
     processCssUrls: false // Process/optimize relative stylesheet url()'s. Set to false, if you don't want them touched.
 });
