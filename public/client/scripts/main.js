@@ -1313,8 +1313,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * document object. Fires on touchstart
      */
     addEventListeners: function addEventListeners() {
+      // mouse events
       document.addEventListener('mousemove', this.onTouchMove);
       document.addEventListener('mouseup', this.onTouchEnd);
+      // touch events
+      document.addEventListener('touchmove', this.onTouchMove);
+      document.addEventListener('touchend', this.onTouchEnd);
+      document.addEventListener('touchcancel', this.onTouchEnd);
     },
 
 
@@ -1325,6 +1330,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     removeEventListeners: function removeEventListeners() {
       document.removeEventListener('mousemove', this.onTouchMove);
       document.removeEventListener('mouseup', this.onTouchEnd);
+      document.removeEventListener('touchmove', this.onTouchMove);
+      document.removeEventListener('touchend', this.onTouchEnd);
+      document.removeEventListener('touchcancel', this.onTouchEnd);
     }
   }
 });

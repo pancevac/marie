@@ -116,8 +116,13 @@ export default {
      * document object. Fires on touchstart
      */
     addEventListeners() {
+      // mouse events
       document.addEventListener('mousemove', this.onTouchMove);
       document.addEventListener('mouseup', this.onTouchEnd);
+      // touch events
+      document.addEventListener('touchmove', this.onTouchMove);
+      document.addEventListener('touchend', this.onTouchEnd);
+      document.addEventListener('touchcancel', this.onTouchEnd);
     },
 
     /**
@@ -127,6 +132,9 @@ export default {
     removeEventListeners() {
       document.removeEventListener('mousemove', this.onTouchMove);
       document.removeEventListener('mouseup', this.onTouchEnd);
+      document.removeEventListener('touchmove', this.onTouchMove);
+      document.removeEventListener('touchend', this.onTouchEnd);
+      document.removeEventListener('touchcancel', this.onTouchEnd);
     },
   },
 }
