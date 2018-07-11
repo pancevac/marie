@@ -71,7 +71,7 @@
     export default {
         data(){
           return {
-              fillable: ['name', 'email', 'password', 'password_confirmation', 'image', 'role_id', 'block', 'date'],
+              fillable: ['name', 'email', 'password', 'password_confirmation', 'image', 'role_id', 'block'],
               user: {
                   role_id: 0,
               },

@@ -85,4 +85,32 @@ class PostsController extends Controller
             'message' => 'deleted',
         ]);
     }
+
+    /**
+     * method used to search posts
+     *
+     * @param POST list
+     * @param POST text
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search(){
+        $blog = request('list');
+        $text = request('text');
+        $posts = Post::where(function($query) use ($blog){
+            if($blog){
+                $query->with(['Blogs' => function($query) use ($blog){
+                    $query->where('id', $query);
+                }]);
+            }
+        })->where(function ($query) use ($text){
+            if($text != ''){
+                $query->where('posts.title', 'like', '%'.$text.'%')->orWhere('posts.slug', 'like', '%'.$text.'%');
+            }
+        })
+        ->orderBy('posts.publish_at', 'DESC')->groupBy('posts.id')->paginate(50);
+
+        return response()->json([
+            'posts' => $posts,
+        ]);
+    }
 }
