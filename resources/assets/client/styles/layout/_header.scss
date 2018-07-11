@@ -1,6 +1,7 @@
 .header {
   position: sticky;
   top: 0;
+  color: $text-primary-on-dark;
   background-color: $theme-primary;
   z-index: 10;
 }

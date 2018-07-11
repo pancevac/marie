@@ -74,4 +74,13 @@ class Blog extends Model
     public function children() {
         return $this->hasMany(self::class, 'parent', 'id');
     }
+
+    /**
+     * method used to make many-to-many connection between Blog and Blog model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function posts(){
+        return $this->belongsToMany(Post::class);
+    }
 }

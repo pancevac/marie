@@ -8,8 +8,10 @@
   <link rel="stylesheet" href="{{ url('client/styles/main.css') }}">
 </head>
 <body>
+  @include('site.partials.graphics')
+
   <div id="app" class="content">
-    <my-header></my-header>
+    @include('site.partials.header')
 
     @yield('content')
   </div>
