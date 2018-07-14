@@ -87,7 +87,7 @@ class Blog extends Model
     }
 
     /**
-     * method used to make connection to parent blog
+     * method used to make has-one connection to parent Blog model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -96,7 +96,7 @@ class Blog extends Model
     }
 
     /**
-     * method used to make connection to children blog
+     * method used to make has-many connection to children blog
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -105,11 +105,12 @@ class Blog extends Model
     }
 
     /**
-     * method used to make many-to-many connection between Blog and Blog model
+     * method used to make belongs-to-many connection between Blog and Blog model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function posts(){
         return $this->belongsToMany(Post::class);
     }
+
 }

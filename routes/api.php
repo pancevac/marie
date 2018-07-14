@@ -16,10 +16,6 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::get('user', function (Request $request) {
-        return $request->user();
-    });
-
     Route::get('blogs/tree', 'Api\BlogsController@tree');
     Route::resource('blogs', 'Api\BlogsController');
 
@@ -28,5 +24,11 @@ Route::middleware('auth:api')->group(function () {
 
     Route::resource('users', 'Api\UsersController');
     Route::post('users/{id}/change-password', 'Api\UsersController@changePassword');
+
+    Route::resource('tags', 'Api\TagsController');
+
+    Route::get('user', function (Request $request) {
+        return $request->user();
+    });
 
 });

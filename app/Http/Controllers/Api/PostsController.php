@@ -27,7 +27,7 @@ class PostsController extends Controller
 
 
     /**
-     *  method used to store new post and return
+     * method used to store new post and return
      *
      * @param CreatePostRequest $request
      * @return \Illuminate\Http\JsonResponse
@@ -42,7 +42,6 @@ class PostsController extends Controller
         ]);
     }
 
-
     /**
      * method used to return post
      *
@@ -54,7 +53,6 @@ class PostsController extends Controller
             'blog' => $post,
         ]);
     }
-
 
     /**
      * method used to update post and return
@@ -71,7 +69,6 @@ class PostsController extends Controller
             'post' => $post,
         ]);
     }
-
 
     /**
      * method used to destroy post

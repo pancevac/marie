@@ -88,6 +88,7 @@
               fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'is_visible', 'blog_ids'],
               image: {},
               post: {
+                  title: null,
                   blog_ids: [],
                   is_visible: false,
               },
@@ -163,6 +164,7 @@
         },
         watch: {
             'post.title'(){
+                console.log('post title change');
                 this.post.slug = Slug(this.post.title);
             }
         },
