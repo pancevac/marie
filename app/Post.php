@@ -2,12 +2,20 @@
 
 namespace App;
 
+use App\Traits\SearchableTraits;
 use App\Traits\UploudableImageTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use UploudableImageTrait;
+    use UploudableImageTrait, SearchableTraits;
+
+    /**
+     * paginate number
+     *
+     * @var integer
+     */
+    protected static $paginate = 50;
 
     /**
      * The attributes that are mass assignable.
@@ -17,30 +25,11 @@ class Post extends Model
     protected $fillable = ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'views', 'is_visible'];
 
     /**
-     * method used to search Post model by title, slug and category_id paginate by 50
+     * The attributes that are use for search
      *
-     * @param $blog
-     * @param $text
-     * @return mixed
+     * @var array
      */
-    public static function search(){
-        $blog = Blog::find(request('list'));
-        $text = request('text');
-
-        if(!empty($blog)){
-            return $blog->posts()->where(function ($query) use ($text){
-                if($text != ''){
-                    $query->where('posts.title', 'like', '%'.$text.'%')->orWhere('posts.slug', 'like', '%'.$text.'%');
-                }
-            })->published()->paginate(50);
-        }else{
-            return Post::where(function ($query) use ($text){
-                if($text != ''){
-                    $query->where('posts.title', 'like', '%'.$text.'%')->orWhere('posts.slug', 'like', '%'.$text.'%');
-                }
-            })->published()->paginate(50);
-        }
-    }
+    protected static $searchable = ['title'];
 
     /**
      * method used to set slug attribute
@@ -75,7 +64,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function blogs(){
+    public function blog(){
         return $this->belongsToMany(Blog::class);
     }
 

@@ -4,21 +4,22 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CreateTagRequest;
 use App\Tag;
+use App\Traits\SearchableTraits;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class TagsController extends Controller
 {
+    use SearchableTraits;
+
     /**
-     * method used to show tags paginate by 50
+     * method used to search tags paginate by 50
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(){
-        $tags = Tag::latest()->paginate(50);
-
+    public function search(){
         return response()->json([
-            'tags' => $tags,
+            'tags' => Tag::search(),
         ]);
     }
 
@@ -29,10 +30,8 @@ class TagsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateTagRequest $request){
-        $tag = Tag::create(request()->all());
-
         return response()->json([
-            'tag' => $tag,
+            'tag' => Tag::create(request()->all()),
         ]);
     }
 

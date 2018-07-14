@@ -2,16 +2,33 @@
 
 namespace App;
 
+use App\Traits\SearchableTraits;
 use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
+    use SearchableTraits;
+
     /**
-     * The attributes that are mass assignable.
+     * paginate number
+     *
+     * @var integer
+     */
+    protected static $paginate = 50;
+
+    /**
+     * The attributes that are mass assignable
      *
      * @var array
      */
     protected $fillable = ['title', 'slug', 'is_visible'];
+
+    /**
+     * The attributes that are use for search
+     *
+     * @var array
+     */
+    protected static $searchable = ['title'];
 
     /**
      * method used to set slug attribute
@@ -36,7 +53,7 @@ class Tag extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function posts(){
+    public function post(){
         return $this->belongsToMany(Post::class);
     }
 }

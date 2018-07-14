@@ -26,6 +26,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('users/{id}/change-password', 'Api\UsersController@changePassword');
 
     Route::resource('tags', 'Api\TagsController');
+    Route::post('tags/search', 'Api\TagsController@search');
 
     Route::get('user', function (Request $request) {
         return $request->user();

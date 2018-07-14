@@ -5,7 +5,7 @@
                 <form>
                     <div class="form-row">
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Pretraga" v-model="search.text">
+                            <input type="text" class="form-control" placeholder="Pretraga" v-model="search.title">
                         </div>
                         <div class="col" v-if="enableList">
                             <select name="lists" id="lists" class="form-control" v-model="search.list">

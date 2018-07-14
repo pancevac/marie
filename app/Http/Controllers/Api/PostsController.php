@@ -5,12 +5,24 @@ namespace App\Http\Controllers\Api;
 use App\Blog;
 use App\Http\Requests\CreatePostRequest;
 use App\Post;
+use App\Traits\SearchableTraits;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use File;
 
 class PostsController extends Controller
 {
+    /**
+     * method used to search post paginate by 50
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search(){
+        return response()->json([
+            'posts' => Post::search(),
+        ]);
+    }
+
     /**
      * method used to show posts paginate by 50
      *
@@ -83,19 +95,6 @@ class PostsController extends Controller
 
         return response()->json([
             'message' => 'deleted',
-        ]);
-    }
-
-    /**
-     * method used to search posts
-     *
-     * @param POST $list
-     * @param POST $text
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function search(){
-        return response()->json([
-            'posts' => Post::search(),
         ]);
     }
 }

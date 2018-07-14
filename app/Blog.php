@@ -10,6 +10,13 @@ class Blog extends Model
     use UploudableImageTrait;
 
     /**
+     * paginate number
+     *
+     * @var integer
+     */
+    protected static $paginate = 50;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -109,7 +116,7 @@ class Blog extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function posts(){
+    public function post(){
         return $this->belongsToMany(Post::class);
     }
 
