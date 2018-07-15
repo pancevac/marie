@@ -5,6 +5,7 @@ namespace App;
 use App\Traits\SearchableTraits;
 use App\Traits\UploudableImageTrait;
 use Illuminate\Database\Eloquent\Model;
+use File;
 
 class Post extends Model
 {
@@ -15,7 +16,7 @@ class Post extends Model
      *
      * @var integer
      */
-    protected static $paginate = 50;
+    public static $paginate = 50;
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +31,19 @@ class Post extends Model
      * @var array
      */
     protected static $searchable = ['title'];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot(){
+        parent::boot();
+
+        static::deleting(function ($post) {
+            if(!empty($post->image)) File::delete($post->image);
+        });
+    }
 
     /**
      * method used to set slug attribute
@@ -65,7 +79,7 @@ class Post extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function blog(){
-        return $this->belongsToMany(Blog::class);
+        return $this->belongsToMany(Blog::class)->orderBy('parent', 'ASC');
     }
 
 
@@ -76,5 +90,14 @@ class Post extends Model
      */
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * method used to make belongs-to-many connection between Post and User model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tag(){
+        return $this->belongsToMany(Tag::class);
     }
 }

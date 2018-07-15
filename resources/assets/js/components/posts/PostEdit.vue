@@ -85,7 +85,7 @@
 
                                     <text-area-ckeditor-field :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
 
-                                    <!--<select-multiple-field :options="tags && false" :error="error? error.tag_ids : ''" :value="post.tags" @changeValue="post.tag_ids = $event"></select-multiple-field>-->
+                                    <select-multiple-field :options="tags" :error="error? error.tag_ids : ''" :value="post.tag_ids" @changeValue="post.tag_ids = $event"></select-multiple-field>
 
                                     <checkbox-field :value="post.is_visible" :label="'Publikovano'" @changeValue="post.is_visible = $event"></checkbox-field>
 
@@ -112,7 +112,7 @@
     export default {
         data(){
           return {
-              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'is_visible', 'blog_ids'],
+              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'is_visible', 'blog_ids', 'tag_ids'],
               selected: {},
               post: false,
               error: null,
@@ -145,32 +145,25 @@
         },
         mounted(){
             this.getPost();
-            this.getList();
         },
         methods: {
             getPost(){
                 axios.get('api/posts/' + this.$route.params.id)
                     .then(res => {
-                        //this.lists = res.data.blogs;
                         //this.gallery = res.data.photos;
-                        //this.tags = res.data.tags;
+
                         this.post = res.data.post;
                         this.post.image_path = res.data.post.image;
+
                         this.post.blog_ids = res.data.blog_ids;
-                        console.log(this.post.blog_ids);
-                        //this.post.tags = res.data.tag_ids;
+                        this.post.tag_ids = res.data.tag_ids;
+                        console.log(this.post.tag_ids);
+
+                        this.lists = res.data.blogs;
+                        this.tags = res.data.tags;
                     })
                     .catch(e => {
                         console.log(e);
-                        this.error = e.response.data.errors;
-                    });
-            },
-            getList(){
-                axios.get('api/blogs/tree')
-                    .then(res => {
-                        this.lists = res.data.blogs;
-                    }).catch(e => {
-                        console.log(e.response);
                         this.error = e.response.data.errors;
                     });
             },

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Traits\UploudableImageTrait;
 use Illuminate\Database\Eloquent\Model;
+use File;
 
 class Blog extends Model
 {
@@ -14,7 +15,7 @@ class Blog extends Model
      *
      * @var integer
      */
-    protected static $paginate = 50;
+    public static $paginate = 50;
 
     /**
      * The attributes that are mass assignable.
@@ -34,6 +35,10 @@ class Blog extends Model
             self::where('parent', $blog->id)->get()->each(function($item){
                 $item->update(['parent' => 0]);
             });
+        });
+
+        static::deleting(function ($post) {
+            if(!empty($post->image)) File::delete($post->image);
         });
     }
 

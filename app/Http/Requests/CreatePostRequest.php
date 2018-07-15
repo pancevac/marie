@@ -28,6 +28,7 @@ class CreatePostRequest extends FormRequest
             'slug' => 'required',
             'short' => 'required',
             'blog_ids' => 'required',
+            'publish_at' => 'required|date',
         ];
     }
 
@@ -44,6 +45,8 @@ class CreatePostRequest extends FormRequest
             'short.required' => 'Kratak opis je obavezan',
             'blog_ids.required' => 'Jedna kategorija je obavezna',
             'blog_ids.array' => 'Jedna kategorija je obavezna',
+            'publish_at.required' => 'Datum publikovanja je obavezan',
+            'publish_at.date' => 'Datum publikovanja nije u ispravnom formatu',
         ];
     }
 }

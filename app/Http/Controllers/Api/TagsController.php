@@ -13,13 +13,13 @@ class TagsController extends Controller
     use SearchableTraits;
 
     /**
-     * method used to search tags paginate by 50
+     * method used to return tags list
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function search(){
+    public function index(){
         return response()->json([
-            'tags' => Tag::search(),
+            'tags' => Tag::select('id', 'title')->published()->get(),
         ]);
     }
 
@@ -74,6 +74,18 @@ class TagsController extends Controller
 
         return response()->json([
             'message' => 'deleted',
+        ]);
+    }
+
+
+    /**
+     * method used to search tags paginate by 50
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search(){
+        return response()->json([
+            'tags' => Tag::search()->paginate(Tag::$paginate),
         ]);
     }
 }

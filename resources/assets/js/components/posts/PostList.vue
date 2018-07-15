@@ -39,7 +39,7 @@
                             <tr v-for="row in posts">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
-                                <td v-if="row.blog">{{ row.blog.title }}</td> <td v-else>/</td>
+                                <td v-if="row.blog.length > 0">{{ row.blog[0].title }}</td> <td v-else>/</td>
                                 <td>{{ row.is_visible? 'Da' : 'Ne' }}</td>
                                 <td>{{ row.publish_at }}</td>
                                 <td>

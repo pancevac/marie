@@ -17,7 +17,7 @@ class User extends Authenticatable
      *
      * @var integer
      */
-    protected static $paginate = 50;
+    public static $paginate = 50;
 
     /**
      * The attributes that are mass assignable.

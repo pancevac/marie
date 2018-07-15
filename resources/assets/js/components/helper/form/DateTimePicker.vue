@@ -14,9 +14,8 @@
     export default {
         data () {
             return {
-                date: new Date(),
                 options: {
-                    format: 'YYYY-MM-DD h:mm:ss',
+                    format: 'YYYY-MM-DD h:00:00',
                     useCurrent: false,
                     showClear: true,
                     showClose: true,
@@ -26,6 +25,14 @@
         props: ['label', 'value', 'error', 'required'],
         components: {
             datePicker,
+        },
+        computed: {
+            date:{
+                get: function(){
+                    return this.value || new Date('YYYY-MM-DD h:00:00');
+                },
+                set: function(){}
+            },
         },
         watch: {
             date(){

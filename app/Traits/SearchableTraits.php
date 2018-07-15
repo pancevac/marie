@@ -22,7 +22,7 @@ trait SearchableTraits
             }
         }
 
-        return $items->paginate(self::$paginate);
+        return $items;
     }
 
     /**
@@ -36,23 +36,7 @@ trait SearchableTraits
     {
         return $query->where(function ($query) use ($text){
             if($text != ''){
-                $query->where('title', 'like', '%'.$text.'%');
-            }
-        });
-    }
-
-    /**
-     * method used to search model by slug
-     *
-     * @param Builder $query
-     * @param $text
-     * @return mixed
-     */
-    public function scopeSlug(Builder $query, $text)
-    {
-        return $query->where(function ($query) use ($text){
-            if($text != ''){
-                $query->where('slug', 'like', '%'.$text.'%');
+                $query->where('title', 'like', '%'.$text.'%')->orWhere('slug', 'like', '%'.$text.'%');
             }
         });
     }

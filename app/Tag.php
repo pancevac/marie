@@ -14,7 +14,7 @@ class Tag extends Model
      *
      * @var integer
      */
-    protected static $paginate = 50;
+    public static $paginate = 50;
 
     /**
      * The attributes that are mass assignable
@@ -46,6 +46,16 @@ class Tag extends Model
      */
     public function setIsVisibleAttribute($value){
         $this->attributes['is_visible'] = !empty($value)?: 0;
+    }
+
+    /**
+     * method use to centralise is visible Tag logic
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopePublished($query){
+        return $query->where('is_visible', 1);
     }
 
     /**

@@ -34,7 +34,7 @@
 
                             <text-area-ckeditor-field :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
 
-                            <select-multiple-field v-if="tags && false" :error="error? error.tag_ids : ''" :options="tags" :labela="'Tagovi'" @changeValue="post.tag_ids = $event"></select-multiple-field>
+                            <select-multiple-field v-if="tags" :error="error? error.tag_ids : ''" :options="tags" :labela="'Tagovi'" @changeValue="post.tag_ids = $event"></select-multiple-field>
 
                             <checkbox-field :value="post.is_visible" :label="'Publikovano'" @changeValue="post.is_visible = $event"></checkbox-field>
 
@@ -85,11 +85,12 @@
     export default {
         data(){
           return {
-              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'is_visible', 'blog_ids'],
+              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'is_visible', 'blog_ids', 'tag_ids'],
               image: {},
               post: {
                   title: null,
                   blog_ids: [],
+                  tag_ids: [],
                   is_visible: false,
               },
               lists: false,
@@ -112,10 +113,11 @@
         },
         mounted(){
             this.getList();
-            //this.getTags();
+            this.getTags();
         },
         methods: {
             submit(){
+                console.log(this.post);
                 this.post.user_id = this.user.id;
                 let data = fillForm(this.fillable, this.post)
                 axios.post('api/posts', data)
@@ -148,14 +150,9 @@
                     });
             },
             getTags(){
-                axios.get('api/tags/lists')
+                axios.get('api/tags')
                     .then(res => {
                         this.tags = res.data.tags;
-//                        this.tags = _.map(res.data.tags, (data) => {
-//                            var pick = _.pick(data, 'title', 'id');
-//                            var object = {id: pick.id, text: pick.title};
-//                            return object;
-//                        });
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;

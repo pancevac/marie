@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class TestController extends Controller
 {
     public function index(){
-        return $posts = Post::with('parenBlog')->get();
+        return $posts = Post::with('blog')->get();
         return view('test', compact('blogs'));
     }
 }
