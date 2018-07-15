@@ -27,7 +27,7 @@ class CreatePostRequest extends FormRequest
             'title' => 'required',
             'slug' => 'required',
             'short' => 'required',
-            'blog_ids' => 'required|array',
+            'blog_ids' => 'required',
         ];
     }
 

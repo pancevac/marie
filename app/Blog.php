@@ -70,7 +70,7 @@ class Blog extends Model
      * @return mixed
      */
     public static function getNoParentBlogList(){
-        return self::select('id', 'title')->where('parent', 0)->published()->orderBy('order', 'ASC')->get();
+        return self::where('parent', 0)->published()->orderBy('order', 'ASC')->pluck('title', 'id')->prepend('Izaberi kategoriju', 0);
     }
 
     /**

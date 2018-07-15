@@ -34,10 +34,10 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="card">
+                    <div class="card" v-if="post">
 
                         <upload-image-helper
-                                :image="post.imagePath"
+                                :image="post.image_path"
                                 :defaultImage="null"
                                 :titleImage="'članka'"
                                 :error="error"
@@ -45,6 +45,22 @@
                                 @uploadImage="prepare($event)"
                                 @removeRow="remove($event)"
                         ></upload-image-helper>
+
+                        <div class="card" v-if="lists">
+                            <div class="card-body">
+                                <h3>Kategorije</h3>
+                                <ul class="no-parent">
+                                    <li v-for="blog in lists" :id="`list_${blog.id}`">
+                                        <label><input type="checkbox" v-model="post.blog_ids" :value="blog.id"> {{ blog.title }}</label>
+                                        <ul class="blogs" v-if="blog.children.length > 0">
+                                            <li v-for="sub_blog in blog.children" :id="`list_${sub_blog.id}`">
+                                                <label><input type="checkbox" v-model="post.blog_ids" :value="sub_blog.id"> {{ sub_blog.title }}</label>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
                     </div><!-- .card -->
 
@@ -59,8 +75,6 @@
                             <div class="tab-pane fade show active" id="srb" role="tabpanel" aria-labelledby="srb-tab">
                                 <form @submit.prevent="submit()">
 
-                                    <select-field v-if="lists" :labela="'Kategorija'" :options="lists" :value="post.blog" :error="error? error.blog_id : ''" @changeValue="post.blog_id = $event"></select-field>
-
                                     <date-time-picker :labela="'Publikovano od'" :value="post.publish_at" :error="error? error.publish_at : ''" @changeValue="post.publish_at = $event"></date-time-picker>
 
                                     <text-field :value="post.title" :label="'Naslov'" :error="error? error.title : ''" :required="true" @changeValue="post.title = $event"></text-field>
@@ -69,9 +83,9 @@
 
                                     <text-area-field :value="post.short" :label="'Kratak opis'" :error="error? error.short : ''" :required="true" @changeValue="post.short = $event"></text-area-field>
 
-                                    <text-area-ckeditor-field v-if="post.body" :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
+                                    <text-area-ckeditor-field :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
 
-                                    <select-multiple-field :options="tags && false" :error="error? error.tag_ids : ''" :value="post.tags" @changeValue="post.tag_ids = $event"></select-multiple-field>
+                                    <!--<select-multiple-field :options="tags && false" :error="error? error.tag_ids : ''" :value="post.tags" @changeValue="post.tag_ids = $event"></select-multiple-field>-->
 
                                     <checkbox-field :value="post.is_visible" :label="'Publikovano'" @changeValue="post.is_visible = $event"></checkbox-field>
 
@@ -98,8 +112,9 @@
     export default {
         data(){
           return {
+              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'is_visible', 'blog_ids'],
               selected: {},
-              post: {},
+              post: false,
               error: null,
               lists: false,
               gallery: {},
@@ -130,23 +145,33 @@
         },
         mounted(){
             this.getPost();
+            this.getList();
         },
         methods: {
             getPost(){
                 axios.get('api/posts/' + this.$route.params.id)
                     .then(res => {
-                        this.lists = res.data.blogs;
+                        //this.lists = res.data.blogs;
                         //this.gallery = res.data.photos;
-                        this.tags = res.data.tags;
+                        //this.tags = res.data.tags;
                         this.post = res.data.post;
+                        this.post.image_path = res.data.post.image;
+                        this.post.blog_ids = res.data.blog_ids;
+                        console.log(this.post.blog_ids);
                         //this.post.tags = res.data.tag_ids;
                     })
                     .catch(e => {
                         console.log(e);
                         this.error = e.response.data.errors;
-                        if(e.response.status == 401){
-                            this.$router.push('/posts');
-                        }
+                    });
+            },
+            getList(){
+                axios.get('api/blogs/tree')
+                    .then(res => {
+                        this.lists = res.data.blogs;
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
                     });
             },
             submit(){
@@ -155,6 +180,8 @@
                 axios.post('api/posts/' + this.post.id, data)
                     .then(res => {
                         this.post = res.data.post;
+                        this.post.image_path = res.data.post.image;
+                        this.post.blog_ids = res.data.blog_ids;
                         //this.post.tag_ids = res.data.tag_ids;
                         swal({
                             position: 'center',
@@ -188,5 +215,34 @@
                 this.post.image = image.file;
             },
         },
+        watch: {
+            'post.title'(){
+                this.post.slug = Slug(this.post.title);
+            },
+        },
     }
 </script>
+
+<style scoped>
+
+    ul.blogs{
+        list-style: none;
+    }
+
+    ul.no-parent{
+        padding-left: 0;
+        list-style: none;
+    }
+
+    ul.blogs li {
+        margin-top: 1em;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    ul.blogs li input[type="checkbox"]{
+        margin-right: 5px;
+    }
+</style>

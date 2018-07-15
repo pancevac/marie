@@ -28,7 +28,7 @@
 
                             <text-field :value="post.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="post.slug = $event"></text-field>
 
-                            <date-time-picker :label="'Publikovano od'" :value="null" :error="error? error.publish_at : ''" @changeValue="post.publish_at = $event"></date-time-picker>
+                            <date-time-picker :label="'Publikovano od'" :value="post.publish_at" :error="error? error.publish_at : ''" @changeValue="post.publish_at = $event"></date-time-picker>
 
                             <text-area-field :value="post.short" :label="'Kratak opis'" :error="error? error.short : ''" :required="true" @changeValue="post.short = $event"></text-area-field>
 
@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-sm-4">
                     <upload-image-helper
-                            :image="post.imagePath"
+                            :image="post.image_path"
                             :defaultImage="null"
                             :titleImage="'članka'"
                             :error="error"
@@ -59,10 +59,10 @@
                         <div class="card-body">
                             <h3>Kategorije</h3>
                             <ul class="no-parent">
-                                <li v-for="blog in lists" :key="blog.id">
-                                    <input type="checkbox" v-model="post.blog_ids" :value="blog.id"><label :for="'check-' + blog.id"> {{ blog.title }}</label>
+                                <li v-for="blog in lists" :id="`list_${blog.id}`">
+                                    <label><input type="checkbox" v-model="post.blog_ids" :value="blog.id"> {{ blog.title }}</label>
                                     <ul class="blogs" v-if="blog.children.length > 0">
-                                        <li v-for="sub_blog in blog.children" :key="sub_blog.id">
+                                        <li v-for="sub_blog in blog.children" :id="`list_${sub_blog.id}`">
                                             <label><input type="checkbox" v-model="post.blog_ids" :value="sub_blog.id"> {{ sub_blog.title }}</label>
                                         </li>
                                     </ul>
@@ -95,6 +95,7 @@
               lists: false,
               tags: false,
               error: null,
+              blog_ids: [],
           }
         },
         computed: {
@@ -116,8 +117,7 @@
         methods: {
             submit(){
                 this.post.user_id = this.user.id;
-                let data = fillForm(this.fillable, this.post);
-                console.log(this.post);
+                let data = fillForm(this.fillable, this.post)
                 axios.post('api/posts', data)
                     .then(res => {
                         this.post = res.data.post;
@@ -135,7 +135,7 @@
                     });
             },
             prepare(image){
-                this.post.imagePath = image.src;
+                this.post.image_path = image.src;
                 this.post.image = image.file;
             },
             getList(){
@@ -164,9 +164,8 @@
         },
         watch: {
             'post.title'(){
-                console.log('post title change');
                 this.post.slug = Slug(this.post.title);
-            }
+            },
         },
     }
 </script>

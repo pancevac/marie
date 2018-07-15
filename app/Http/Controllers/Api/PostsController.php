@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Blog;
+use App\Helper;
 use App\Http\Requests\CreatePostRequest;
 use App\Post;
 use App\Traits\SearchableTraits;
@@ -20,6 +21,7 @@ class PostsController extends Controller
     public function search(){
         return response()->json([
             'posts' => Post::search(),
+            'blogs' => Blog::getNoParentBlogList(),
         ]);
     }
 
@@ -47,7 +49,7 @@ class PostsController extends Controller
     public function store(CreatePostRequest $request){
         $post = Post::create($request->except('image'));
         $post->update(['image' => $post->storeImage()]);
-        $post->blogs()->sync(request('blog_ids'));
+        $post->blog()->sync(explode(',', request('blog_ids')));
 
         return response()->json([
             'post' => $post,
@@ -62,7 +64,8 @@ class PostsController extends Controller
      */
     public function show(Post $post){
         return response()->json([
-            'blog' => $post,
+            'post' => $post,
+            'blog_ids' => $post->blog()->pluck('id'),
         ]);
     }
 
@@ -76,9 +79,11 @@ class PostsController extends Controller
     public function update(CreatePostRequest $request, Post $post){
         $post->update($request->except('image'));
         $post->update(['image' => $post->storeImage()]);
+        $post->blog()->sync(explode(',', request('blog_ids')));
 
         return response()->json([
             'post' => $post,
+            'blog_ids' => $post->blog()->pluck('id'),
         ]);
     }
 
