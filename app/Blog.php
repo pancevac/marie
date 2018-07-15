@@ -22,7 +22,7 @@ class Blog extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'slug', 'short', 'order', 'parent', 'level', 'image', 'is_visible'];
+    protected $fillable = ['title', 'slug', 'short', 'seo_title', 'seo_keywords', 'order', 'parent', 'level', 'image', 'is_visible'];
 
     /**
      *method used when instance of this model is created
@@ -58,6 +58,15 @@ class Blog extends Model
      */
     public function setLevelAttribute($value){
         $this->attributes['level'] = !empty($value)?: 1;
+    }
+
+    /**
+     * method used to set parent attribute
+     *
+     * @param $value
+     */
+    public function setParentAttribute($value){
+        $this->attributes['parent'] = !empty($value)?: 1;
     }
 
     /**
