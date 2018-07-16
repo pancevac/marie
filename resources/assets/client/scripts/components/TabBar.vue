@@ -19,7 +19,7 @@ export default {
       screenX: 0,
     };
   },
-
+  
   computed: {
     translateX() {
       return `translateX(${this.screenX}px)`;
@@ -46,8 +46,10 @@ export default {
       this.isTouching = false;
       this.delta = 0;
       this.currentX = 0;
-      this.slide = 0;
-
+      this.min = 0;
+      if (width > clientWidth) {
+        this.min = -(width - clientWidth);
+      }
       // reset state
       this.screenX = 0;
     },
@@ -160,4 +162,3 @@ export default {
     display: inline-block;
   }
 </style>
-

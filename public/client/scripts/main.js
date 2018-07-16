@@ -1484,8 +1484,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.isTouching = false;
       this.delta = 0;
       this.currentX = 0;
-      this.slide = 0;
-
+      this.min = 0;
+      if (width > clientWidth) {
+        this.min = -(width - clientWidth);
+      }
       // reset state
       this.screenX = 0;
     },

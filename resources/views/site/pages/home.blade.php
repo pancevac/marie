@@ -30,15 +30,15 @@
 
         <simple-carousel>
           <div class="px-3">
-            {{-- <a href="/hello"> --}}
+            <a href="/hello">
               <div class="image image--1-1"></div>
-            {{-- </a> --}}
+            </a>
             <a href="/hello">hello</a>
           </div>
           <div class="px-3">
-            {{-- <a href="/world"> --}}
+            <a href="/world">
               <div class="image image--1-1"></div>
-            {{-- </a> --}}
+            </a>
             <a href="/world">world</a>
           </div>
         </simple-carousel>
