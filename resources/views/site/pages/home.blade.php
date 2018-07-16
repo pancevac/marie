@@ -25,6 +25,21 @@
     <!-- most read -->
     <div style="border-bottom: 2px solid #222; margin-bottom: 32px;">
       <h2 class="title title--lines">Najčitaniji članci</h2>
+
+      <div class="js-carousel">
+        <div>
+          <a href="/hello">
+            <div class="image image--1-1"></div>
+          </a>
+          <a href="/hello">hello</a>
+        </div>
+        <div>
+          <a href="/world">
+            <div class="image image--1-1"></div>
+          </a>
+          <a href="/world">world</a>
+        </div>
+      </div>
     </div>
 
     <div class="content-wrap">

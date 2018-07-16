@@ -7,13 +7,13 @@
       </svg>
     </button>
 
-    <div style="text-align: center;">
+    {{-- <div style="text-align: center;">
       <a href="/" style="color: inherit;">
         <svg class="logo logo--header">
           <use xlink:href="#logo"></use>
         </svg>
       </a>
-    </div>
+    </div> --}}
   
     <tab-bar>
       <div class="nav-item">

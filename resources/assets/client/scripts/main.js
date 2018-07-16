@@ -1,4 +1,5 @@
 import LazyImages from './components/lazy-images';
+import Siema from './components/siema';
 window.Vue = require('vue');
 
 Vue.component('my-header', require('./components/Header.vue'));
@@ -9,3 +10,8 @@ const mc = new Vue({
 });
 
 LazyImages.init();
+
+const carousel = new Siema({
+  selector: '.js-carousel',
+  perPage: 5,
+});
