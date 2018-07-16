@@ -26,14 +26,14 @@
     <div style="border-bottom: 2px solid #222; margin-bottom: 32px;">
       <h2 class="title title--lines">Najčitaniji članci</h2>
 
-      <div class="js-carousel">
-        <div>
+      <div class="js-carousel" style="margin-left: -16px; margin-right: -16px;">
+        <div class="px-3">
           <a href="/hello">
             <div class="image image--1-1"></div>
           </a>
           <a href="/hello">hello</a>
         </div>
-        <div>
+        <div class="px-3">
           <a href="/world">
             <div class="image image--1-1"></div>
           </a>
