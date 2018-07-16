@@ -1939,6 +1939,7 @@ var Siema = function () {
       }
       var beforeChange = this.currentSlide;
       this.currentSlide = this.config.loop ? index % this.innerElements.length : Math.min(Math.max(index, 0), this.innerElements.length - this.perPage);
+
       if (beforeChange !== this.currentSlide) {
         this.slideToCurrent();
         this.config.onChange.call(this);
@@ -1997,24 +1998,31 @@ var Siema = function () {
     }
 
     /**
-     * When window resizes, resize slider components as well
+     * When window resizes, resize slider components as well.
+     * Fires when resize has stopped.
+     * https://css-tricks.com/snippets/jquery/done-resizing-event/
      */
 
   }, {
     key: 'resizeHandler',
     value: function resizeHandler() {
-      // update perPage number dependable of user value
-      this.resolveSlidesNumber();
+      var _this3 = this;
 
-      // relcalculate currentSlide
-      // prevent hiding items when browser width increases
-      if (this.currentSlide + this.perPage > this.innerElements.length) {
-        this.currentSlide = this.innerElements.length <= this.perPage ? 0 : this.innerElements.length - this.perPage;
-      }
+      clearTimeout(this._resizeTimer);
+      this._resizeTimer = setTimeout(function () {
+        // update perPage number dependable of user value
+        _this3.resolveSlidesNumber();
 
-      this.selectorWidth = this.selector.offsetWidth;
+        // relcalculate currentSlide
+        // prevent hiding items when browser width increases
+        if (_this3.currentSlide + _this3.perPage > _this3.innerElements.length) {
+          _this3.currentSlide = _this3.innerElements.length <= _this3.perPage ? 0 : _this3.innerElements.length - _this3.perPage;
+        }
 
-      this.buildSliderFrame();
+        _this3.selectorWidth = _this3.selector.offsetWidth;
+
+        _this3.buildSliderFrame();
+      }, 250);
     }
 
     /**
@@ -2081,7 +2089,7 @@ var Siema = function () {
   }, {
     key: 'touchendHandler',
     value: function touchendHandler(e) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.pointerDown = false;
       this.enableTransition();
@@ -2090,11 +2098,16 @@ var Siema = function () {
       }
       this.clearDrag();
       this._removeEventListeners();
-      // alow href clicks
+      // allow href clicks
       setTimeout(function () {
-        _this3.blockLinkClicks = false;
+        _this4.blockLinkClicks = false;
       }, 0);
     }
+
+    /**
+     * Click handler. Prevents href follow while swiping. 
+     */
+
   }, {
     key: 'clickHandler',
     value: function clickHandler(e) {

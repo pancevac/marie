@@ -29,7 +29,13 @@ export default class Siema {
       Math.max(0, Math.min(this.config.startIndex, this.innerElements.length - this.perPage));
 
     // Bind all event handlers for referencability
-    ['resizeHandler', 'touchstartHandler', 'touchendHandler', 'touchmoveHandler', 'clickHandler'].forEach(method => {
+    [
+      'resizeHandler',
+      'touchstartHandler',
+      'touchendHandler',
+      'touchmoveHandler',
+      'clickHandler',
+    ].forEach(method => {
       this[method] = this[method].bind(this);
     });
 
@@ -314,9 +320,10 @@ export default class Siema {
       return;
     }
     const beforeChange = this.currentSlide;
-    this.currentSlide = this.config.loop ?
-      index % this.innerElements.length :
-      Math.min(Math.max(index, 0), this.innerElements.length - this.perPage);
+    this.currentSlide = this.config.loop
+      ? index % this.innerElements.length
+      : Math.min(Math.max(index, 0), this.innerElements.length - this.perPage);
+
     if (beforeChange !== this.currentSlide) {
       this.slideToCurrent();
       this.config.onChange.call(this);
@@ -372,21 +379,26 @@ export default class Siema {
 
 
   /**
-   * When window resizes, resize slider components as well
+   * When window resizes, resize slider components as well.
+   * Fires when resize has stopped.
+   * https://css-tricks.com/snippets/jquery/done-resizing-event/
    */
   resizeHandler() {
-    // update perPage number dependable of user value
-    this.resolveSlidesNumber();
-
-    // relcalculate currentSlide
-    // prevent hiding items when browser width increases
-    if (this.currentSlide + this.perPage > this.innerElements.length) {
-      this.currentSlide = this.innerElements.length <= this.perPage ? 0 : this.innerElements.length - this.perPage;
-    }
-
-    this.selectorWidth = this.selector.offsetWidth;
-
-    this.buildSliderFrame();
+    clearTimeout(this._resizeTimer);
+    this._resizeTimer = setTimeout(() => {
+      // update perPage number dependable of user value
+      this.resolveSlidesNumber();
+      
+      // relcalculate currentSlide
+      // prevent hiding items when browser width increases
+      if (this.currentSlide + this.perPage > this.innerElements.length) {
+        this.currentSlide = this.innerElements.length <= this.perPage ? 0 : this.innerElements.length - this.perPage;
+      }
+      
+      this.selectorWidth = this.selector.offsetWidth;
+      
+      this.buildSliderFrame();
+    }, 250);
   }
 
 
@@ -452,12 +464,16 @@ export default class Siema {
     }
     this.clearDrag();
     this._removeEventListeners();
-    // alow href clicks
+    // allow href clicks
     setTimeout(() => {
       this.blockLinkClicks = false;
     }, 0);
   }
 
+
+  /**
+   * Click handler. Prevents href follow while swiping. 
+   */
   clickHandler(e) {
     if (this.blockLinkClicks) {
       e.preventDefault();
