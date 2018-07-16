@@ -29,22 +29,16 @@
       <div class="home-popular">
 
         <simple-carousel>
+          @for($i = 0; $i < 4; $i++)
           <div class="home-popular_item">
-            <a href="/#">
+            <a href="#">
               <div class="image image--1-1"></div>
             </a>
             <div class="home-popular_title">
-              <a href="/#">Popular article title</a>
+              <a href="#">Popular article title, medium long...</a>
             </div>
           </div>
-          <div class="home-popular_item">
-            <a href="/#">
-              <div class="image image--1-1"></div>
-            </a>
-            <div class="home-popular_title">
-              <a href="/#">Popular article title, medium long...</a>
-            </div>
-          </div>
+          @endfor
         </simple-carousel>
       </div>
     </div>

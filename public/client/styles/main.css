@@ -1962,8 +1962,6 @@ a:hover, a:focus {
   padding: 8px 0;
   background-color: white;
   font-family: "Roboto", sans-serif;
-  border: 1px solid white;
-  outline: 1px solid white;
 }
 
 .details--fixed {
@@ -1971,6 +1969,8 @@ a:hover, a:focus {
   top: 0;
   left: 0;
   padding: 8px 16px;
+  border: 1px solid white;
+  outline: 1px solid white;
   -webkit-transform: translateY(-100%);
           transform: translateY(-100%);
   z-index: 2;
@@ -2357,7 +2357,7 @@ a:hover, a:focus {
   }
 }
 
-@media (min-width: 720px) {
+@media (min-width: 840px) {
   .home-popular_item {
     width: 25%;
   }

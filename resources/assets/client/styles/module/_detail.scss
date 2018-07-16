@@ -3,14 +3,14 @@
   padding: (2 * $baseline) 0;
   background-color: white;
   font-family: $font-family-sans-serif;
-  border: 1px solid white;
-  outline: 1px solid white;
 
   &--fixed {
     position: absolute;
     top: 0;
     left: 0;
     padding: (2 * $baseline) (4 * $baseline);
+    border: 1px solid white;
+    outline: 1px solid white;
     transform: translateY(-100%);
     z-index: 2;
   }
