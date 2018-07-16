@@ -27,10 +27,9 @@ export default class Siema {
     this.currentSlide = this.config.loop ?
       this.config.startIndex % this.innerElements.length :
       Math.max(0, Math.min(this.config.startIndex, this.innerElements.length - this.perPage));
-    this.transformProperty = Siema.webkitOrNot();
 
     // Bind all event handlers for referencability
-    ['resizeHandler', 'touchstartHandler', 'touchendHandler', 'touchmoveHandler', 'mousedownHandler', 'mouseupHandler', 'mouseleaveHandler', 'mousemoveHandler', 'clickHandler'].forEach(method => {
+    ['resizeHandler', 'touchstartHandler', 'touchendHandler', 'touchmoveHandler', 'clickHandler'].forEach(method => {
       this[method] = this[method].bind(this);
     });
 
@@ -70,19 +69,6 @@ export default class Siema {
 
 
   /**
-   * Determine if browser supports unprefixed transform property.
-   * Google Chrome since version 26 supports prefix-less transform
-   * @returns {string} - Transform property supported by client.
-   */
-  static webkitOrNot() {
-    const style = document.documentElement.style;
-    if (typeof style.transform === 'string') {
-      return 'transform';
-    }
-    return 'WebkitTransform';
-  }
-
-  /**
    * Attaches listeners to required events.
    */
   attachEvents() {
@@ -93,27 +79,16 @@ export default class Siema {
     if (this.config.draggable) {
       // Keep track pointer hold and dragging distance
       this.pointerDown = false;
+      this.blockLinkClicks = false;
       this.drag = {
         startX: 0,
         endX: 0,
-        startY: 0,
-        letItGo: null,
-        preventClick: false,
       };
 
       // Touch events
       this.selector.addEventListener('touchstart', this.touchstartHandler);
-      this.selector.addEventListener('touchend', this.touchendHandler);
-      this.selector.addEventListener('touchmove', this.touchmoveHandler);
-
-      // Mouse events
-      this.selector.addEventListener('mousedown', this.mousedownHandler);
-      this.selector.addEventListener('mouseup', this.mouseupHandler);
-      this.selector.addEventListener('mouseleave', this.mouseleaveHandler);
-      this.selector.addEventListener('mousemove', this.mousemoveHandler);
-
-      // Click
-      this.selector.addEventListener('click', this.clickHandler);
+      this.selector.addEventListener('mousedown', this.touchstartHandler);
+      this.selector.addEventListener('click', this.clickHandler, true);
     }
   }
 
@@ -124,12 +99,7 @@ export default class Siema {
   detachEvents() {
     window.removeEventListener('resize', this.resizeHandler);
     this.selector.removeEventListener('touchstart', this.touchstartHandler);
-    this.selector.removeEventListener('touchend', this.touchendHandler);
-    this.selector.removeEventListener('touchmove', this.touchmoveHandler);
-    this.selector.removeEventListener('mousedown', this.mousedownHandler);
-    this.selector.removeEventListener('mouseup', this.mouseupHandler);
-    this.selector.removeEventListener('mouseleave', this.mouseleaveHandler);
-    this.selector.removeEventListener('mousemove', this.mousemoveHandler);
+    this.selector.removeEventListener('mousedown', this.touchstartHandler);
     this.selector.removeEventListener('click', this.clickHandler);
   }
 
@@ -253,7 +223,7 @@ export default class Siema {
         const offset = (this.config.rtl ? 1 : -1) * moveTo * (this.selectorWidth / this.perPage);
         const dragDistance = this.config.draggable ? this.drag.endX - this.drag.startX : 0;
 
-        this.sliderFrame.style[this.transformProperty] = `translate3d(${offset + dragDistance}px, 0, 0)`;
+        this.sliderFrame.style.transform = `translateX(${offset + dragDistance}px)`;
         this.currentSlide = mirrorSlideIndex - howManySlides;
       }
       else {
@@ -298,7 +268,7 @@ export default class Siema {
         const offset = (this.config.rtl ? 1 : -1) * moveTo * (this.selectorWidth / this.perPage);
         const dragDistance = this.config.draggable ? this.drag.endX - this.drag.startX : 0;
 
-        this.sliderFrame.style[this.transformProperty] = `translate3d(${offset + dragDistance}px, 0, 0)`;
+        this.sliderFrame.style.transform = `translateX(${offset + dragDistance}px)`;
         this.currentSlide = mirrorSlideIndex + howManySlides;
       }
       else {
@@ -322,8 +292,7 @@ export default class Siema {
    * Disable transition on sliderFrame.
    */
   disableTransition() {
-    this.sliderFrame.style.webkitTransition = `all 0ms ${this.config.easing}`;
-    this.sliderFrame.style.transition = `all 0ms ${this.config.easing}`;
+    this.sliderFrame.style.transition = '';
   }
 
 
@@ -331,8 +300,7 @@ export default class Siema {
    * Enable transition on sliderFrame.
    */
   enableTransition() {
-    this.sliderFrame.style.webkitTransition = `all ${this.config.duration}ms ${this.config.easing}`;
-    this.sliderFrame.style.transition = `all ${this.config.duration}ms ${this.config.easing}`;
+    this.sliderFrame.style.transition = `transform ${this.config.duration}ms ${this.config.easing}`;
   }
 
 
@@ -372,12 +340,12 @@ export default class Siema {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           this.enableTransition();
-          this.sliderFrame.style[this.transformProperty] = `translate3d(${offset}px, 0, 0)`;
+          this.sliderFrame.style.transform = `translateX(${offset}px)`;
         });
       });
     }
     else {
-      this.sliderFrame.style[this.transformProperty] = `translate3d(${offset}px, 0, 0)`;
+      this.sliderFrame.style.transform = `translateX(${offset}px)`;
     }
   }
 
@@ -429,9 +397,6 @@ export default class Siema {
     this.drag = {
       startX: 0,
       endX: 0,
-      startY: 0,
-      letItGo: null,
-      preventClick: this.drag.preventClick
     };
   }
 
@@ -446,24 +411,10 @@ export default class Siema {
       return;
     }
 
-    e.stopPropagation();
     this.pointerDown = true;
-    this.drag.startX = e.touches[0].pageX;
-    this.drag.startY = e.touches[0].pageY;
-  }
-
-
-  /**
-   * touchend event handler
-   */
-  touchendHandler(e) {
-    e.stopPropagation();
-    this.pointerDown = false;
-    this.enableTransition();
-    if (this.drag.endX) {
-      this.updateAfterDrag();
-    }
-    this.clearDrag();
+    this.drag.startX = e.pageX || e.touches[0].pageX;
+    this._addEventListeners();
+    e.preventDefault();
   }
 
 
@@ -471,113 +422,46 @@ export default class Siema {
    * touchmove event handler
    */
   touchmoveHandler(e) {
-    e.stopPropagation();
-
-    if (this.drag.letItGo === null) {
-      this.drag.letItGo = Math.abs(this.drag.startY - e.touches[0].pageY) < Math.abs(this.drag.startX - e.touches[0].pageX);
-    }
-
-    if (this.pointerDown && this.drag.letItGo) {
-      e.preventDefault();
-      this.drag.endX = e.touches[0].pageX;
-      this.sliderFrame.style.webkitTransition = `all 0ms ${this.config.easing}`;
-      this.sliderFrame.style.transition = `all 0ms ${this.config.easing}`;
-
-      const currentSlide = this.config.loop ? this.currentSlide + this.perPage : this.currentSlide;
-      const currentOffset = currentSlide * (this.selectorWidth / this.perPage);
-      const dragOffset = (this.drag.endX - this.drag.startX);
-      const offset = this.config.rtl ? currentOffset + dragOffset : currentOffset - dragOffset;
-      this.sliderFrame.style[this.transformProperty] = `translate3d(${(this.config.rtl ? 1 : -1) * offset}px, 0, 0)`;
-    }
-  }
-
-
-  /**
-   * mousedown event handler
-   */
-  mousedownHandler(e) {
-    // Prevent dragging / swiping on inputs, selects and textareas
-    const ignoreSiema = ['TEXTAREA', 'OPTION', 'INPUT', 'SELECT'].indexOf(e.target.nodeName) !== -1;
-    if (ignoreSiema) {
+    if (!this.pointerDown) {
       return;
     }
+    
+    const pageX = e.pageX || e.touches[0].pageX;
+    this.drag.endX = pageX;
+    this.blockLinkClicks = true;
+    this.sliderFrame.style.transition = '';
+    
+    const currentSlide = this.config.loop ? this.currentSlide + this.perPage : this.currentSlide;
+    const currentOffset = currentSlide * (this.selectorWidth / this.perPage);
+    const dragOffset = (this.drag.endX - this.drag.startX);
+    const offset = this.config.rtl ? currentOffset + dragOffset : currentOffset - dragOffset;
+    this.sliderFrame.style.transform = `translateX(${(this.config.rtl ? 1 : -1) * offset}px)`;
 
     e.preventDefault();
-    // e.stopPropagation();
-    this.pointerDown = true;
-    this.drag.startX = e.pageX;
   }
 
 
   /**
-   * mouseup event handler
+   * touchend event handler
    */
-  mouseupHandler(e) {
-    // e.stopPropagation();
-    e.preventDefault();
+  touchendHandler(e) {
     this.pointerDown = false;
-    this.selector.style.cursor = '-webkit-grab';
     this.enableTransition();
     if (this.drag.endX) {
       this.updateAfterDrag();
     }
     this.clearDrag();
+    this._removeEventListeners();
+    // alow href clicks
+    setTimeout(() => {
+      this.blockLinkClicks = false;
+    }, 0);
   }
 
-
-  /**
-   * mousemove event handler
-   */
-  mousemoveHandler(e) {
-    e.preventDefault();
-    if (this.pointerDown) {
-      // if dragged element is a link
-      // mark preventClick prop as a true
-      // to detemine about browser redirection later on
-      if (e.target.nodeName === 'A') {
-        this.drag.preventClick = true;
-      }
-
-      this.drag.endX = e.pageX;
-      this.selector.style.cursor = '-webkit-grabbing';
-      this.sliderFrame.style.webkitTransition = `all 0ms ${this.config.easing}`;
-      this.sliderFrame.style.transition = `all 0ms ${this.config.easing}`;
-
-      const currentSlide = this.config.loop ? this.currentSlide + this.perPage : this.currentSlide;
-      const currentOffset = currentSlide * (this.selectorWidth / this.perPage);
-      const dragOffset = (this.drag.endX - this.drag.startX);
-      const offset = this.config.rtl ? currentOffset + dragOffset : currentOffset - dragOffset;
-      this.sliderFrame.style[this.transformProperty] = `translate3d(${(this.config.rtl ? 1 : -1) * offset}px, 0, 0)`;
-    }
-  }
-
-
-  /**
-   * mouseleave event handler
-   */
-  mouseleaveHandler(e) {
-    if (this.pointerDown) {
-      this.pointerDown = false;
-      this.selector.style.cursor = '-webkit-grab';
-      this.drag.endX = e.pageX;
-      this.drag.preventClick = false;
-      this.enableTransition();
-      this.updateAfterDrag();
-      this.clearDrag();
-    }
-  }
-
-
-  /**
-   * click event handler
-   */
   clickHandler(e) {
-    // if the dragged element is a link
-    // prevent browsers from folowing the link
-    if (this.drag.preventClick) {
+    if (this.blockLinkClicks) {
       e.preventDefault();
     }
-    this.drag.preventClick = false;
   }
 
 
@@ -690,5 +574,30 @@ export default class Siema {
     if (callback) {
       callback.call(this);
     }
+  }
+
+  /**
+   * Convinience method for attaching event listeners. Fires on touchstart.
+   */
+  _addEventListeners() {
+    // Touch events
+    document.addEventListener('touchend', this.touchendHandler);
+    document.addEventListener('touchcancel', this.touchendHandler);
+    document.addEventListener('touchmove', this.touchmoveHandler);
+
+    // Mouse events
+    document.addEventListener('mousemove', this.touchmoveHandler);
+    document.addEventListener('mouseup', this.touchendHandler);
+  }
+
+  /**
+   * Convinience method for removing event listeners. Fires on touchend/touchcancel.
+   */
+  _removeEventListeners() {
+    document.removeEventListener('touchend', this.touchendHandler);
+    document.removeEventListener('touchcancel', this.touchendHandler);
+    document.removeEventListener('touchmove', this.touchmoveHandler);
+    document.removeEventListener('mousemove', this.touchmoveHandler);
+    document.removeEventListener('mouseup', this.touchendHandler);
   }
 }

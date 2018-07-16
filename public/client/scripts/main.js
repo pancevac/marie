@@ -1651,10 +1651,9 @@ var Siema = function () {
     this.selectorWidth = this.selector.offsetWidth;
     this.innerElements = [].slice.call(this.selector.children);
     this.currentSlide = this.config.loop ? this.config.startIndex % this.innerElements.length : Math.max(0, Math.min(this.config.startIndex, this.innerElements.length - this.perPage));
-    this.transformProperty = Siema.webkitOrNot();
 
     // Bind all event handlers for referencability
-    ['resizeHandler', 'touchstartHandler', 'touchendHandler', 'touchmoveHandler', 'mousedownHandler', 'mouseupHandler', 'mouseleaveHandler', 'mousemoveHandler', 'clickHandler'].forEach(function (method) {
+    ['resizeHandler', 'touchstartHandler', 'touchendHandler', 'touchmoveHandler', 'clickHandler'].forEach(function (method) {
       _this[method] = _this[method].bind(_this);
     });
 
@@ -1684,27 +1683,16 @@ var Siema = function () {
       if (this.config.draggable) {
         // Keep track pointer hold and dragging distance
         this.pointerDown = false;
+        this.blockLinkClicks = false;
         this.drag = {
           startX: 0,
-          endX: 0,
-          startY: 0,
-          letItGo: null,
-          preventClick: false
+          endX: 0
         };
 
         // Touch events
         this.selector.addEventListener('touchstart', this.touchstartHandler);
-        this.selector.addEventListener('touchend', this.touchendHandler);
-        this.selector.addEventListener('touchmove', this.touchmoveHandler);
-
-        // Mouse events
-        this.selector.addEventListener('mousedown', this.mousedownHandler);
-        this.selector.addEventListener('mouseup', this.mouseupHandler);
-        this.selector.addEventListener('mouseleave', this.mouseleaveHandler);
-        this.selector.addEventListener('mousemove', this.mousemoveHandler);
-
-        // Click
-        this.selector.addEventListener('click', this.clickHandler);
+        this.selector.addEventListener('mousedown', this.touchstartHandler);
+        this.selector.addEventListener('click', this.clickHandler, true);
       }
     }
 
@@ -1717,12 +1705,7 @@ var Siema = function () {
     value: function detachEvents() {
       window.removeEventListener('resize', this.resizeHandler);
       this.selector.removeEventListener('touchstart', this.touchstartHandler);
-      this.selector.removeEventListener('touchend', this.touchendHandler);
-      this.selector.removeEventListener('touchmove', this.touchmoveHandler);
-      this.selector.removeEventListener('mousedown', this.mousedownHandler);
-      this.selector.removeEventListener('mouseup', this.mouseupHandler);
-      this.selector.removeEventListener('mouseleave', this.mouseleaveHandler);
-      this.selector.removeEventListener('mousemove', this.mousemoveHandler);
+      this.selector.removeEventListener('mousedown', this.touchstartHandler);
       this.selector.removeEventListener('click', this.clickHandler);
     }
 
@@ -1857,7 +1840,7 @@ var Siema = function () {
           var offset = (this.config.rtl ? 1 : -1) * moveTo * (this.selectorWidth / this.perPage);
           var dragDistance = this.config.draggable ? this.drag.endX - this.drag.startX : 0;
 
-          this.sliderFrame.style[this.transformProperty] = 'translate3d(' + (offset + dragDistance) + 'px, 0, 0)';
+          this.sliderFrame.style.transform = 'translateX(' + (offset + dragDistance) + 'px)';
           this.currentSlide = mirrorSlideIndex - howManySlides;
         } else {
           this.currentSlide = this.currentSlide - howManySlides;
@@ -1905,7 +1888,7 @@ var Siema = function () {
           var offset = (this.config.rtl ? 1 : -1) * moveTo * (this.selectorWidth / this.perPage);
           var dragDistance = this.config.draggable ? this.drag.endX - this.drag.startX : 0;
 
-          this.sliderFrame.style[this.transformProperty] = 'translate3d(' + (offset + dragDistance) + 'px, 0, 0)';
+          this.sliderFrame.style.transform = 'translateX(' + (offset + dragDistance) + 'px)';
           this.currentSlide = mirrorSlideIndex + howManySlides;
         } else {
           this.currentSlide = this.currentSlide + howManySlides;
@@ -1929,8 +1912,7 @@ var Siema = function () {
   }, {
     key: 'disableTransition',
     value: function disableTransition() {
-      this.sliderFrame.style.webkitTransition = 'all 0ms ' + this.config.easing;
-      this.sliderFrame.style.transition = 'all 0ms ' + this.config.easing;
+      this.sliderFrame.style.transition = '';
     }
 
     /**
@@ -1940,8 +1922,7 @@ var Siema = function () {
   }, {
     key: 'enableTransition',
     value: function enableTransition() {
-      this.sliderFrame.style.webkitTransition = 'all ' + this.config.duration + 'ms ' + this.config.easing;
-      this.sliderFrame.style.transition = 'all ' + this.config.duration + 'ms ' + this.config.easing;
+      this.sliderFrame.style.transition = 'transform ' + this.config.duration + 'ms ' + this.config.easing;
     }
 
     /**
@@ -1985,11 +1966,11 @@ var Siema = function () {
         requestAnimationFrame(function () {
           requestAnimationFrame(function () {
             _this2.enableTransition();
-            _this2.sliderFrame.style[_this2.transformProperty] = 'translate3d(' + offset + 'px, 0, 0)';
+            _this2.sliderFrame.style.transform = 'translateX(' + offset + 'px)';
           });
         });
       } else {
-        this.sliderFrame.style[this.transformProperty] = 'translate3d(' + offset + 'px, 0, 0)';
+        this.sliderFrame.style.transform = 'translateX(' + offset + 'px)';
       }
     }
 
@@ -2045,10 +2026,7 @@ var Siema = function () {
     value: function clearDrag() {
       this.drag = {
         startX: 0,
-        endX: 0,
-        startY: 0,
-        letItGo: null,
-        preventClick: this.drag.preventClick
+        endX: 0
       };
     }
 
@@ -2065,26 +2043,10 @@ var Siema = function () {
         return;
       }
 
-      e.stopPropagation();
       this.pointerDown = true;
-      this.drag.startX = e.touches[0].pageX;
-      this.drag.startY = e.touches[0].pageY;
-    }
-
-    /**
-     * touchend event handler
-     */
-
-  }, {
-    key: 'touchendHandler',
-    value: function touchendHandler(e) {
-      e.stopPropagation();
-      this.pointerDown = false;
-      this.enableTransition();
-      if (this.drag.endX) {
-        this.updateAfterDrag();
-      }
-      this.clearDrag();
+      this.drag.startX = e.pageX || e.touches[0].pageX;
+      this._addEventListeners();
+      e.preventDefault();
     }
 
     /**
@@ -2094,123 +2056,51 @@ var Siema = function () {
   }, {
     key: 'touchmoveHandler',
     value: function touchmoveHandler(e) {
-      e.stopPropagation();
-
-      if (this.drag.letItGo === null) {
-        this.drag.letItGo = Math.abs(this.drag.startY - e.touches[0].pageY) < Math.abs(this.drag.startX - e.touches[0].pageX);
-      }
-
-      if (this.pointerDown && this.drag.letItGo) {
-        e.preventDefault();
-        this.drag.endX = e.touches[0].pageX;
-        this.sliderFrame.style.webkitTransition = 'all 0ms ' + this.config.easing;
-        this.sliderFrame.style.transition = 'all 0ms ' + this.config.easing;
-
-        var currentSlide = this.config.loop ? this.currentSlide + this.perPage : this.currentSlide;
-        var currentOffset = currentSlide * (this.selectorWidth / this.perPage);
-        var dragOffset = this.drag.endX - this.drag.startX;
-        var offset = this.config.rtl ? currentOffset + dragOffset : currentOffset - dragOffset;
-        this.sliderFrame.style[this.transformProperty] = 'translate3d(' + (this.config.rtl ? 1 : -1) * offset + 'px, 0, 0)';
-      }
-    }
-
-    /**
-     * mousedown event handler
-     */
-
-  }, {
-    key: 'mousedownHandler',
-    value: function mousedownHandler(e) {
-      // Prevent dragging / swiping on inputs, selects and textareas
-      var ignoreSiema = ['TEXTAREA', 'OPTION', 'INPUT', 'SELECT'].indexOf(e.target.nodeName) !== -1;
-      if (ignoreSiema) {
+      if (!this.pointerDown) {
         return;
       }
 
+      var pageX = e.pageX || e.touches[0].pageX;
+      this.drag.endX = pageX;
+      this.blockLinkClicks = true;
+      this.sliderFrame.style.transition = '';
+
+      var currentSlide = this.config.loop ? this.currentSlide + this.perPage : this.currentSlide;
+      var currentOffset = currentSlide * (this.selectorWidth / this.perPage);
+      var dragOffset = this.drag.endX - this.drag.startX;
+      var offset = this.config.rtl ? currentOffset + dragOffset : currentOffset - dragOffset;
+      this.sliderFrame.style.transform = 'translateX(' + (this.config.rtl ? 1 : -1) * offset + 'px)';
+
       e.preventDefault();
-      // e.stopPropagation();
-      this.pointerDown = true;
-      this.drag.startX = e.pageX;
     }
 
     /**
-     * mouseup event handler
+     * touchend event handler
      */
 
   }, {
-    key: 'mouseupHandler',
-    value: function mouseupHandler(e) {
-      // e.stopPropagation();
-      e.preventDefault();
+    key: 'touchendHandler',
+    value: function touchendHandler(e) {
+      var _this3 = this;
+
       this.pointerDown = false;
-      this.selector.style.cursor = '-webkit-grab';
       this.enableTransition();
       if (this.drag.endX) {
         this.updateAfterDrag();
       }
       this.clearDrag();
+      this._removeEventListeners();
+      // alow href clicks
+      setTimeout(function () {
+        _this3.blockLinkClicks = false;
+      }, 0);
     }
-
-    /**
-     * mousemove event handler
-     */
-
-  }, {
-    key: 'mousemoveHandler',
-    value: function mousemoveHandler(e) {
-      e.preventDefault();
-      if (this.pointerDown) {
-        // if dragged element is a link
-        // mark preventClick prop as a true
-        // to detemine about browser redirection later on
-        if (e.target.nodeName === 'A') {
-          this.drag.preventClick = true;
-        }
-
-        this.drag.endX = e.pageX;
-        this.selector.style.cursor = '-webkit-grabbing';
-        this.sliderFrame.style.webkitTransition = 'all 0ms ' + this.config.easing;
-        this.sliderFrame.style.transition = 'all 0ms ' + this.config.easing;
-
-        var currentSlide = this.config.loop ? this.currentSlide + this.perPage : this.currentSlide;
-        var currentOffset = currentSlide * (this.selectorWidth / this.perPage);
-        var dragOffset = this.drag.endX - this.drag.startX;
-        var offset = this.config.rtl ? currentOffset + dragOffset : currentOffset - dragOffset;
-        this.sliderFrame.style[this.transformProperty] = 'translate3d(' + (this.config.rtl ? 1 : -1) * offset + 'px, 0, 0)';
-      }
-    }
-
-    /**
-     * mouseleave event handler
-     */
-
-  }, {
-    key: 'mouseleaveHandler',
-    value: function mouseleaveHandler(e) {
-      if (this.pointerDown) {
-        this.pointerDown = false;
-        this.selector.style.cursor = '-webkit-grab';
-        this.drag.endX = e.pageX;
-        this.drag.preventClick = false;
-        this.enableTransition();
-        this.updateAfterDrag();
-        this.clearDrag();
-      }
-    }
-
-    /**
-     * click event handler
-     */
-
   }, {
     key: 'clickHandler',
     value: function clickHandler(e) {
-      // if the dragged element is a link
-      // prevent browsers from folowing the link
-      if (this.drag.preventClick) {
+      if (this.blockLinkClicks) {
         e.preventDefault();
       }
-      this.drag.preventClick = false;
     }
 
     /**
@@ -2337,6 +2227,37 @@ var Siema = function () {
         callback.call(this);
       }
     }
+
+    /**
+     * Convinience method for attaching event listeners. Fires on touchstart.
+     */
+
+  }, {
+    key: '_addEventListeners',
+    value: function _addEventListeners() {
+      // Touch events
+      document.addEventListener('touchend', this.touchendHandler);
+      document.addEventListener('touchcancel', this.touchendHandler);
+      document.addEventListener('touchmove', this.touchmoveHandler);
+
+      // Mouse events
+      document.addEventListener('mousemove', this.touchmoveHandler);
+      document.addEventListener('mouseup', this.touchendHandler);
+    }
+
+    /**
+     * Convinience method for removing event listeners. Fires on touchend/touchcancel.
+     */
+
+  }, {
+    key: '_removeEventListeners',
+    value: function _removeEventListeners() {
+      document.removeEventListener('touchend', this.touchendHandler);
+      document.removeEventListener('touchcancel', this.touchendHandler);
+      document.removeEventListener('touchmove', this.touchmoveHandler);
+      document.removeEventListener('mousemove', this.touchmoveHandler);
+      document.removeEventListener('mouseup', this.touchendHandler);
+    }
   }], [{
     key: 'mergeSettings',
     value: function mergeSettings(options) {
@@ -2361,22 +2282,6 @@ var Siema = function () {
       }
 
       return settings;
-    }
-
-    /**
-     * Determine if browser supports unprefixed transform property.
-     * Google Chrome since version 26 supports prefix-less transform
-     * @returns {string} - Transform property supported by client.
-     */
-
-  }, {
-    key: 'webkitOrNot',
-    value: function webkitOrNot() {
-      var style = document.documentElement.style;
-      if (typeof style.transform === 'string') {
-        return 'transform';
-      }
-      return 'WebkitTransform';
     }
   }]);
 
