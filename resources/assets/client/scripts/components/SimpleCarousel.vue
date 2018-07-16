@@ -1,14 +1,11 @@
 <template>
-  <div class="wrap" ref="wrap">
-    <div class="host"
-      v-on:touchstart='onTouchStart'
-      v-on:mousedown='onTouchStart'
-      v-bind:style='{transform: translateX}'
-    >
-      <div class="track" ref="track">
-        <slot></slot>
-      </div>
-    </div>
+  <div class="host"
+    ref="host"
+    v-on:touchstart='onTouchStart'
+    v-on:mousedown='onTouchStart'
+    v-bind:style='{transform: translateX, transition}'
+  >
+    <slot></slot>
   </div>
 </template>
 
@@ -17,6 +14,7 @@ export default {
   data() {
     return {
       screenX: 0,
+      animate: false,
     };
   },
 
@@ -24,6 +22,12 @@ export default {
     translateX() {
       return `translateX(${this.screenX}px)`;
     },
+
+    transition() {
+      return this.animate
+        ? 'transform 225ms cubic-bezier(0.0, 0.0, 0.2, 1)'
+        : '';
+    }
   },
 
   mounted() {
@@ -40,8 +44,11 @@ export default {
      * Sets everything up.
      */
     init() {
-      const width = this.$refs.track.getBoundingClientRect().width;
-      const clientWidth = this.$refs.wrap.getBoundingClientRect().width;
+      const host = this.$refs.host;
+      const gBCR = host.getBoundingClientRect();
+      this.length = host.children.length;
+      this.childWidth = host.firstElementChild.getBoundingClientRect().width;
+      this.perView = Math.round(gBCR.width / this.childWidth);
 
       this.isTouching = false;
       this.delta = 0;
@@ -58,6 +65,7 @@ export default {
     onTouchStart(evt) {
       evt.preventDefault();
       this.isTouching = true;
+      this.animate = false;
       this.delta = 0;
       this.startX = evt.pageX || evt.touches[0].pageX;
       this.addEventListeners();
@@ -76,6 +84,7 @@ export default {
      */
     onTouchEnd(evt) {
       this.isTouching = false;
+      this.animate = true;
       this.removeEventListeners();
     },
 
@@ -83,17 +92,30 @@ export default {
      * Responds to user gestures and updates the state accordingly.
      */
     update() {
-      let screenX = this.delta + this.currentX;
-      const x = Math.min(Math.max(this.min, screenX), 0);
-      this.screenX = x;
-
+      this.screenX = this.delta + this.currentX;
+      
       if (this.isTouching) {
         window.requestAnimationFrame(this.update);
         return;
       }
 
-      // update the state for re-render.
-      this.currentX = x;
+      let currentSlide = this.slide;
+      let nextSlide = currentSlide;
+      const clearance = .25 * this.childWidth;
+      const slidesMoved = Math.floor(Math.abs(this.delta / this.childWidth));
+
+      if (this.delta < -clearance) {
+        nextSlide = currentSlide + (1 + slidesMoved);
+      } else if (this.delta > clearance) {
+        nextSlide = currentSlide - (1 + slidesMoved);
+      }
+
+      const min = 0;
+      const max = this.length - this.perView;
+      // Make sure value is in range.
+      this.slide = Math.max(min, Math.min(nextSlide, max));
+      this.currentX = -(this.slide * this.childWidth);
+      this.screenX = this.currentX;
     },
 
     /**
@@ -141,23 +163,14 @@ export default {
     display: block;
     white-space: nowrap;
     overflow-x: visible;
-    transform: translateX(0);
     will-change: transform;
+    transform: translateX(0);
     font-size: 0;
   }
 
-  .wrap {
-    overflow: hidden;
-  }
-
-  .track {
+  .host > * {
     display: inline-block;
     overflow: hidden;
     font-size: initial;
   }
-
-  .track > * {
-    display: inline-block;
-  }
 </style>
-

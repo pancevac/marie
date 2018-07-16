@@ -991,29 +991,18 @@ module.exports = __webpack_require__(377);
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_Vue, Vue) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_lazy_images__ = __webpack_require__(378);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_carousel__ = __webpack_require__(391);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_carousel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_carousel__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(379);
 __webpack_provided_window_dot_Vue = __webpack_require__(7);
-
-
 
 
 Vue.component('my-header', __webpack_require__(380));
 Vue.component('tab-bar', __webpack_require__(383));
+Vue.component('simple-carousel', __webpack_require__(388));
 
 var mc = new Vue({
   el: '#app'
 });
 
 __WEBPACK_IMPORTED_MODULE_0__components_lazy_images__["a" /* default */].init();
-
-var carousel = Object(__WEBPACK_IMPORTED_MODULE_1__components_carousel__["createCarousel"])('.js-carousel');
-Array.from(document.querySelectorAll('.js-carousel')).map(function (el) {
-  var config = Object(__WEBPACK_IMPORTED_MODULE_2__utils__["a" /* parseString */])(el.dataset.config);
-  console.log(config);
-  return Object(__WEBPACK_IMPORTED_MODULE_1__components_carousel__["createCarousel"])(el, config);
-});
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(7), __webpack_require__(7)))
 
 /***/ }),
@@ -1159,7 +1148,7 @@ var LazyImages = function () {
         return;
       }
 
-      Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* preloadImage */])(src).then(function (evt) {
+      Object(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* preloadImage */])(src).then(function (evt) {
         return _this4._applyImage(wrap, evt.target, alt);
       }).catch(function (err) {
         return console.error(err.message);
@@ -1196,9 +1185,9 @@ var LazyImages = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return preloadImage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return preloadImage; });
 /* unused harmony export toBool */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return parseString; });
+/* unused harmony export parseString */
 /**
  * Preloads the image with the given src.
  *
@@ -1495,11 +1484,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.isTouching = false;
       this.delta = 0;
       this.currentX = 0;
-      this.min = 0;
-
-      if (width > clientWidth) {
-        this.min = -(width - clientWidth);
-      }
+      this.slide = 0;
 
       // reset state
       this.screenX = 0;
@@ -1637,11 +1622,301 @@ if (false) {
 
 /***/ }),
 
+/***/ 388:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(389)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(391)
+/* template */
+var __vue_template__ = __webpack_require__(392)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-70b6c4d2"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\client\\scripts\\components\\SimpleCarousel.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-70b6c4d2", Component.options)
+  } else {
+    hotAPI.reload("data-v-70b6c4d2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 389:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(390);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("70897965", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-70b6c4d2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SimpleCarousel.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-70b6c4d2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SimpleCarousel.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 390:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.host[data-v-70b6c4d2] {\n  display: block;\n  white-space: nowrap;\n  overflow-x: visible;\n  will-change: transform;\n  -webkit-transform: translateX(0);\n          transform: translateX(0);\n  font-size: 0;\n}\n.host > *[data-v-70b6c4d2] {\n  display: inline-block;\n  overflow: hidden;\n  font-size: initial;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ 391:
-/***/ (function(module, __webpack_exports__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'C:\\Users\\Ministudio III\\Documents\\Projects\\marie\\resources\\assets\\client\\scripts\\components\\carousel.js'");
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      screenX: 0,
+      animate: false
+    };
+  },
+
+
+  computed: {
+    translateX: function translateX() {
+      return 'translateX(' + this.screenX + 'px)';
+    },
+    transition: function transition() {
+      return this.animate ? 'transform 225ms cubic-bezier(0.0, 0.0, 0.2, 1)' : '';
+    }
+  },
+
+  mounted: function mounted() {
+    this.init();
+    window.addEventListener('resize', this.onResize);
+  },
+  destroyed: function destroyed() {
+    window.removeEventListener('resize', this.onResize);
+  },
+
+
+  methods: {
+    /**
+     * Sets everything up.
+     */
+    init: function init() {
+      var host = this.$refs.host;
+      var gBCR = host.getBoundingClientRect();
+      this.length = host.children.length;
+      this.childWidth = host.firstElementChild.getBoundingClientRect().width;
+      this.perView = Math.round(gBCR.width / this.childWidth);
+
+      this.isTouching = false;
+      this.delta = 0;
+      this.currentX = 0;
+      this.slide = 0;
+
+      // reset state
+      this.screenX = 0;
+    },
+
+
+    /**
+     * Touchstart/mousedown event handler.
+     */
+    onTouchStart: function onTouchStart(evt) {
+      evt.preventDefault();
+      this.isTouching = true;
+      this.animate = false;
+      this.delta = 0;
+      this.startX = evt.pageX || evt.touches[0].pageX;
+      this.addEventListeners();
+      window.requestAnimationFrame(this.update);
+    },
+
+
+    /**
+     * Touchmove, mousemove event handler.
+     */
+    onTouchMove: function onTouchMove(evt) {
+      this.delta = (evt.pageX || evt.touches[0].pageX) - this.startX;
+    },
+
+
+    /**
+     * Touchend/touchcancel/mouseup event handler.
+     */
+    onTouchEnd: function onTouchEnd(evt) {
+      this.isTouching = false;
+      this.animate = true;
+      this.removeEventListeners();
+    },
+
+
+    /**
+     * Responds to user gestures and updates the state accordingly.
+     */
+    update: function update() {
+      this.screenX = this.delta + this.currentX;
+
+      if (this.isTouching) {
+        window.requestAnimationFrame(this.update);
+        return;
+      }
+
+      var currentSlide = this.slide;
+      var nextSlide = currentSlide;
+      var clearance = .25 * this.childWidth;
+      var slidesMoved = Math.floor(Math.abs(this.delta / this.childWidth));
+
+      if (this.delta < -clearance) {
+        nextSlide = currentSlide + (1 + slidesMoved);
+      } else if (this.delta > clearance) {
+        nextSlide = currentSlide - (1 + slidesMoved);
+      }
+
+      var min = 0;
+      var max = this.length - this.perView;
+      // Make sure value is in range.
+      this.slide = Math.max(min, Math.min(nextSlide, max));
+      this.currentX = -(this.slide * this.childWidth);
+      this.screenX = this.currentX;
+    },
+
+
+    /**
+     * Resize event handler. Fires after the resize has finished.
+     * https://css-tricks.com/snippets/jquery/done-resizing-event/
+     */
+    onResize: function onResize(evt) {
+      var _this = this;
+
+      clearTimeout(this.resizeTimer);
+      this.resizeTimer = setTimeout(function () {
+        _this.init();
+      }, 250);
+    },
+
+
+    /**
+     * Convinience method for attaching event handlers to the
+     * document object. Fires on touchstart
+     */
+    addEventListeners: function addEventListeners() {
+      // mouse events
+      document.addEventListener('mousemove', this.onTouchMove);
+      document.addEventListener('mouseup', this.onTouchEnd);
+      // touch events
+      document.addEventListener('touchmove', this.onTouchMove);
+      document.addEventListener('touchend', this.onTouchEnd);
+      document.addEventListener('touchcancel', this.onTouchEnd);
+    },
+
+
+    /**
+     * Convinience method for detaching event listeners from the
+     * docuement object. Fires on touchend.
+     */
+    removeEventListeners: function removeEventListeners() {
+      document.removeEventListener('mousemove', this.onTouchMove);
+      document.removeEventListener('mouseup', this.onTouchEnd);
+      document.removeEventListener('touchmove', this.onTouchMove);
+      document.removeEventListener('touchend', this.onTouchEnd);
+      document.removeEventListener('touchcancel', this.onTouchEnd);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 392:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      ref: "host",
+      staticClass: "host",
+      style: { transform: _vm.translateX, transition: _vm.transition },
+      on: { touchstart: _vm.onTouchStart, mousedown: _vm.onTouchStart }
+    },
+    [_vm._t("default")],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-70b6c4d2", module.exports)
+  }
+}
 
 /***/ }),
 
