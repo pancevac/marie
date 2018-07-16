@@ -2099,6 +2099,7 @@ var Siema = function () {
       this.clearDrag();
       this._removeEventListeners();
       // allow href clicks
+      // https://github.com/nolimits4web/Swiper/issues/25
       setTimeout(function () {
         _this4.blockLinkClicks = false;
       }, 0);

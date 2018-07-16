@@ -465,6 +465,7 @@ export default class Siema {
     this.clearDrag();
     this._removeEventListeners();
     // allow href clicks
+    // https://github.com/nolimits4web/Swiper/issues/25
     setTimeout(() => {
       this.blockLinkClicks = false;
     }, 0);
