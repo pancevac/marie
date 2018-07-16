@@ -5,29 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Blog;
 use App\Http\Requests\CreatePostRequest;
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use File;
+use Psy\Output\ProcOutputPager;
 
 class PostsController extends Controller
 {
     /**
-     * method used to show posts paginate by 50
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index(){
-        $posts = Post::orderBy('created_at', 'DESC')->paginate(50);
-
-        return response()->json([
-            'posts' => $posts,
-            'blogs' => Blog::getNoParentBlogList(),
-        ]);
-    }
-
-
-    /**
-     *  method used to store new post and return
+     * method used to store new post and return
      *
      * @param CreatePostRequest $request
      * @return \Illuminate\Http\JsonResponse
@@ -35,13 +21,13 @@ class PostsController extends Controller
     public function store(CreatePostRequest $request){
         $post = Post::create($request->except('image'));
         $post->update(['image' => $post->storeImage()]);
-        $post->blogs()->sync(request('blog_ids'));
+        $post->blog()->sync(explode(',', request('blog_ids')));
+        $post->tag()->sync(!empty(request('tag_ids'))? explode(',', request('tag_ids')) : []);
 
         return response()->json([
             'post' => $post,
         ]);
     }
-
 
     /**
      * method used to return post
@@ -51,10 +37,13 @@ class PostsController extends Controller
      */
     public function show(Post $post){
         return response()->json([
-            'blog' => $post,
+            'blogs' => Blog::tree(),
+            'tags' => Tag::select('id', 'title')->published()->get(),
+            'post' => $post,
+            'blog_ids' => $post->blog()->pluck('id'),
+            'tag_ids' => $post->tag()->get(['title', 'id']),
         ]);
     }
-
 
     /**
      * method used to update post and return
@@ -66,12 +55,15 @@ class PostsController extends Controller
     public function update(CreatePostRequest $request, Post $post){
         $post->update($request->except('image'));
         $post->update(['image' => $post->storeImage()]);
+        $post->blog()->sync(explode(',', request('blog_ids')));
+        $post->tag()->sync(!empty(request('tag_ids'))? explode(',', request('tag_ids')) : []);
 
         return response()->json([
             'post' => $post,
+            'blog_ids' => $post->blog()->pluck('id'),
+            'tag_ids' => $post->tag()->pluck('id'),
         ]);
     }
-
 
     /**
      * method used to destroy post
@@ -81,7 +73,6 @@ class PostsController extends Controller
      * @throws \Exception
      */
     public function destroy(Post $post){
-        if(!empty($post->image)) File::delete($post->image);
         $post->delete();
 
         return response()->json([
@@ -90,15 +81,13 @@ class PostsController extends Controller
     }
 
     /**
-     * method used to search posts
+     * method used to search post paginate by 50
      *
-     * @param POST $list
-     * @param POST $text
      * @return \Illuminate\Http\JsonResponse
      */
     public function search(){
         return response()->json([
-            'posts' => Post::search(),
+            'posts' => Post::search()->with('blog')->paginate(Post::$paginate),
         ]);
     }
 }

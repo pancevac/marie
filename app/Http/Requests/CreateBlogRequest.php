@@ -25,6 +25,7 @@ class CreateBlogRequest extends FormRequest
     {
         return [
             'title' => 'required',
+            'slug' => 'required',
         ];
     }
 
@@ -37,6 +38,7 @@ class CreateBlogRequest extends FormRequest
     {
         return [
             'title.required' => 'Naziv kategorije je obavezan',
+            'slug.required' => 'Slug je obavezan',
         ];
     }
 }

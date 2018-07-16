@@ -4,41 +4,35 @@ export default {
 
         /** search product **/
         searchProduct: {
-            text: '',
+            title: '',
             list: 0,
             page: 1,
         },
 
         /** search category **/
         searchCategory: {
-            text: '',
+            title: '',
             list: 0,
             page: 1,
         },
 
         /** search brand **/
         searchBrand: {
-            text: '',
-            page: 1,
-        },
-
-        /** search attribute **/
-        searchAttribute: {
-            text: '',
-            list: 0,
+            title: '',
             page: 1,
         },
 
         /** search post **/
         searchPost: {
-            text: '',
+            title: '',
             list: 0,
             page: 1,
         },
 
-        /** search client **/
-        searchClient: {
-            text: '',
+        /** search tag **/
+        searchTag: {
+            title: '',
+            list: 0,
             page: 1,
         },
     },
@@ -59,11 +53,6 @@ export default {
             return state.searchBrand;
         },
 
-        /** search attribute **/
-        getSearchAttribute: state => {
-            return state.searchAttribute;
-        },
-
         /** search post **/
         getSearchPost: state => {
             return state.searchPost;
@@ -72,6 +61,11 @@ export default {
         /** search client **/
         getSearchClient: state => {
             return state.searchClient;
+        },
+
+        /** search tag **/
+        getSearchTag: state => {
+            return state.searchTag;
         },
     },
     mutations: {
@@ -99,14 +93,6 @@ export default {
             state.searchBrand.page = data;
         },
 
-        /** search attribute **/
-        changeSearchAttribute: (state, data) => {
-            state.searchAttribute = data;
-        },
-        changeSearchAttributePage: (state, data) => {
-            state.searchAttribute.page = data;
-        },
-
         /** search post **/
         changeSearchPost: (state, data) => {
             state.searchPost = data;
@@ -121,6 +107,14 @@ export default {
         },
         changeSearchClientPage: (state, data) => {
             state.searchClient.page = data;
+        },
+
+        /** search tag **/
+        changeSearchTag: (state, data) => {
+            state.searchTag = data;
+        },
+        changeSearchTagPage: (state, data) => {
+            state.searchTag.page = data;
         },
     },
     actions: {
@@ -148,14 +142,6 @@ export default {
             context.commit('changeSearchBrandPage', data);
         },
 
-        /** search attribute **/
-        changeSearchAttribute: (context, data) => {
-            context.commit('changeSearchAttribute', data);
-        },
-        changeSearchAttributePage: (context, data) => {
-            context.commit('changeSearchAttributePage', data);
-        },
-
         /** search post **/
         changeSearchPost: (context, data) => {
             context.commit('changeSearchPost', data);
@@ -170,6 +156,14 @@ export default {
         },
         changeSearchClientPage: (context, data) => {
             context.commit('changeSearchClientPage', data);
+        },
+
+        /** search tag **/
+        changeSearchTag: (context, data) => {
+            context.commit('changeSearchTag', data);
+        },
+        changeSearchTagPage: (context, data) => {
+            context.commit('changeSearchTagPage', data);
         },
     },
 };

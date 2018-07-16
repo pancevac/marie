@@ -28,13 +28,13 @@
 
                             <text-field :value="post.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="post.slug = $event"></text-field>
 
-                            <date-time-picker :label="'Publikovano od'" :value="null" :error="error? error.publish_at : ''" @changeValue="post.publish_at = $event"></date-time-picker>
+                            <date-time-picker :label="'Publikovano od'" :value="post.publish_at" :error="error? error.publish_at : ''" @changeValue="post.publish_at = $event"></date-time-picker>
 
                             <text-area-field :value="post.short" :label="'Kratak opis'" :error="error? error.short : ''" :required="true" @changeValue="post.short = $event"></text-area-field>
 
                             <text-area-ckeditor-field :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
 
-                            <select-multiple-field v-if="tags && false" :error="error? error.tag_ids : ''" :options="tags" :labela="'Tagovi'" @changeValue="post.tag_ids = $event"></select-multiple-field>
+                            <select-multiple-field v-if="tags" :error="error? error.tag_ids : ''" :options="tags" :labela="'Tagovi'" @changeValue="post.tag_ids = $event"></select-multiple-field>
 
                             <checkbox-field :value="post.is_visible" :label="'Publikovano'" @changeValue="post.is_visible = $event"></checkbox-field>
 
@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-sm-4">
                     <upload-image-helper
-                            :image="post.imagePath"
+                            :image="post.image_path"
                             :defaultImage="null"
                             :titleImage="'članka'"
                             :error="error"
@@ -59,10 +59,10 @@
                         <div class="card-body">
                             <h3>Kategorije</h3>
                             <ul class="no-parent">
-                                <li v-for="blog in lists" :key="blog.id">
-                                    <input type="checkbox" v-model="post.blog_ids" :value="blog.id"><label :for="'check-' + blog.id"> {{ blog.title }}</label>
+                                <li v-for="blog in lists" :id="`list_${blog.id}`">
+                                    <label><input type="checkbox" v-model="post.blog_ids" :value="blog.id"> {{ blog.title }}</label>
                                     <ul class="blogs" v-if="blog.children.length > 0">
-                                        <li v-for="sub_blog in blog.children" :key="sub_blog.id">
+                                        <li v-for="sub_blog in blog.children" :id="`list_${sub_blog.id}`">
                                             <label><input type="checkbox" v-model="post.blog_ids" :value="sub_blog.id"> {{ sub_blog.title }}</label>
                                         </li>
                                     </ul>
@@ -85,15 +85,18 @@
     export default {
         data(){
           return {
-              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'is_visible', 'blog_ids'],
+              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'is_visible', 'blog_ids', 'tag_ids'],
               image: {},
               post: {
+                  title: null,
                   blog_ids: [],
+                  tag_ids: [],
                   is_visible: false,
               },
               lists: false,
               tags: false,
               error: null,
+              blog_ids: [],
           }
         },
         computed: {
@@ -110,13 +113,13 @@
         },
         mounted(){
             this.getList();
-            //this.getTags();
+            this.getTags();
         },
         methods: {
             submit(){
-                this.post.user_id = this.user.id;
-                let data = fillForm(this.fillable, this.post);
                 console.log(this.post);
+                this.post.user_id = this.user.id;
+                let data = fillForm(this.fillable, this.post)
                 axios.post('api/posts', data)
                     .then(res => {
                         this.post = res.data.post;
@@ -134,7 +137,7 @@
                     });
             },
             prepare(image){
-                this.post.imagePath = image.src;
+                this.post.image_path = image.src;
                 this.post.image = image.file;
             },
             getList(){
@@ -147,14 +150,9 @@
                     });
             },
             getTags(){
-                axios.get('api/tags/lists')
+                axios.get('api/tags')
                     .then(res => {
                         this.tags = res.data.tags;
-//                        this.tags = _.map(res.data.tags, (data) => {
-//                            var pick = _.pick(data, 'title', 'id');
-//                            var object = {id: pick.id, text: pick.title};
-//                            return object;
-//                        });
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
@@ -164,7 +162,7 @@
         watch: {
             'post.title'(){
                 this.post.slug = Slug(this.post.title);
-            }
+            },
         },
     }
 </script>

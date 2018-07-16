@@ -6,7 +6,6 @@ use App\Blog;
 use App\Http\Requests\CreateBlogRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use File;
 
 class BlogsController extends Controller
 {
@@ -78,7 +77,6 @@ class BlogsController extends Controller
      * @throws \Exception
      */
     public function destroy(Blog $blog){
-        if(!empty($blog->image)) File::delete($blog->image);
         $blog->delete();
 
         return response()->json([

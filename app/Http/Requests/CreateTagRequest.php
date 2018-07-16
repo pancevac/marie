@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePostRequest extends FormRequest
+class CreateTagRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,6 @@ class CreatePostRequest extends FormRequest
         return [
             'title' => 'required',
             'slug' => 'required',
-            'short' => 'required',
-            'blog_ids' => 'required',
-            'publish_at' => 'required|date',
         ];
     }
 
@@ -40,13 +37,8 @@ class CreatePostRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'Naziv članka je obavezan',
+            'title.required' => 'Naziv taga je obavezan',
             'slug.required' => 'Slug je obavezan',
-            'short.required' => 'Kratak opis je obavezan',
-            'blog_ids.required' => 'Jedna kategorija je obavezna',
-            'blog_ids.array' => 'Jedna kategorija je obavezna',
-            'publish_at.required' => 'Datum publikovanja je obavezan',
-            'publish_at.date' => 'Datum publikovanja nije u ispravnom formatu',
         ];
     }
 }

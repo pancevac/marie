@@ -13,6 +13,13 @@ class User extends Authenticatable
     use Notifiable, HasApiTokens, UploudableImageTrait;
 
     /**
+     * paginate number
+     *
+     * @var integer
+     */
+    public static $paginate = 50;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

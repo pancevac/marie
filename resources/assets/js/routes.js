@@ -72,11 +72,11 @@ export const router = new VueRouter({
         // { path: "/boxes", component: require('./components/boxes/BoxList.vue'), meta: { forAdmin: true } },
         // { path: "/boxes/create", component: require('./components/boxes/BoxCreate.vue'), meta: { forAdmin: true } },
         // { path: "/boxes/:id/edit", component: require('./components/boxes/BoxEdit.vue'), meta: { forAdmin: true } },
-        //
-        // { path: "/tags", component: require('./components/tags/TagList.vue'), meta: { forAdmin: true } },
-        // { path: "/tags/create", component: require('./components/tags/TagCreate.vue'), meta: { forAdmin: true } },
-        // { path: "/tags/:id/edit", component: require('./components/tags/TagEdit.vue'), meta: { forAdmin: true } },
-        //
+
+        { path: "/tags", component: require('./components/tags/TagList.vue'), meta: { forAdmin: true } },
+        { path: "/tags/create", component: require('./components/tags/TagCreate.vue'), meta: { forAdmin: true } },
+        { path: "/tags/:id/edit", component: require('./components/tags/TagEdit.vue'), meta: { forAdmin: true } },
+
         // { path: "/shop-bars", component: require('./components/shopBars/ShopBarList.vue'), meta: { forAuth: true } },
         // { path: "/shop-bars/create", component: require('./components/shopBars/ShopBarCreate.vue'), meta: { forAuth: true } },
         // { path: "/shop-bars/:id/edit", component: require('./components/shopBars/ShopBarEdit.vue'), meta: { forAuth: true } },

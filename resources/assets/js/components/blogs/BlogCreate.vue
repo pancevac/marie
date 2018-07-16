@@ -30,6 +30,10 @@
 
                             <text-field :value="blog.slug" :label="'Slug'" :error="error? error.slug : ''" @changeValue="blog.slug = $event"></text-field>
 
+                            <text-field :value="blog.seo_title" :label="'SEO naslov'" :error="error? error.seo_title : ''" @changeValue="blog.seo_title = $event"></text-field>
+
+                            <text-field :value="blog.seo_keywords" :label="'SEO ključne reči'" :error="error? error.seo_keywords : ''" @changeValue="blog.seo_keywords = $event"></text-field>
+
                             <text-field :value="blog.order" :label="'Redosled'" :error="error? error.order : ''" @changeValue="blog.order = $event"></text-field>
 
                             <text-area-ckeditor-field :value="blog.short" :label="'Opis'" :error="error? error.short : ''" @changeValue="blog.short = $event"></text-area-ckeditor-field>
@@ -65,7 +69,7 @@
     export default {
         data(){
           return {
-              fillable: ['title', 'slug', 'short', 'order', 'parent', 'level', 'image', 'is_visible'],
+              fillable: ['title', 'slug', 'short', 'seo_title', 'seo_keywords', 'order', 'parent', 'level', 'image', 'is_visible'],
               blog: {
                   title: null,
                   parent: 0,

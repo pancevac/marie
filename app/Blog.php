@@ -4,17 +4,25 @@ namespace App;
 
 use App\Traits\UploudableImageTrait;
 use Illuminate\Database\Eloquent\Model;
+use File;
 
 class Blog extends Model
 {
     use UploudableImageTrait;
 
     /**
+     * paginate number
+     *
+     * @var integer
+     */
+    public static $paginate = 50;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['title', 'slug', 'short', 'order', 'parent', 'level', 'image', 'is_visible'];
+    protected $fillable = ['title', 'slug', 'short', 'seo_title', 'seo_keywords', 'order', 'parent', 'level', 'image', 'is_visible'];
 
     /**
      *method used when instance of this model is created
@@ -27,6 +35,10 @@ class Blog extends Model
             self::where('parent', $blog->id)->get()->each(function($item){
                 $item->update(['parent' => 0]);
             });
+        });
+
+        static::deleting(function ($post) {
+            if(!empty($post->image)) File::delete($post->image);
         });
     }
 
@@ -49,6 +61,15 @@ class Blog extends Model
     }
 
     /**
+     * method used to set parent attribute
+     *
+     * @param $value
+     */
+    public function setParentAttribute($value){
+        $this->attributes['parent'] = !empty($value)?: 1;
+    }
+
+    /**
      * method used to set is_visible attribute
      *
      * @param $value
@@ -63,7 +84,7 @@ class Blog extends Model
      * @return mixed
      */
     public static function getNoParentBlogList(){
-        return self::select('id', 'title')->where('parent', 0)->published()->orderBy('order', 'ASC')->get();
+        return self::where('parent', 0)->published()->orderBy('order', 'ASC')->pluck('title', 'id')->prepend('Izaberi kategoriju', 0);
     }
 
     /**
@@ -87,7 +108,7 @@ class Blog extends Model
     }
 
     /**
-     * method used to make connection to parent blog
+     * method used to make has-one connection to parent Blog model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -96,7 +117,7 @@ class Blog extends Model
     }
 
     /**
-     * method used to make connection to children blog
+     * method used to make has-many connection to children blog
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -105,11 +126,12 @@ class Blog extends Model
     }
 
     /**
-     * method used to make many-to-many connection between Blog and Blog model
+     * method used to make belongs-to-many connection between Blog and Blog model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function posts(){
+    public function post(){
         return $this->belongsToMany(Post::class);
     }
+
 }

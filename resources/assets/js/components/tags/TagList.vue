@@ -6,18 +6,18 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li>Članci</li>
+                            <li>Tagovi</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <search-helper :lists="blogs" :search="searchPost" :enableList="true" @updateSearch="search($event)"></search-helper>
+            <search-helper :lists="[]" :search="searchTag" :enableList="false" @updateSearch="search($event)"></search-helper>
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Članci</h5>
+                        <h5>Tagovi</h5>
                         <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
                     </div>
                 </div>
@@ -28,23 +28,20 @@
                             <thead>
                             <tr>
                                 <th scope="col">id</th>
-                                <th scope="col">naslov</th>
-                                <th scope="col">kategorija</th>
-                                <th scope="col">vidljivo</th>
-                                <th scope="col">vidljivo od</th>
+                                <th scope="col">naziv</th>
+                                <th scope="col">publikovano</th>
+                                <th scope="col">kreirano</th>
                                 <th>akcija</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="row in posts">
+                            <tr v-for="row in tags">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
-                                <td v-if="row.blog.length > 0">{{ row.blog[0].title }}</td> <td v-else>/</td>
                                 <td>{{ row.is_visible? 'Da' : 'Ne' }}</td>
-                                <td>{{ row.publish_at }}</td>
+                                <td>{{ row.created_at }}</td>
                                 <td>
-                                    <font-awesome-icon icon="eye" @click="previewRow(row)" />
-                                    <router-link tag="a" :to="'posts/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
+                                    <router-link tag="a" :to="'tags/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
                                 </td>
                             </tr>
@@ -71,39 +68,47 @@
     export default {
         data(){
             return {
-                posts: {},
-                paginate: {},
-                blogs: {},
+                tags: {},
+                paginate: {}
             }
         },
         components: {
             'paginate-helper': PaginateHelper,
-            'search-helper': SearchHelper,
             'font-awesome-icon': FontAwesomeIcon
         },
         computed: {
-            searchPost(){
-                return this.$store.getters['search/getSearchPost'] || false;
+            searchTag(){
+                return this.$store.getters['search/getSearchTag'] || false;
             },
         },
         mounted(){
-            this.getPosts();
+            this.getTag();
         },
         methods: {
-            getPosts(){
-                this.$store.dispatch('search/changeSearchPostPage', 1);
-                axios.post('api/posts/search', this.searchPost)
+            getTag(){
+                axios.post('api/tags/search', this.searchTag)
                     .then(res => {
-                        this.blogs = res.data.blogs;
-                        this.posts = res.data.posts.data;
-                        this.paginate = res.data.posts;
+                        this.tags = res.data.tags.data;
+                        this.paginate = res.data.tags;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            },
+            search(value){
+                this.$store.dispatch('search/changeSearchTag', value);
+                this.$store.dispatch('search/changeSearchTagPage', 1);
+                axios.post('api/tags/search', this.searchTag)
+                    .then(res => {
+                        this.tags = res.data.tags.data;
+                        this.paginate = res.data.tags;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             editRow(id){
-                this.$router.push('posts/' + id + '/edit');
+                this.$router.push('tags/' + id + '/edit');
             },
             deleteRow(row){
                 swal({
@@ -117,14 +122,14 @@
                     cancelButtonText: 'Odustani'
                 }).then((result) => {
                     if (result.value) {
-                        axios.delete('api/posts/' + row.id)
+                        axios.delete('api/tags/' + row.id)
                             .then(res => {
-                                this.posts = this.posts.filter(function (item) {
+                                this.tags = this.tags.filter(function (item) {
                                     return row.id != item.id;
                                 });
                                 swal(
                                     'Obrisano!',
-                                    'Članak je uspešno obrisan.',
+                                    'Tag je uspešno obrisan.',
                                     'success'
                                 );
                             })
@@ -135,34 +140,19 @@
                 });
             },
             clickToLink(index){
-                this.$store.dispatch('search/changeSearchPostPage', index);
-                axios.post('api/posts/search', this.searchPost)
+                this.$store.dispatch('search/changeSearchTagPage', index);
+                axios.post('api/tags/search', this.searchTag)
                     .then(res => {
-                        this.posts = res.data.posts.data;
-                        this.paginate = res.data.posts;
-                    })
-                    .catch(e => {
-                        console.log(e);
-                    });
-            },
-            search(value){
-                this.$store.dispatch('search/changeSearchPost', value);
-                this.$store.dispatch('search/changeSearchPostPage', 1);
-                axios.post('api/posts/search', this.searchPost)
-                    .then(res => {
-                        this.posts = res.data.posts.data;
-                        this.paginate = res.data.posts;
+                        this.tags = res.data.tags.data;
+                        this.paginate = res.data.tags;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             addRow(){
-                this.$router.push('/posts/create');
+                this.$router.push('/tags/create');
             },
-            previewRow(row){
-                window.open(row.link, '_blank');
-            },
-        },
+        }
     }
 </script>
