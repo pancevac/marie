@@ -1,0 +1,24 @@
+.home-popular {
+  overflow-x: hidden;
+  margin-left: -8px;
+  margin-right: -8px;
+
+  @include media-breakpoint-up(sm) {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+
+  &_item {
+    width: 50%;
+    padding: 0 8px;
+
+    @include media-breakpoint-up(sm) {
+      width: 33.3333%;
+      padding: 0 16px;
+    }
+
+    @include media-breakpoint-up(md) {
+      width: 25%;
+    }
+  }
+}

@@ -26,16 +26,16 @@
     <div style="border-bottom: 2px solid #222; margin-bottom: 32px;">
       <h2 class="title title--lines">Najčitaniji članci</h2>
 
-      <div style="overflow-x: hidden;">
+      <div class="home-popular">
 
         <simple-carousel>
-          <div class="px-3">
+          <div class="home-popular_item">
             <a href="/hello">
               <div class="image image--1-1"></div>
             </a>
             <a href="/hello">hello</a>
           </div>
-          <div class="px-3">
+          <div class="home-popular_item">
             <a href="/world">
               <div class="image image--1-1"></div>
             </a>
