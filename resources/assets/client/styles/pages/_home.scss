@@ -21,4 +21,15 @@
       width: 25%;
     }
   }
+
+  &_title {
+    display: block;
+    font-size: 18px;
+    color: $text-primary-on-light;
+    font-weight: $font-weight-bold;
+    line-height: 1.3;
+    height: 3.9em;
+    overflow: hidden;
+    margin: 16px 0 8px;
+  }
 }

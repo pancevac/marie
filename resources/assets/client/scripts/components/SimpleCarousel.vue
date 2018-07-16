@@ -172,5 +172,6 @@ export default {
     display: inline-block;
     overflow: hidden;
     font-size: initial;
+    white-space: initial;
   }
 </style>

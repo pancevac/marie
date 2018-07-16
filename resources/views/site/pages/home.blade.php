@@ -24,22 +24,26 @@
 
     <!-- most read -->
     <div style="border-bottom: 2px solid #222; margin-bottom: 32px;">
-      <h2 class="title title--lines">Najčitaniji članci</h2>
+      <h2 class="title title--lines mb-4">Najčitaniji članci</h2>
 
       <div class="home-popular">
 
         <simple-carousel>
           <div class="home-popular_item">
-            <a href="/hello">
+            <a href="/#">
               <div class="image image--1-1"></div>
             </a>
-            <a href="/hello">hello</a>
+            <div class="home-popular_title">
+              <a href="/#">Popular article title</a>
+            </div>
           </div>
           <div class="home-popular_item">
-            <a href="/world">
+            <a href="/#">
               <div class="image image--1-1"></div>
             </a>
-            <a href="/world">world</a>
+            <div class="home-popular_title">
+              <a href="/#">Popular article title, medium long...</a>
+            </div>
           </div>
         </simple-carousel>
       </div>
