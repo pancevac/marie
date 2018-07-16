@@ -3,6 +3,7 @@
     ref="host"
     v-on:touchstart='onTouchStart'
     v-on:mousedown='onTouchStart'
+    v-on:click='onClick'
     v-bind:style='{transform: translateX, transition}'
   >
     <slot></slot>
@@ -27,7 +28,7 @@ export default {
       return this.animate
         ? 'transform 225ms cubic-bezier(0.0, 0.0, 0.2, 1)'
         : '';
-    }
+    },
   },
 
   mounted() {
@@ -51,6 +52,7 @@ export default {
       this.perView = Math.round(gBCR.width / this.childWidth);
 
       this.isTouching = false;
+      this.disabelClicks = false;
       this.delta = 0;
       this.currentX = 0;
       this.slide = 0;
@@ -77,6 +79,7 @@ export default {
      */
     onTouchMove(evt) {
       this.delta = (evt.pageX || evt.touches[0].pageX) - this.startX;
+      this.disabelClicks = true;
     },
 
     /**
@@ -86,6 +89,20 @@ export default {
       this.isTouching = false;
       this.animate = true;
       this.removeEventListeners();
+
+      setTimeout(() => {
+        this.disabelClicks = false;
+      }, 0);
+    },
+
+    /**
+     * Click handler. Blocks href follow if the user is dragging the slider.
+     * https://github.com/nolimits4web/Swiper/issues/25
+     */
+    onClick(evt) {
+      if (this.disabelClicks) {
+        evt.preventDefault();
+      }
     },
 
     /**
