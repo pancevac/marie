@@ -1711,7 +1711,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.host[data-v-70b6c4d2] {\n  display: block;\n  white-space: nowrap;\n  overflow-x: visible;\n  will-change: transform;\n  -webkit-transform: translateX(0);\n          transform: translateX(0);\n  font-size: 0;\n}\n.host > *[data-v-70b6c4d2] {\n  display: inline-block;\n  overflow: hidden;\n  font-size: initial;\n  white-space: initial;\n}\n", ""]);
+exports.push([module.i, "\n.host[data-v-70b6c4d2] {\n  display: block;\n  white-space: nowrap;\n  overflow-x: visible;\n  will-change: transform;\n  -webkit-transform: translateX(0);\n          transform: translateX(0);\n  font-size: 0;\n}\n.host > .slider-item[data-v-70b6c4d2] {\n  display: inline-block;\n  overflow: hidden;\n  font-size: initial;\n  white-space: initial;\n}\n", ""]);
 
 // exports
 

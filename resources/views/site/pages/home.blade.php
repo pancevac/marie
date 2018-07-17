@@ -3,6 +3,9 @@
 @section('content')
   <div class="container">
     <h1>content</h1>
+
+    @include('site.partials.masthead')
+    
     <div class="content-wrap">  
       <div class="content-main">
         
@@ -30,7 +33,7 @@
 
         <simple-carousel>
           @for($i = 0; $i < 4; $i++)
-          <div class="home-popular_item">
+          <div class="slider-item home-popular_item">
             <a href="#">
               <div class="image image--1-1"></div>
             </a>

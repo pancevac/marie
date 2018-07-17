@@ -185,7 +185,7 @@ export default {
     font-size: 0;
   }
 
-  .host > * {
+  .host > .slider-item {
     display: inline-block;
     overflow: hidden;
     font-size: initial;
