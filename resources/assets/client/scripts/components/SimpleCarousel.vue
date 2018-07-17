@@ -1,33 +1,56 @@
 <template>
-  <div class="host"
-    ref="host"
-    v-on:touchstart='onTouchStart'
-    v-on:mousedown='onTouchStart'
-    v-on:click='onClick'
-    v-bind:style='{transform: translateX, transition}'
-  >
-    <slot></slot>
+  <div>
+    <div class="host"
+      ref="host"
+      v-on:touchstart='onTouchStart'
+      v-on:mousedown='onTouchStart'
+      v-on:click='onClick'
+      v-bind:style='{transform: translateX, transition}'
+    >
+      <slot></slot>
+    </div>
+    <div v-if='dots'>
+      <button v-for='index in buttons'
+        v-bind:key='index'
+        v-bind:class='{active: (slide === index - 1)}'
+        v-on:click='setActive(index - 1)'
+      >{{index}}</button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    dots: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
   data() {
     return {
-      screenX: 0,
-      animate: false,
+      x: 0,
+      animate: true,
+      length: 1,
+      perView: 1,
+      slide: 0,
     };
   },
 
   computed: {
     translateX() {
-      return `translateX(${this.screenX}px)`;
+      return `translateX(${this.x}px)`;
     },
 
     transition() {
       return this.animate
         ? 'transform 225ms cubic-bezier(0.0, 0.0, 0.2, 1)'
         : '';
+    },
+
+    buttons() {
+      return this.length / this.perView;
     },
   },
 
@@ -54,11 +77,9 @@ export default {
       this.isTouching = false;
       this.disabelClicks = false;
       this.delta = 0;
-      this.currentX = 0;
-      this.slide = 0;
 
       // reset state
-      this.screenX = 0;
+      this.x = 0;
     },
 
     /**
@@ -109,7 +130,7 @@ export default {
      * Responds to user gestures and updates the state accordingly.
      */
     update() {
-      this.screenX = this.delta + this.currentX;
+      this.x = this.delta - (this.slide * this.childWidth);
       
       if (this.isTouching) {
         window.requestAnimationFrame(this.update);
@@ -130,9 +151,18 @@ export default {
       const min = 0;
       const max = this.length - this.perView;
       // Make sure value is in range.
-      this.slide = Math.max(min, Math.min(nextSlide, max));
-      this.currentX = -(this.slide * this.childWidth);
-      this.screenX = this.currentX;
+      const slide = Math.max(min, Math.min(nextSlide, max));
+      this.setActive(slide);
+    },
+
+    /**
+     * Sets the passed number as the active slide.
+     *
+     * @param {number} slide
+     */
+    setActive(slide) {
+      this.x = -(slide * this.childWidth);
+      this.slide = slide;
     },
 
     /**

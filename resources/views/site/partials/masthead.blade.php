@@ -1,5 +1,5 @@
 <div class="masthead mb-4">
-  <simple-carousel>
+  <simple-carousel dots>
 
     @for($i = 0; $i < 4; $i++)
     <div class="slider-item masthead-item-wrap">
