@@ -3425,7 +3425,44 @@ a:hover, a:focus {
 .footer {
   background-color: #212121;
   padding: 32px 0;
+  color: white;
+}
+
+.footer_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.footer_nav {
+  max-width: 50%;
+}
+
+.footer_nav-list {
   color: rgba(255, 255, 255, 0.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.footer_nav-list li {
+  text-transform: uppercase;
+  font-weight: 300;
+  margin-right: 16px;
+  min-width: 130px;
+}
+
+.footer_nav-list li a {
+  font-size: 12px;
+  line-height: 26px;
+  color: inherit;
+}
+
+.footer_nav-list li a:hover, .footer_nav-list li a:focus {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .header {

@@ -1,5 +1,38 @@
 .footer {
   background-color: $theme-primary;
   padding: 32px 0;
-  color: $text-hint-on-dark;
+  color: white;
+  
+  &_container {
+    display: flex;
+  }
+  
+  &_nav {
+    max-width: 50%;
+  }
+  
+  &_nav-list {
+    color: $text-hint-on-dark;
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+
+    li {
+      text-transform: uppercase;
+      font-weight: $font-weight-light;
+      margin-right: 16px;
+      min-width: 130px;
+      
+      a {
+        font-size: 12px;
+        line-height: 26px;
+        color: inherit;
+
+        &:hover,
+        &:focus {
+          color: $text-secondary-on-dark;
+        }
+      }
+    }
+  }
 }
