@@ -8,6 +8,7 @@
 
   // tmp
   $src = 'http://www.marieclaire.cz/sites/default/files/styles/610x300/public/images/sss.jpg?itok=owuHqDmB&c=5b30b38503a12e315a9eb6ece685bd2d';
+  $src = '';
 @endphp
 
 <div class="{{$teaser}}">

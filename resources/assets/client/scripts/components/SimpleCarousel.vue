@@ -1,27 +1,54 @@
 <template>
-  <div class="host"
-    ref="host"
-    v-on:touchstart='onTouchStart'
-    v-on:mousedown='onTouchStart'
-    v-on:click='onClick'
-    v-bind:style='{transform: translateX, transition}'
-  >
-    <slot></slot>
+  <div>
+    <div class="host"
+      ref="host"
+      v-on:touchstart='onTouchStart'
+      v-on:mousedown='onTouchStart'
+      v-on:click='onClick'
+      v-on:transitionend='onTransitionEnd'
+      v-bind:style='{transform: translateX, transition}'
+    >
+      <slot></slot>
+    </div>
+    <div v-if='dots' class="dots">
+      <button v-for='index in buttons'
+        v-bind:key='index'
+        v-bind:class='dotsClass(index)'
+        v-on:click='onDotClick(index)'
+      ></button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    dots: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * NOTE: `loop` should be passed only to sliders with one slide per view.
+     */
+    loop: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
   data() {
     return {
-      screenX: 0,
-      animate: false,
+      x: 0,
+      animate: true,
+      length: this.loop ? 3 : 1,
+      perView: 1,
+      slide: 0,
     };
   },
 
   computed: {
     translateX() {
-      return `translateX(${this.screenX}px)`;
+      return `translateX(${this.x}px)`;
     },
 
     transition() {
@@ -29,9 +56,22 @@ export default {
         ? 'transform 225ms cubic-bezier(0.0, 0.0, 0.2, 1)'
         : '';
     },
+
+    buttons() {
+      const length = this.loop ? this.length - 2 : this.length;
+      return length / this.perView;
+    },
   },
 
   mounted() {
+    if (this.loop) {
+      const host = this.$refs.host;
+      const first = host.firstElementChild.cloneNode(true);
+      const last = host.lastElementChild.cloneNode(true);
+      host.append(first);
+      host.prepend(last);
+    }
+
     this.init();
     window.addEventListener('resize', this.onResize);
   },
@@ -54,11 +94,9 @@ export default {
       this.isTouching = false;
       this.disabelClicks = false;
       this.delta = 0;
-      this.currentX = 0;
-      this.slide = 0;
 
       // reset state
-      this.screenX = 0;
+      this.setActive(this.loop ? 1 : 0);
     },
 
     /**
@@ -106,10 +144,49 @@ export default {
     },
 
     /**
+     * Transitionend event handler.
+     */
+    onTransitionEnd(evt) {
+      this.animate = false;
+
+      if (this.loop) {
+        if (this.slide < 1) {
+          this.setActive(this.length - 2);
+        } else if (this.slide > this.length - 2) {
+          this.setActive(1);
+        }
+      }
+    },
+
+    /**
+     * Dot click handler.
+     * Sets the slide with the given index as active.
+     *
+     * @param {number} index
+     */
+    onDotClick(index) {
+      const n = this.loop ? 0 : 1;
+      this.setActive(index - n, true);
+    },
+
+    /**
+     * Generates the css class for the given dot index.
+     * 
+     * @param {number} index
+     * @return {string} dot class
+     */
+    dotsClass(index) {
+      const n = this.loop ? 0 : 1;
+      return (this.slide === (index - n))
+        ? 'dot active'
+        : 'dot';
+    },
+
+    /**
      * Responds to user gestures and updates the state accordingly.
      */
     update() {
-      this.screenX = this.delta + this.currentX;
+      this.x = this.delta - (this.slide * this.childWidth);
       
       if (this.isTouching) {
         window.requestAnimationFrame(this.update);
@@ -130,9 +207,23 @@ export default {
       const min = 0;
       const max = this.length - this.perView;
       // Make sure value is in range.
-      this.slide = Math.max(min, Math.min(nextSlide, max));
-      this.currentX = -(this.slide * this.childWidth);
-      this.screenX = this.currentX;
+      const slide = Math.max(min, Math.min(nextSlide, max));
+      this.setActive(slide);
+    },
+
+    /**
+     * Sets the passed number as the active slide.
+     *
+     * @param {number} slide
+     * @param {Boolean} animate
+     */
+    setActive(slide, animate) {
+      this.x = -(slide * this.childWidth);
+      this.slide = slide;
+
+      if (animate) {
+        this.animate = true;
+      }
     },
 
     /**
@@ -185,7 +276,7 @@ export default {
     font-size: 0;
   }
 
-  .host > * {
+  .host > .slider-item {
     display: inline-block;
     overflow: hidden;
     font-size: initial;

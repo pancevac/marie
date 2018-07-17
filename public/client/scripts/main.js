@@ -1711,7 +1711,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.host[data-v-70b6c4d2] {\n  display: block;\n  white-space: nowrap;\n  overflow-x: visible;\n  will-change: transform;\n  -webkit-transform: translateX(0);\n          transform: translateX(0);\n  font-size: 0;\n}\n.host > *[data-v-70b6c4d2] {\n  display: inline-block;\n  overflow: hidden;\n  font-size: initial;\n  white-space: initial;\n}\n", ""]);
+exports.push([module.i, "\n.host[data-v-70b6c4d2] {\n  display: block;\n  white-space: nowrap;\n  overflow-x: visible;\n  will-change: transform;\n  -webkit-transform: translateX(0);\n          transform: translateX(0);\n  font-size: 0;\n}\n.host > .slider-item[data-v-70b6c4d2] {\n  display: inline-block;\n  overflow: hidden;\n  font-size: initial;\n  white-space: initial;\n}\n", ""]);
 
 // exports
 
@@ -1735,26 +1735,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    dots: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * NOTE: `loop` should be passed only to sliders with one slide per view.
+     */
+    loop: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   data: function data() {
     return {
-      screenX: 0,
-      animate: false
+      x: 0,
+      animate: true,
+      length: this.loop ? 3 : 1,
+      perView: 1,
+      slide: 0
     };
   },
 
 
   computed: {
     translateX: function translateX() {
-      return 'translateX(' + this.screenX + 'px)';
+      return 'translateX(' + this.x + 'px)';
     },
     transition: function transition() {
       return this.animate ? 'transform 225ms cubic-bezier(0.0, 0.0, 0.2, 1)' : '';
+    },
+    buttons: function buttons() {
+      var length = this.loop ? this.length - 2 : this.length;
+      return length / this.perView;
     }
   },
 
   mounted: function mounted() {
+    if (this.loop) {
+      var host = this.$refs.host;
+      var first = host.firstElementChild.cloneNode(true);
+      var last = host.lastElementChild.cloneNode(true);
+      host.append(first);
+      host.prepend(last);
+    }
+
     this.init();
     window.addEventListener('resize', this.onResize);
   },
@@ -1777,11 +1816,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.isTouching = false;
       this.disabelClicks = false;
       this.delta = 0;
-      this.currentX = 0;
-      this.slide = 0;
 
       // reset state
-      this.screenX = 0;
+      this.setActive(this.loop ? 1 : 0);
     },
 
 
@@ -1836,10 +1873,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     /**
+     * Transitionend event handler.
+     */
+    onTransitionEnd: function onTransitionEnd(evt) {
+      this.animate = false;
+
+      if (this.loop) {
+        if (this.slide < 1) {
+          this.setActive(this.length - 2);
+        } else if (this.slide > this.length - 2) {
+          this.setActive(1);
+        }
+      }
+    },
+
+
+    /**
+     * Dot click handler.
+     * Sets the slide with the given index as active.
+     *
+     * @param {number} index
+     */
+    onDotClick: function onDotClick(index) {
+      var n = this.loop ? 0 : 1;
+      this.setActive(index - n, true);
+    },
+
+
+    /**
+     * Generates the css class for the given dot index.
+     * 
+     * @param {number} index
+     * @return {string} dot class
+     */
+    dotsClass: function dotsClass(index) {
+      var n = this.loop ? 0 : 1;
+      return this.slide === index - n ? 'dot active' : 'dot';
+    },
+
+
+    /**
      * Responds to user gestures and updates the state accordingly.
      */
     update: function update() {
-      this.screenX = this.delta + this.currentX;
+      this.x = this.delta - this.slide * this.childWidth;
 
       if (this.isTouching) {
         window.requestAnimationFrame(this.update);
@@ -1860,9 +1937,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var min = 0;
       var max = this.length - this.perView;
       // Make sure value is in range.
-      this.slide = Math.max(min, Math.min(nextSlide, max));
-      this.currentX = -(this.slide * this.childWidth);
-      this.screenX = this.currentX;
+      var slide = Math.max(min, Math.min(nextSlide, max));
+      this.setActive(slide);
+    },
+
+
+    /**
+     * Sets the passed number as the active slide.
+     *
+     * @param {number} slide
+     * @param {Boolean} animate
+     */
+    setActive: function setActive(slide, animate) {
+      this.x = -(slide * this.childWidth);
+      this.slide = slide;
+
+      if (animate) {
+        this.animate = true;
+      }
     },
 
 
@@ -1918,21 +2010,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      ref: "host",
-      staticClass: "host",
-      style: { transform: _vm.translateX, transition: _vm.transition },
-      on: {
-        touchstart: _vm.onTouchStart,
-        mousedown: _vm.onTouchStart,
-        click: _vm.onClick
-      }
-    },
-    [_vm._t("default")],
-    2
-  )
+  return _c("div", [
+    _c(
+      "div",
+      {
+        ref: "host",
+        staticClass: "host",
+        style: { transform: _vm.translateX, transition: _vm.transition },
+        on: {
+          touchstart: _vm.onTouchStart,
+          mousedown: _vm.onTouchStart,
+          click: _vm.onClick,
+          transitionend: _vm.onTransitionEnd
+        }
+      },
+      [_vm._t("default")],
+      2
+    ),
+    _vm._v(" "),
+    _vm.dots
+      ? _c(
+          "div",
+          { staticClass: "dots" },
+          _vm._l(_vm.buttons, function(index) {
+            return _c("button", {
+              key: index,
+              class: _vm.dotsClass(index),
+              on: {
+                click: function($event) {
+                  _vm.onDotClick(index)
+                }
+              }
+            })
+          })
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
