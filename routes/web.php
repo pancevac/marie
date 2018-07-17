@@ -1,5 +1,6 @@
 <?php
 
+Route::get('/', 'DevController@render');
 Route::get('/{view}', 'DevController@render');
 
 Route::get('/home', 'HomeController@index')->name('home');

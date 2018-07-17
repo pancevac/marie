@@ -1,0 +1,26 @@
+.announcement {
+  background-color: #212121;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &_container {
+    display: flex;
+    align-items: center;
+    height: 96px;
+    color: #FFF;
+
+    @include media-breakpoint-down(md) {
+      justify-content: center;
+    }
+
+    @include media-breakpoint-up(lg) {
+      height: 234px;
+      color: #333;
+    }
+  }
+  
+  @include media-breakpoint-down(md) {
+    background-image: none !important;
+  }
+}

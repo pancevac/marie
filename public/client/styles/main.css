@@ -3175,8 +3175,23 @@ a:hover, a:focus {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  height: 50px;
   fill: currentColor;
+}
+
+.logo--header {
+  width: 220px;
+}
+
+@media (min-width: 600px) {
+  .logo--header {
+    width: 280px;
+  }
+}
+
+@media (min-width: 840px) {
+  .logo--header {
+    width: 470px;
+  }
 }
 
 .nav-item {
@@ -3321,6 +3336,45 @@ a:hover, a:focus {
   margin-left: 32px;
 }
 
+.announcement {
+  background-color: #212121;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.announcement_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 96px;
+  color: #FFF;
+}
+
+@media (max-width: 839.98px) {
+  .announcement_container {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
+@media (min-width: 840px) {
+  .announcement_container {
+    height: 234px;
+    color: #333;
+  }
+}
+
+@media (max-width: 839.98px) {
+  .announcement {
+    background-image: none !important;
+  }
+}
+
 .content {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
@@ -3381,10 +3435,31 @@ a:hover, a:focus {
   z-index: 10;
 }
 
+.header-wrap {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 64px;
+  padding-right: 64px;
+}
+
+.header_search-icon {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  background-color: #212121;
+}
+
 .masthead {
   overflow-x: hidden;
   position: relative;
-  margin-bottom: 32px;
+  margin: 32px 0;
 }
 
 .masthead .dots {

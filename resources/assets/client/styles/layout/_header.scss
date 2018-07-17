@@ -5,3 +5,19 @@
   background-color: $theme-primary;
   z-index: 10;
 }
+
+.header-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 64px;
+  padding-right: 64px;
+}
+
+.header_search-icon {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  background-color: #212121;
+}
