@@ -1,5 +1,16 @@
 .logo {
   display: inline-flex;
-  height: 50px;
   fill: currentColor;
+  
+  &--header {
+    width: 220px;
+
+    @include media-breakpoint-up(sm) {
+      width: 280px;
+    }
+
+    @include media-breakpoint-up(lg) {
+      width: 470px;
+    }
+  }
 }

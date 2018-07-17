@@ -2,11 +2,10 @@
 
 @section('content')
   <div class="container">
-    <h1>content</h1>
 
     @include('site.partials.masthead')
     
-    <div class="content-wrap">  
+    <div class="content-wrap">
       <div class="content-main">
         
         @for($i = 0; $i < 3; $i++)
