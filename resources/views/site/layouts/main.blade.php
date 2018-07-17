@@ -15,9 +15,7 @@
 
     @yield('content')
   </div>
-  <footer class="footer">
-    footer
-  </footer>
+  @include('site.partials.footer')
   <script src="{{ url('client/scripts/main.js') }}"></script>
 </body>
 </html>
