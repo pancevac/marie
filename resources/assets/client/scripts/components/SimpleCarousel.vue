@@ -9,12 +9,12 @@
     >
       <slot></slot>
     </div>
-    <div v-if='dots'>
+    <div v-if='dots' class="dots">
       <button v-for='index in buttons'
         v-bind:key='index'
-        v-bind:class='{active: (slide === index - 1)}'
+        v-bind:class='{active: (slide === index - 1), dot: true}'
         v-on:click='setActive(index - 1)'
-      >{{index}}</button>
+      ></button>
     </div>
   </div>
 </template>

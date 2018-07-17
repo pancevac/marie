@@ -1968,20 +1968,17 @@ var render = function() {
     _vm.dots
       ? _c(
           "div",
+          { staticClass: "dots" },
           _vm._l(_vm.buttons, function(index) {
-            return _c(
-              "button",
-              {
-                key: index,
-                class: { active: _vm.slide === index - 1 },
-                on: {
-                  click: function($event) {
-                    _vm.setActive(index - 1)
-                  }
+            return _c("button", {
+              key: index,
+              class: { active: _vm.slide === index - 1, dot: true },
+              on: {
+                click: function($event) {
+                  _vm.setActive(index - 1)
                 }
-              },
-              [_vm._v(_vm._s(index))]
-            )
+              }
+            })
           })
         )
       : _vm._e()
