@@ -37,7 +37,7 @@ class CreateBannerRequest extends FormRequest
             'link.required' => 'Link je obavezan',
             'image.required' => 'Slika je obavezna',
             'image.image' => 'Slika je u ispravnom formatu',
-            'image.mimes' => 'Slika mora biti u jpg, jped, gif ili png formatu',
+            'image.mimes' => 'Slika mora biti u jpg, jpeg, gif ili png formatu',
         ];
     }
 }

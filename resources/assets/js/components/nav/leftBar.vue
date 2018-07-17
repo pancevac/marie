@@ -68,12 +68,12 @@
             </li>
             <li :class="{ 'active': showNewslettersItemActive }" :style="{ 'display': showNewslettersItem ? 'block' : 'none' }" v-if="admin">
                 <font-awesome-icon icon="angle-right" />
-                <a href="#" @click="changeShowNewslettersItemActive()">Newsletter</a>
+                <a href="#" @click="changeShowNewslettersItemActive()">Newsletteri</a>
                 <font-awesome-icon icon="envelope" />
                 <ul>
-                    <li><a href="#">Newsletter review</a></li>
+                    <li><a href="#">Newsletteri</a></li>
                     <li><router-link tag="a" :to="'/subscribers'">Pretplatnici</router-link></li>
-                    <li><a href="#">Banner review</a></li>
+                    <li><router-link tag="a" :to="'/banners'">Banneri</router-link></li>
                 </ul>
             </li>
         </ul>

@@ -29,7 +29,7 @@ class BannersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CreateBannerRequest $request){
-        $banner = Banner::create(request()->all());
+        $banner = Banner::create(request()->except('image'));
         $banner->update(['image' => $banner->storeImage()]);
 
         return response([
@@ -57,7 +57,7 @@ class BannersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(CreateBannerRequest $request, Banner $banner){
-        $banner->update(request()->all());
+        $banner->update(request()->except('image'));
         $banner->update(['image' => $banner->storeImage()]);
 
         return response([

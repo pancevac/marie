@@ -25,6 +25,10 @@ export const router = new VueRouter({
         { path: "/posts/create", component: require('./components/posts/PostCreate.vue'), meta: { forAdmin: true } },
         { path: "/posts/:id/edit", component: require('./components/posts/PostEdit.vue'), meta: { forAdmin: true } },
 
+        { path: "/banners", component: require('./components/banners/BannerList.vue'), meta: { forAdmin: true } },
+        { path: "/banners/create", component: require('./components/banners/BannerCreate.vue'), meta: { forAdmin: true } },
+        { path: "/banners/:id/edit", component: require('./components/banners/BannerEdit.vue'), meta: { forAdmin: true } },
+
         // { path: "/brands", component: require('./components/brands/BrandList.vue'), meta: { forAdmin: true } },
         // { path: "/brands/create", component: require('./components/brands/BrandCreate.vue'), meta: { forAdmin: true } },
         // { path: "/brands/:id/edit", component: require('./components/brands/BrandEdit.vue'), meta: { forAdmin: true } },

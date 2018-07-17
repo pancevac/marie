@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use File;
 
 class Banner extends Model{
+
     use UploudableImageTrait;
 
     /**
