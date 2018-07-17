@@ -80,10 +80,10 @@ export const router = new VueRouter({
         // { path: "/shop-bars", component: require('./components/shopBars/ShopBarList.vue'), meta: { forAuth: true } },
         // { path: "/shop-bars/create", component: require('./components/shopBars/ShopBarCreate.vue'), meta: { forAuth: true } },
         // { path: "/shop-bars/:id/edit", component: require('./components/shopBars/ShopBarEdit.vue'), meta: { forAuth: true } },
-        //
-        // { path: "/subscribers", component: require('./components/subscribers/SubscriberList.vue'), meta: { forAdmin: true } },
-        // { path: "/subscribers/create", component: require('./components/subscribers/SubscriberCreate.vue'), meta: { forAdmin: true } },
-        // { path: "/subscribers/:id/edit", component: require('./components/subscribers/SubscriberEdit.vue'), meta: { forAdmin: true } },
+
+        { path: "/subscribers", component: require('./components/subscribers/SubscriberList.vue'), meta: { forAdmin: true } },
+        { path: "/subscribers/create", component: require('./components/subscribers/SubscriberCreate.vue'), meta: { forAdmin: true } },
+        { path: "/subscribers/:id/edit", component: require('./components/subscribers/SubscriberEdit.vue'), meta: { forAdmin: true } },
         //
         // { path: "/customers", component: require('./components/customers/CustomerList.vue'), meta: { forAdmin: true } },
         // { path: "/customers/create", component: require('./components/customers/CustomerCreate.vue'), meta: { forAdmin: true } },

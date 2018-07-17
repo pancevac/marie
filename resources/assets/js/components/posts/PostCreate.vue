@@ -117,7 +117,6 @@
         },
         methods: {
             submit(){
-                console.log(this.post);
                 this.post.user_id = this.user.id;
                 let data = fillForm(this.fillable, this.post)
                 axios.post('api/posts', data)

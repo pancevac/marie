@@ -22,11 +22,13 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('posts', 'Api\PostsController');
     Route::post('posts/search', 'Api\PostsController@search');
 
-    Route::resource('users', 'Api\UsersController');
-    Route::post('users/{id}/change-password', 'Api\UsersController@changePassword');
+    Route::resource('subscribers', 'Api\SubscribersController');
 
     Route::resource('tags', 'Api\TagsController');
     Route::post('tags/search', 'Api\TagsController@search');
+
+    Route::resource('users', 'Api\UsersController');
+    Route::post('users/{id}/change-password', 'Api\UsersController@changePassword');
 
     Route::get('user', function (Request $request) {
         return $request->user();
