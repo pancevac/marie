@@ -1,5 +1,18 @@
 .masthead {
   overflow-x: hidden;
+  position: relative;
+
+  .dots {
+    position: absolute;
+    padding: 8px;
+    bottom: 8px;
+    left: 175px;
+    transform: translateX(-50%);
+
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
 }
 
 .masthead-item-wrap {

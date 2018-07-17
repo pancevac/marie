@@ -3383,6 +3383,22 @@ a:hover, a:focus {
 
 .masthead {
   overflow-x: hidden;
+  position: relative;
+}
+
+.masthead .dots {
+  position: absolute;
+  padding: 8px;
+  bottom: 8px;
+  left: 175px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+@media (max-width: 839.98px) {
+  .masthead .dots {
+    display: none;
+  }
 }
 
 .masthead-item-wrap {
