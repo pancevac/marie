@@ -3384,6 +3384,7 @@ a:hover, a:focus {
 .masthead {
   overflow-x: hidden;
   position: relative;
+  margin-bottom: 32px;
 }
 
 .masthead .dots {

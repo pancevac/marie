@@ -5,6 +5,7 @@
       v-on:touchstart='onTouchStart'
       v-on:mousedown='onTouchStart'
       v-on:click='onClick'
+      v-on:transitionend='onTransitionEnd'
       v-bind:style='{transform: translateX, transition}'
     >
       <slot></slot>
@@ -12,8 +13,8 @@
     <div v-if='dots' class="dots">
       <button v-for='index in buttons'
         v-bind:key='index'
-        v-bind:class='{active: (slide === index - 1), dot: true}'
-        v-on:click='setActive(index - 1)'
+        v-bind:class='dotsClass(index)'
+        v-on:click='onDotClick(index)'
       ></button>
     </div>
   </div>
@@ -26,13 +27,20 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * NOTE: `loop` should be passed only to sliders with one slide per view.
+     */
+    loop: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
     return {
       x: 0,
       animate: true,
-      length: 1,
+      length: this.loop ? 3 : 1,
       perView: 1,
       slide: 0,
     };
@@ -50,11 +58,20 @@ export default {
     },
 
     buttons() {
-      return this.length / this.perView;
+      const length = this.loop ? this.length - 2 : this.length;
+      return length / this.perView;
     },
   },
 
   mounted() {
+    if (this.loop) {
+      const host = this.$refs.host;
+      const first = host.firstElementChild.cloneNode(true);
+      const last = host.lastElementChild.cloneNode(true);
+      host.append(first);
+      host.prepend(last);
+    }
+
     this.init();
     window.addEventListener('resize', this.onResize);
   },
@@ -79,7 +96,7 @@ export default {
       this.delta = 0;
 
       // reset state
-      this.x = 0;
+      this.setActive(this.loop ? 1 : 0);
     },
 
     /**
@@ -127,6 +144,45 @@ export default {
     },
 
     /**
+     * Transitionend event handler.
+     */
+    onTransitionEnd(evt) {
+      this.animate = false;
+
+      if (this.loop) {
+        if (this.slide < 1) {
+          this.setActive(this.length - 2);
+        } else if (this.slide > this.length - 2) {
+          this.setActive(1);
+        }
+      }
+    },
+
+    /**
+     * Dot click handler.
+     * Sets the slide with the given index as active.
+     *
+     * @param {number} index
+     */
+    onDotClick(index) {
+      const n = this.loop ? 0 : 1;
+      this.setActive(index - n, true);
+    },
+
+    /**
+     * Generates the css class for the given dot index.
+     * 
+     * @param {number} index
+     * @return {string} dot class
+     */
+    dotsClass(index) {
+      const n = this.loop ? 0 : 1;
+      return (this.slide === (index - n))
+        ? 'dot active'
+        : 'dot';
+    },
+
+    /**
      * Responds to user gestures and updates the state accordingly.
      */
     update() {
@@ -159,10 +215,15 @@ export default {
      * Sets the passed number as the active slide.
      *
      * @param {number} slide
+     * @param {Boolean} animate
      */
-    setActive(slide) {
+    setActive(slide, animate) {
       this.x = -(slide * this.childWidth);
       this.slide = slide;
+
+      if (animate) {
+        this.animate = true;
+      }
     },
 
     /**
