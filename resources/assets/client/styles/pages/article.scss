@@ -1,0 +1,27 @@
+.article {
+  &_header {
+    margin-bottom: 6 * $baseline;
+    border-bottom: 1px solid $border-color-dark;
+  }
+
+  &_details {
+    padding: 16px 0;
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
+    font-size: 14px;
+    line-height: 1;
+    color: $text-hint-on-light;
+  }
+
+  &_body {
+    p {
+      margin-bottom: 6 * $baseline;
+      font-family: $font-family-serif;
+    }
+
+    img {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+  }
+}

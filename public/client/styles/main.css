@@ -3778,6 +3778,30 @@ a:hover, a:focus {
   text-transform: uppercase;
 }
 
+.article_header {
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.article_details {
+  padding: 16px 0;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.article_body p {
+  margin-bottom: 24px;
+  font-family: "Playfair Display", serif;
+}
+
+.article_body img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
 .home-popular {
   overflow-x: hidden;
   margin-left: -8px;
