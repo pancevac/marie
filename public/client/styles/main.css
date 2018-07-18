@@ -3055,13 +3055,17 @@ a:hover, a:focus {
 }
 
 .btn--primary {
-  color: white;
+  color: white !important;
   background-color: #212121;
 }
 
 .btn--secondary {
-  color: rgba(0, 0, 0, 0.54);
+  color: rgba(0, 0, 0, 0.54) !important;
   border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.btn--block {
+  width: 100%;
 }
 
 .icon-btn {
@@ -3234,6 +3238,10 @@ a:hover, a:focus {
   width: 100%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+}
+
+.image--3-4 {
+  padding-top: 133.33333333%;
 }
 
 .image--1-1 {
@@ -3776,6 +3784,31 @@ a:hover, a:focus {
 
 .newsletter-text {
   text-transform: uppercase;
+}
+
+.subscription {
+  position: relative;
+  padding: 32px 24px 24px;
+  max-width: 66.6666%;
+  margin: 0 auto;
+  border: 2px solid black;
+}
+
+.subscription_label {
+  display: inline-block;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .075em;
+  white-space: nowrap;
+  padding: 4px 12px;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 .article_header {

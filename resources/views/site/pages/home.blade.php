@@ -19,6 +19,9 @@
       <aside class="content-aside">
         <div class="aside-box" style="width:300px; height:300px; background:hotpink;">banner</div>
         <div class="aside-box">
+          @include('site.partials.subscription')
+        </div>
+        <div class="aside-box">
           @include('site.partials.newsletter')
         </div>
       </aside>

@@ -51,13 +51,17 @@
   }
 
   &--primary {
-    color: $text-primary-on-dark;
+    color: $text-primary-on-dark !important;
     background-color: $theme-primary;
   }
 
   &--secondary {
-    color: $text-secondary-on-light;
+    color: $text-secondary-on-light !important;
     border: 1px solid $border-color-dark;
+  }
+
+  &--block {
+    width: 100%;
   }
 }
 
