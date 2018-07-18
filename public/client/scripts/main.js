@@ -920,7 +920,7 @@ var LazyImages = function () {
         return;
       }
 
-      Object(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* preloadImage */])(src).then(function (evt) {
+      Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* preloadImage */])(src).then(function (evt) {
         return _this4._applyImage(wrap, evt.target, alt);
       }).catch(function (err) {
         return console.error(err.message);
@@ -957,9 +957,10 @@ var LazyImages = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return preloadImage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return preloadImage; });
 /* unused harmony export toBool */
 /* unused harmony export parseString */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return classNames; });
 /**
  * Preloads the image with the given src.
  *
@@ -993,6 +994,23 @@ var toBool = function toBool(s) {
  */
 var parseString = function parseString(s) {
   return Function('\n    \'use strict;\'\n    return (' + s + ');\n  ')();
+};
+
+/**
+ * Generates a className based on the given object.
+ *
+ * @param {HTMLElement} el
+ * @param {Object} obj
+ * @return {string}
+ */
+var classNames = function classNames(el, obj) {
+  var names = Object.keys(obj);
+
+  return Array.from(el.classList).filter(function (n) {
+    return !names.includes(n);
+  }).concat(names.filter(function (n) {
+    return obj[n];
+  })).join(' ');
 };
 
 /***/ }),
@@ -2113,6 +2131,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(397);
 //
 //
 //
@@ -2139,9 +2158,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2150,33 +2168,57 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       show: false
     };
   },
+
+
+  watch: {
+    show: function show(newValue) {
+      document.body.className = Object(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* classNames */])(document.body, {
+        'search-open': newValue
+      });
+    }
+  },
+
   mounted: function mounted() {
-    window.addEventListener('keydown', this.onKeyDown);
+    window.addEventListener('keyup', this.onKeyUp);
   },
   destroyed: function destroyed() {
-    window.removeEventListener('keydown', this.onKeyDown);
+    window.removeEventListener('keyup', this.onKeyUp);
   },
 
 
   methods: {
+    /**
+     * `submit` handler.
+     */
     onSubmit: function onSubmit(evt) {
       if (this.value === '') {
         evt.preventDefault();
         this.$refs.input.focus();
         this.show = true;
-      }
-    },
-    onKeyDown: function onKeyDown(evt) {
-      if (!this.show) {
         return;
       }
 
-      if (evt.keyCode === 27) {
+      console.log('fetch data that match the query: "' + this.value + '"');
+    },
+
+
+    /**
+     * `keyup` event handler.
+     * Hides the component if the pressed key is `Esc` key.
+     */
+    onKeyUp: function onKeyUp(evt) {
+      if (evt.keyCode === 27 && this.show) {
         this.hide();
       }
     },
+
+
+    /**
+     * Convinience method for hiding the component.
+     */
     hide: function hide() {
       this.show = false;
+      this.value = '';
     }
   }
 });
@@ -2192,11 +2234,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "form",
-    {
-      class: { "search-open": _vm.show },
-      attrs: { id: "search-form" },
-      on: { submit: _vm.onSubmit }
-    },
+    { attrs: { id: "search-form" }, on: { submit: _vm.onSubmit } },
     [
       _c("div", { staticClass: "search-widget" }, [
         _c(
@@ -2215,9 +2253,25 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.value,
+              expression: "value"
+            }
+          ],
           ref: "input",
           attrs: { type: "text", placeholder: "Pretraži" },
-          domProps: { value: _vm.value }
+          domProps: { value: _vm.value },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.value = $event.target.value
+            }
+          }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "search-widget_border" }),

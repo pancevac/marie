@@ -1,8 +1,5 @@
 <template>
-  <form id="search-form"
-    v-bind:class='{"search-open": show}'
-    v-on:submit='onSubmit'
-  >
+  <form id="search-form" v-on:submit='onSubmit'>
     <div class="search-widget">
       <button class="icon-btn search-widget_search" type="submit">
         <svg class="icon" role="presentation">
@@ -12,7 +9,7 @@
       <input type="text"
         ref='input'
         placeholder="Pretraži"
-        v-bind:value='value'
+        v-model='value'
       >
       <div class="search-widget_border"></div>
       <button class="icon-btn search-widget_close"
@@ -28,6 +25,8 @@
 </template>
 
 <script>
+import {classNames} from '../utils';
+
 export default {
   data() {
     return {
@@ -36,35 +35,53 @@ export default {
     };
   },
 
+  watch: {
+    show(newValue) {
+      document.body.className = classNames(document.body, {
+        'search-open': newValue,
+      });
+    },
+  },
+
   mounted() {
-    window.addEventListener('keydown', this.onKeyDown);
+    window.addEventListener('keyup', this.onKeyUp);
   },
 
   destroyed() {
-    window.removeEventListener('keydown', this.onKeyDown);
+    window.removeEventListener('keyup', this.onKeyUp);
   },
 
   methods: {
+    /**
+     * `submit` handler.
+     */
     onSubmit(evt) {
       if (this.value === '') {
         evt.preventDefault();
         this.$refs.input.focus();
         this.show = true;
-      }
-    },
-
-    onKeyDown(evt) {
-      if (!this.show) {
         return;
       }
 
-      if (evt.keyCode === 27) {
+      console.log(`fetch data that match the query: "${this.value}"`);
+    },
+
+    /**
+     * `keyup` event handler.
+     * Hides the component if the pressed key is `Esc` key.
+     */
+    onKeyUp(evt) {
+      if (evt.keyCode === 27 && this.show) {
         this.hide();
       }
     },
 
+    /**
+     * Convinience method for hiding the component.
+     */
     hide() {
       this.show = false;
+      this.value = '';
     },
   },
 }

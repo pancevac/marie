@@ -33,3 +33,19 @@ export const parseString = (s) => {
     return (${s});
   `)();
 };
+
+/**
+ * Generates a className based on the given object.
+ *
+ * @param {HTMLElement} el
+ * @param {Object} obj
+ * @return {string}
+ */
+export const classNames = (el, obj) => {
+  const names = Object.keys(obj);
+
+  return Array.from(el.classList)
+    .filter((n) => !names.includes(n))
+    .concat(names.filter((n) => obj[n]))
+    .join(' ');
+}
