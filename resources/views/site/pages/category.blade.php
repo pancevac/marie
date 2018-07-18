@@ -1,8 +1,8 @@
 @extends('site.layouts.main')
 
 @section('content')
-  <div class="container">
-    <h1>content</h1>
+  <div class="container pt-4">
+    <h1 class="h4 text-serif text-capitalize">content</h1>
     <div class="content-wrap">  
       <div class="content-main">
 

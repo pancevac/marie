@@ -3463,6 +3463,38 @@ a:hover, a:focus {
   margin-left: 32px;
 }
 
+.h6 {
+  font-size: 20px;
+}
+
+.h5 {
+  font-size: 24px;
+}
+
+.h4 {
+  font-size: 34px;
+}
+
+.h3 {
+  font-size: 48px;
+}
+
+.h2 {
+  font-size: 60px;
+}
+
+.h1 {
+  font-size: 96px;
+}
+
+.text-serif {
+  font-family: "Playfair Display", serif !important;
+}
+
+.text-sans-serif {
+  font-family: "Roboto", sans-serif !important;
+}
+
 .announcement {
   background-color: #212121;
   background-position: center center;
