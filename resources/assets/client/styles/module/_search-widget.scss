@@ -1,6 +1,6 @@
 .search-widget {
   position: absolute;
-  top: 8px;
+  top: 16px;
   right: 16px;
   margin: 0;
   padding: 0;
@@ -24,6 +24,7 @@
     background: 0;
     box-shadow: none;
     outline: none;
+    color: inherit;
   }
 
   &_border {
@@ -45,13 +46,13 @@
 
   &_search {
     position: absolute;
-    top: 0;
-    left: -36px;
+    top: -8px;
+    left: -48px;
   }
 
   &_close {
     position: absolute;
-    top: 0;
+    top: -8px;
     right: -16px;
     opacity: 0;
     pointer-events: none;

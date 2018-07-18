@@ -3387,7 +3387,7 @@ a:hover, a:focus {
 
 .search-widget {
   position: absolute;
-  top: 8px;
+  top: 16px;
   right: 16px;
   margin: 0;
   padding: 0;
@@ -3414,6 +3414,7 @@ a:hover, a:focus {
   -webkit-box-shadow: none;
           box-shadow: none;
   outline: none;
+  color: inherit;
 }
 
 .search-widget_border {
@@ -3440,13 +3441,13 @@ input:focus + .search-widget_border {
 
 .search-widget_search {
   position: absolute;
-  top: 0;
-  left: -36px;
+  top: -8px;
+  left: -48px;
 }
 
 .search-widget_close {
   position: absolute;
-  top: 0;
+  top: -8px;
   right: -16px;
   opacity: 0;
   pointer-events: none;

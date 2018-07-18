@@ -26,7 +26,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $components = 'site.components';
 
-        Blade::component($components.'.search-widget', 'search_widget');
         Blade::component($components.'.article-teaser', 'article_teaser');
         Blade::component($components.'.related-item', 'related_item');
     }

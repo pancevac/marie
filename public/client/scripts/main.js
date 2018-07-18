@@ -768,6 +768,7 @@ __webpack_provided_window_dot_Vue = __webpack_require__(7);
 Vue.component('my-header', __webpack_require__(398));
 Vue.component('tab-bar', __webpack_require__(401));
 Vue.component('simple-carousel', __webpack_require__(406));
+Vue.component('search-widget', __webpack_require__(413));
 
 var mc = new Vue({
   el: '#app'
@@ -2054,6 +2055,199 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-70b6c4d2", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 413:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(414)
+/* template */
+var __vue_template__ = __webpack_require__(415)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\client\\scripts\\components\\SearchWidget.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6b6298b1", Component.options)
+  } else {
+    hotAPI.reload("data-v-6b6298b1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 414:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      value: '',
+      show: false
+    };
+  },
+  mounted: function mounted() {
+    window.addEventListener('keydown', this.onKeyDown);
+  },
+  destroyed: function destroyed() {
+    window.removeEventListener('keydown', this.onKeyDown);
+  },
+
+
+  methods: {
+    onSubmit: function onSubmit(evt) {
+      if (this.value === '') {
+        evt.preventDefault();
+        this.$refs.input.focus();
+        this.show = true;
+      }
+    },
+    onKeyDown: function onKeyDown(evt) {
+      if (!this.show) {
+        return;
+      }
+
+      if (evt.keyCode === 27) {
+        this.hide();
+      }
+    },
+    hide: function hide() {
+      this.show = false;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 415:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "form",
+    {
+      class: { "search-open": _vm.show },
+      attrs: { id: "search-form" },
+      on: { submit: _vm.onSubmit }
+    },
+    [
+      _c("div", { staticClass: "search-widget" }, [
+        _c(
+          "button",
+          {
+            staticClass: "icon-btn search-widget_search",
+            attrs: { type: "submit" }
+          },
+          [
+            _c(
+              "svg",
+              { staticClass: "icon", attrs: { role: "presentation" } },
+              [_c("use", { attrs: { "xlink:href": "#icon_search" } })]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          ref: "input",
+          attrs: { type: "text", placeholder: "Pretraži" },
+          domProps: { value: _vm.value }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "search-widget_border" }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "icon-btn search-widget_close",
+            attrs: { type: "reset" },
+            on: { click: _vm.hide }
+          },
+          [
+            _c(
+              "svg",
+              { staticClass: "icon", attrs: { role: "presentation" } },
+              [_c("use", { attrs: { "xlink:href": "#icon_close" } })]
+            )
+          ]
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6b6298b1", module.exports)
   }
 }
 

@@ -43,8 +43,7 @@
       </div>
     </tab-bar>
 
-    @search_widget()
-    @endsearch_widget
+    <search-widget></search-widget>
 
   </div>
 </header>
