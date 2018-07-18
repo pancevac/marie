@@ -1,0 +1,25 @@
+.pagination {
+  font-family: $font-family-serif;
+  justify-content: center;
+}
+
+.page-item {
+  color: $text-secondary-on-light;
+
+  &.active {
+    color: $text-primary-on-light;
+    font-weight: $font-weight-bold;
+  }
+
+  &.disabled {
+    display: none;
+  }
+}
+
+.page-link {
+  border: 0 !important;
+  color: inherit !important;
+  background-color: inherit !important;
+  box-shadow: none !important;
+  font-variant-ligatures: normal;
+}

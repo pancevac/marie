@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 398);
+/******/ 	return __webpack_require__(__webpack_require__.s = 394);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -748,7 +748,339 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ 3:
+/***/ 394:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(395);
+
+
+/***/ }),
+
+/***/ 395:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_Vue, Vue) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_lazy_images__ = __webpack_require__(396);
+__webpack_provided_window_dot_Vue = __webpack_require__(7);
+
+
+Vue.component('my-header', __webpack_require__(398));
+Vue.component('tab-bar', __webpack_require__(401));
+Vue.component('simple-carousel', __webpack_require__(406));
+
+var mc = new Vue({
+  el: '#app'
+});
+
+__WEBPACK_IMPORTED_MODULE_0__components_lazy_images__["a" /* default */].init();
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(7), __webpack_require__(7)))
+
+/***/ }),
+
+/***/ 396:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(397);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+/**
+ * LazyImages controller.
+ */
+
+var LazyImages = function () {
+  _createClass(LazyImages, null, [{
+    key: 'init',
+
+
+    /**
+     * Initializes LazyImage controller.
+     */
+    value: function init() {
+      this._instance = new LazyImages();
+    }
+
+    /**
+     * Creates new LazyImages instence.
+     */
+
+  }, {
+    key: 'HANDLED_CLASS',
+
+    /**
+     * @type {string}
+     */
+    get: function get() {
+      return 'loaded';
+    }
+
+    /**
+     * Feature detect.
+     * @type {boolean}
+     */
+
+  }, {
+    key: 'SUPPORTS_INTERSECTION_OBSERVER',
+    get: function get() {
+      return 'IntersectionObserver' in window && 'IntersectionObserverEntry' in window;
+    }
+  }]);
+
+  function LazyImages() {
+    var _this = this;
+
+    _classCallCheck(this, LazyImages);
+
+    var wraps = Array.from(document.querySelectorAll('.js-lazy-image'));
+
+    if (!LazyImages.SUPPORTS_INTERSECTION_OBSERVER) {
+      this._loadImagesImmediately(wraps);
+      return;
+    }
+
+    this._onIntersection = this._onIntersection.bind(this);
+    this._io = new IntersectionObserver(this._onIntersection);
+    wraps.forEach(function (wrap) {
+      // image has been handled and loaded.
+      if (wrap.classList.contains(LazyImages.HANDLED_CLASS)) {
+        return;
+      }
+
+      _this._io.observe(wrap);
+    });
+  }
+
+  /**
+   * Intersection handler
+   * 
+   * @param {IntersectionObserverEntry[]}
+   */
+
+
+  _createClass(LazyImages, [{
+    key: '_onIntersection',
+    value: function _onIntersection(entries) {
+      var _this2 = this;
+
+      entries.forEach(function (entry) {
+        // image not in view, just ignore.
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        // ignore loaded images...
+        if (entry.target.classList.contains(LazyImages.HANDLED_CLASS)) {
+          return;
+        }
+
+        entry.target.classList.add(LazyImages.HANDLED_CLASS);
+        _this2._preloadImage(entry.target);
+      });
+    }
+
+    /**
+     * Loads images immediately.
+     *
+     * @param {HTMLElement[]} wraps image wraps.
+     */
+
+  }, {
+    key: '_loadImagesImmediately',
+    value: function _loadImagesImmediately(wraps) {
+      var _this3 = this;
+
+      wraps.forEach(function (wrap) {
+        return _this3._preloadImage(wrap);
+      });
+    }
+
+    /**
+     * Preloads the given image.
+     *
+     * @param {HTMLElement} wrap image wrap.
+     */
+
+  }, {
+    key: '_preloadImage',
+    value: function _preloadImage(wrap) {
+      var _this4 = this;
+
+      var _wrap$dataset = wrap.dataset,
+          src = _wrap$dataset.src,
+          alt = _wrap$dataset.alt;
+      // ignore if `src` is not set.
+
+      if (!src) {
+        return;
+      }
+
+      Object(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* preloadImage */])(src).then(function (evt) {
+        return _this4._applyImage(wrap, evt.target, alt);
+      }).catch(function (err) {
+        return console.error(err.message);
+      });
+    }
+
+    /**
+     * Inserts the image in to the dom.
+     *
+     * @param {HTMLElement} wrap image wrap
+     * @param {HTMLImageElement} img image element
+     * @param {string} alt alt description
+     */
+
+  }, {
+    key: '_applyImage',
+    value: function _applyImage(wrap, img) {
+      var alt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'lazy image';
+
+      img.alt = alt;
+      img.classList.add('fade-in');
+      wrap.appendChild(img);
+    }
+  }]);
+
+  return LazyImages;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (LazyImages);
+
+/***/ }),
+
+/***/ 397:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return preloadImage; });
+/* unused harmony export toBool */
+/* unused harmony export parseString */
+/**
+ * Preloads the image with the given src.
+ *
+ * @param {string} src image source url
+ * @return {Promise}
+ */
+var preloadImage = function preloadImage(src) {
+  return new Promise(function (resolve, reject) {
+    var img = new Image();
+    img.src = src;
+    img.onload = resolve;
+    img.onerror = reject;
+  });
+};
+
+/**
+ * Transforms string into a bool value.
+ * e.g. toBool("true") -> true;
+ * @param {string} s
+ */
+var toBool = function toBool(s) {
+  return s === 'true';
+};
+
+/**
+ * Parses the given string to JavaScript type.
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
+ *
+ * @param {string} s string to parse.
+ * @return {any}
+ */
+var parseString = function parseString(s) {
+  return Function('\n    \'use strict;\'\n    return (' + s + ');\n  ')();
+};
+
+/***/ }),
+
+/***/ 398:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(399)
+/* template */
+var __vue_template__ = __webpack_require__(400)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\client\\scripts\\components\\Header.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-625f5b1c", Component.options)
+  } else {
+    hotAPI.reload("data-v-625f5b1c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 399:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  created: function created() {
+    console.log('header, created.');
+  },
+  data: function data() {
+    return {
+      visible: false
+    };
+  },
+
+
+  methods: {
+    onClick: function onClick(evt) {
+      this.visible = !this.visible;
+      console.log('header state visible: ' + this.visible);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -977,339 +1309,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 398:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(399);
-
-
-/***/ }),
-
-/***/ 399:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_Vue, Vue) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_lazy_images__ = __webpack_require__(400);
-__webpack_provided_window_dot_Vue = __webpack_require__(7);
-
-
-Vue.component('my-header', __webpack_require__(402));
-Vue.component('tab-bar', __webpack_require__(405));
-Vue.component('simple-carousel', __webpack_require__(410));
-
-var mc = new Vue({
-  el: '#app'
-});
-
-__WEBPACK_IMPORTED_MODULE_0__components_lazy_images__["a" /* default */].init();
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(7), __webpack_require__(7)))
-
-/***/ }),
-
 /***/ 400:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(401);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-/**
- * LazyImages controller.
- */
-
-var LazyImages = function () {
-  _createClass(LazyImages, null, [{
-    key: 'init',
-
-
-    /**
-     * Initializes LazyImage controller.
-     */
-    value: function init() {
-      this._instance = new LazyImages();
-    }
-
-    /**
-     * Creates new LazyImages instence.
-     */
-
-  }, {
-    key: 'HANDLED_CLASS',
-
-    /**
-     * @type {string}
-     */
-    get: function get() {
-      return 'loaded';
-    }
-
-    /**
-     * Feature detect.
-     * @type {boolean}
-     */
-
-  }, {
-    key: 'SUPPORTS_INTERSECTION_OBSERVER',
-    get: function get() {
-      return 'IntersectionObserver' in window && 'IntersectionObserverEntry' in window;
-    }
-  }]);
-
-  function LazyImages() {
-    var _this = this;
-
-    _classCallCheck(this, LazyImages);
-
-    var wraps = Array.from(document.querySelectorAll('.js-lazy-image'));
-
-    if (!LazyImages.SUPPORTS_INTERSECTION_OBSERVER) {
-      this._loadImagesImmediately(wraps);
-      return;
-    }
-
-    this._onIntersection = this._onIntersection.bind(this);
-    this._io = new IntersectionObserver(this._onIntersection);
-    wraps.forEach(function (wrap) {
-      // image has been handled and loaded.
-      if (wrap.classList.contains(LazyImages.HANDLED_CLASS)) {
-        return;
-      }
-
-      _this._io.observe(wrap);
-    });
-  }
-
-  /**
-   * Intersection handler
-   * 
-   * @param {IntersectionObserverEntry[]}
-   */
-
-
-  _createClass(LazyImages, [{
-    key: '_onIntersection',
-    value: function _onIntersection(entries) {
-      var _this2 = this;
-
-      entries.forEach(function (entry) {
-        // image not in view, just ignore.
-        if (!entry.isIntersecting) {
-          return;
-        }
-
-        // ignore loaded images...
-        if (entry.target.classList.contains(LazyImages.HANDLED_CLASS)) {
-          return;
-        }
-
-        entry.target.classList.add(LazyImages.HANDLED_CLASS);
-        _this2._preloadImage(entry.target);
-      });
-    }
-
-    /**
-     * Loads images immediately.
-     *
-     * @param {HTMLElement[]} wraps image wraps.
-     */
-
-  }, {
-    key: '_loadImagesImmediately',
-    value: function _loadImagesImmediately(wraps) {
-      var _this3 = this;
-
-      wraps.forEach(function (wrap) {
-        return _this3._preloadImage(wrap);
-      });
-    }
-
-    /**
-     * Preloads the given image.
-     *
-     * @param {HTMLElement} wrap image wrap.
-     */
-
-  }, {
-    key: '_preloadImage',
-    value: function _preloadImage(wrap) {
-      var _this4 = this;
-
-      var _wrap$dataset = wrap.dataset,
-          src = _wrap$dataset.src,
-          alt = _wrap$dataset.alt;
-      // ignore if `src` is not set.
-
-      if (!src) {
-        return;
-      }
-
-      Object(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* preloadImage */])(src).then(function (evt) {
-        return _this4._applyImage(wrap, evt.target, alt);
-      }).catch(function (err) {
-        return console.error(err.message);
-      });
-    }
-
-    /**
-     * Inserts the image in to the dom.
-     *
-     * @param {HTMLElement} wrap image wrap
-     * @param {HTMLImageElement} img image element
-     * @param {string} alt alt description
-     */
-
-  }, {
-    key: '_applyImage',
-    value: function _applyImage(wrap, img) {
-      var alt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'lazy image';
-
-      img.alt = alt;
-      img.classList.add('fade-in');
-      wrap.appendChild(img);
-    }
-  }]);
-
-  return LazyImages;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (LazyImages);
-
-/***/ }),
-
-/***/ 401:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return preloadImage; });
-/* unused harmony export toBool */
-/* unused harmony export parseString */
-/**
- * Preloads the image with the given src.
- *
- * @param {string} src image source url
- * @return {Promise}
- */
-var preloadImage = function preloadImage(src) {
-  return new Promise(function (resolve, reject) {
-    var img = new Image();
-    img.src = src;
-    img.onload = resolve;
-    img.onerror = reject;
-  });
-};
-
-/**
- * Transforms string into a bool value.
- * e.g. toBool("true") -> true;
- * @param {string} s
- */
-var toBool = function toBool(s) {
-  return s === 'true';
-};
-
-/**
- * Parses the given string to JavaScript type.
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
- *
- * @param {string} s string to parse.
- * @return {any}
- */
-var parseString = function parseString(s) {
-  return Function('\n    \'use strict;\'\n    return (' + s + ');\n  ')();
-};
-
-/***/ }),
-
-/***/ 402:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(403)
-/* template */
-var __vue_template__ = __webpack_require__(404)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\client\\scripts\\components\\Header.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-625f5b1c", Component.options)
-  } else {
-    hotAPI.reload("data-v-625f5b1c", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 403:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  created: function created() {
-    console.log('header, created.');
-  },
-  data: function data() {
-    return {
-      visible: false
-    };
-  },
-
-
-  methods: {
-    onClick: function onClick(evt) {
-      this.visible = !this.visible;
-      console.log('header state visible: ' + this.visible);
-    }
-  }
-});
-
-/***/ }),
-
-/***/ 404:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1336,19 +1336,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 405:
+/***/ 401:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(406)
+  __webpack_require__(402)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(408)
+var __vue_script__ = __webpack_require__(404)
 /* template */
-var __vue_template__ = __webpack_require__(409)
+var __vue_template__ = __webpack_require__(405)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1388,17 +1388,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 406:
+/***/ 402:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(407);
+var content = __webpack_require__(403);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("9ddb1c68", content, false, {});
+var update = __webpack_require__(4)("9ddb1c68", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -1415,7 +1415,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 407:
+/***/ 403:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -1430,7 +1430,7 @@ exports.push([module.i, "\n.host[data-v-4ba9cfa3] {\n  display: block;\n  white-
 
 /***/ }),
 
-/***/ 408:
+/***/ 404:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1586,7 +1586,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 409:
+/***/ 405:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1624,19 +1624,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 410:
+/***/ 406:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(411)
+  __webpack_require__(407)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(413)
+var __vue_script__ = __webpack_require__(409)
 /* template */
-var __vue_template__ = __webpack_require__(414)
+var __vue_template__ = __webpack_require__(410)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1676,17 +1676,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 411:
+/***/ 407:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(412);
+var content = __webpack_require__(408);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("70897965", content, false, {});
+var update = __webpack_require__(4)("70897965", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -1703,7 +1703,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 412:
+/***/ 408:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -1718,7 +1718,7 @@ exports.push([module.i, "\n.host[data-v-70b6c4d2] {\n  display: block;\n  white-
 
 /***/ }),
 
-/***/ 413:
+/***/ 409:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2003,7 +2003,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 414:
+/***/ 410:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
