@@ -3385,6 +3385,80 @@ a:hover, a:focus {
   overflow: hidden;
 }
 
+.search-widget {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-size: 16px;
+  width: 0;
+  -webkit-transition: width .21s;
+  transition: width .21s;
+}
+
+.search-open .search-widget {
+  width: 180px;
+}
+
+.search-widget input {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 5px 0;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid white;
+  background: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  outline: none;
+}
+
+.search-widget_border {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  opacity: 0;
+  -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+  -webkit-transition: -webkit-transform .12s;
+  transition: -webkit-transform .12s;
+  transition: transform .12s;
+  transition: transform .12s, -webkit-transform .12s;
+}
+
+input:focus + .search-widget_border {
+  opacity: 1;
+  -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+}
+
+.search-widget_search {
+  position: absolute;
+  top: 0;
+  left: -36px;
+}
+
+.search-widget_close {
+  position: absolute;
+  top: 0;
+  right: -16px;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: opacity .12s;
+  transition: opacity .12s;
+}
+
+.search-open .search-widget_close {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .teaser {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -43,11 +43,8 @@
       </div>
     </tab-bar>
 
-    <button class="icon-btn header_search-icon">
-      <svg class="icon" role="presentation">
-        <use xlink:href="#icon_search"></use>
-      </svg>
-    </button>
+    @search_widget()
+    @endsearch_widget
 
   </div>
 </header>
