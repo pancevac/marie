@@ -3,6 +3,7 @@
     <div class="host"
       v-on:touchstart='onTouchStart'
       v-on:mousedown='onTouchStart'
+      v-on:click='onClick'
       v-bind:style='{transform: translateX}'
     >
       <div class="track" ref="track">
@@ -44,6 +45,7 @@ export default {
       const clientWidth = this.$refs.wrap.getBoundingClientRect().width;
 
       this.isTouching = false;
+      this.disableClicks = false;
       this.delta = 0;
       this.currentX = 0;
       this.min = 0;
@@ -71,6 +73,7 @@ export default {
      */
     onTouchMove(evt) {
       this.delta = (evt.pageX || evt.touches[0].pageX) - this.startX;
+      this.disableClicks = true;
     },
 
     /**
@@ -79,6 +82,20 @@ export default {
     onTouchEnd(evt) {
       this.isTouching = false;
       this.removeEventListeners();
+
+      setTimeout(() => {
+        this.disableClicks = false;
+      }, 0);
+    },
+
+    /**
+     * Click handler. Blocks href follow if the user is dragging the slider.
+     * https://github.com/nolimits4web/Swiper/issues/25
+     */
+    onClick(evt) {
+      if (this.disableClicks) {
+        evt.preventDefault();
+      }
     },
 
     /**

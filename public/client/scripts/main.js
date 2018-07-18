@@ -1468,6 +1468,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1501,6 +1502,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var clientWidth = this.$refs.wrap.getBoundingClientRect().width;
 
       this.isTouching = false;
+      this.disableClicks = false;
       this.delta = 0;
       this.currentX = 0;
       this.min = 0;
@@ -1530,6 +1532,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      */
     onTouchMove: function onTouchMove(evt) {
       this.delta = (evt.pageX || evt.touches[0].pageX) - this.startX;
+      this.disableClicks = true;
     },
 
 
@@ -1537,8 +1540,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * Touchend/touchcancel/mouseup event handler.
      */
     onTouchEnd: function onTouchEnd(evt) {
+      var _this = this;
+
       this.isTouching = false;
       this.removeEventListeners();
+
+      setTimeout(function () {
+        _this.disableClicks = false;
+      }, 0);
+    },
+
+
+    /**
+     * Click handler. Blocks href follow if the user is dragging the slider.
+     * https://github.com/nolimits4web/Swiper/issues/25
+     */
+    onClick: function onClick(evt) {
+      if (this.disableClicks) {
+        evt.preventDefault();
+      }
     },
 
 
@@ -1565,11 +1585,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * https://css-tricks.com/snippets/jquery/done-resizing-event/
      */
     onResize: function onResize(evt) {
-      var _this = this;
+      var _this2 = this;
 
       clearTimeout(this.resizeTimer);
       this.resizeTimer = setTimeout(function () {
-        _this.init();
+        _this2.init();
       }, 250);
     },
 
@@ -1618,7 +1638,11 @@ var render = function() {
       {
         staticClass: "host",
         style: { transform: _vm.translateX },
-        on: { touchstart: _vm.onTouchStart, mousedown: _vm.onTouchStart }
+        on: {
+          touchstart: _vm.onTouchStart,
+          mousedown: _vm.onTouchStart,
+          click: _vm.onClick
+        }
       },
       [
         _c(
@@ -1833,7 +1857,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.perView = Math.round(gBCR.width / this.childWidth);
 
       this.isTouching = false;
-      this.disabelClicks = false;
+      this.disableClicks = false;
       this.delta = 0;
 
       // reset state
@@ -1860,7 +1884,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      */
     onTouchMove: function onTouchMove(evt) {
       this.delta = (evt.pageX || evt.touches[0].pageX) - this.startX;
-      this.disabelClicks = true;
+      this.disableClicks = true;
     },
 
 
@@ -1875,7 +1899,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.removeEventListeners();
 
       setTimeout(function () {
-        _this.disabelClicks = false;
+        _this.disableClicks = false;
       }, 0);
     },
 
@@ -1885,7 +1909,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * https://github.com/nolimits4web/Swiper/issues/25
      */
     onClick: function onClick(evt) {
-      if (this.disabelClicks) {
+      if (this.disableClicks) {
         evt.preventDefault();
       }
     },

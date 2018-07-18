@@ -92,7 +92,7 @@ export default {
       this.perView = Math.round(gBCR.width / this.childWidth);
 
       this.isTouching = false;
-      this.disabelClicks = false;
+      this.disableClicks = false;
       this.delta = 0;
 
       // reset state
@@ -117,7 +117,7 @@ export default {
      */
     onTouchMove(evt) {
       this.delta = (evt.pageX || evt.touches[0].pageX) - this.startX;
-      this.disabelClicks = true;
+      this.disableClicks = true;
     },
 
     /**
@@ -129,7 +129,7 @@ export default {
       this.removeEventListeners();
 
       setTimeout(() => {
-        this.disabelClicks = false;
+        this.disableClicks = false;
       }, 0);
     },
 
@@ -138,7 +138,7 @@ export default {
      * https://github.com/nolimits4web/Swiper/issues/25
      */
     onClick(evt) {
-      if (this.disabelClicks) {
+      if (this.disableClicks) {
         evt.preventDefault();
       }
     },
