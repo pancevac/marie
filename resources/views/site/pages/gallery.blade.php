@@ -8,7 +8,7 @@
 
       <div class="content-main">
         <div>show gallery stuff and crap...</div>
-        <div class="mb-3" style="overflow-x: hidden;">
+        <div class="mb-3 gallery" style="overflow-x: hidden;">
           <simple-carousel controls>
 
             <div class="slider-item">

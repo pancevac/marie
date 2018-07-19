@@ -1,0 +1,25 @@
+.gallery {
+  .control {
+    color: $text-secondary-on-light;
+    margin: 0;
+    padding: 0 16px;
+    display: inline-flex;
+    height: 36px;
+    background: none;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+
+    &--prev {
+      &::before {
+        content: "\226A predhodna";
+      }
+    }
+
+    &--next {
+      &::before {
+        content: "sledeca \226B";
+      }
+    }
+  }
+}

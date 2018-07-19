@@ -18,8 +18,14 @@
       ></button>
     </div>
     <div v-if='controls' class="controls">
-      <button class="controls_prev" v-on:click='goTo(slide - 1)'></button>
-      <button class="controls_next" v-on:click='goTo(slide + 1)'></button>
+      <button class="control control--prev"
+        aria-label="previous slide"
+        v-on:click='goTo(slide - 1)'
+      ></button>
+      <button class="control control--next"
+        aria-label="next slide"
+        v-on:click='goTo(slide + 1)'
+      ></button>
     </div>
   </div>
 </template>
