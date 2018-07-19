@@ -25,6 +25,11 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt debitis fugiat quisquam facere aspernatur odit, cupiditate alias minus repellendus voluptatum molestiae vitae a adipisci ratione nam corrupti corporis dolore nulla!</p>
           </div>
 
+          <div class="article_thumbs">
+            @image_gallery()
+            @endimage_gallery
+          </div>
+
         </div><!-- ./article -->
 
         <div class="mb-5 pt-2">
