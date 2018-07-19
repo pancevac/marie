@@ -21,6 +21,13 @@ Route::middleware('auth:api')->group(function () {
     Route::get('blogs/tree', 'Api\BlogsController@tree');
     Route::resource('blogs', 'Api\BlogsController');
 
+    Route::resource('menus', 'Api\MenusController');
+
+    Route::get('menu-links/lists', 'Api\MenuLinksController@lists');
+    Route::resource('menu-links', 'Api\MenuLinksController');
+    Route::get('menu-links/{id}/sort', 'Api\MenuLinksController@sort');
+    Route::post('menu-links/{id}/order', 'Api\MenuLinksController@saveOrder');
+
     Route::resource('posts', 'Api\PostsController');
     Route::post('posts/search', 'Api\PostsController@search');
 

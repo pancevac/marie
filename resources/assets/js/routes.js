@@ -56,19 +56,15 @@ export const router = new VueRouter({
 
         { path: "/settings/:id/edit", component: require('./components/settings/SettingEdit.vue'), meta: { forAdmin: true } },
 
-        // { path: "/themes", component: require('./components/themes/ThemeList.vue'), meta: { forAdmin: true } },
-        // { path: "/themes/create", component: require('./components/themes/ThemeCreate.vue'), meta: { forAdmin: true } },
-        // { path: "/themes/:id/edit", component: require('./components/themes/ThemeEdit.vue'), meta: { forAdmin: true } },
-        //
-        // { path: "/menus", component: require('./components/menus/MenuList.vue'), meta: { forAdmin: true } },
-        // { path: "/menus/create", component: require('./components/menus/MenuCreate.vue'), meta: { forAdmin: true } },
-        // { path: "/menus/:id/edit", component: require('./components/menus/MenuEdit.vue'), meta: { forAdmin: true } },
-        // { path: "/menus/:id/sort", component: require('./components/menus/MenuSort.vue'), meta: { forAdmin: true } },
-        //
-        // { path: "/menu-links/:id", component: require('./components/menuLinks/MenuLinks.vue'), meta: { forAdmin: true } },
-        // { path: "/menu-links/:id/create", component: require('./components/menuLinks/MenuLinkCreate.vue'), meta: { forAdmin: true } },
-        // { path: "/menu-links/:id/edit", component: require('./components/menuLinks/MenuLinkEdit.vue'), meta: { forAdmin: true } },
-        //
+        { path: "/menus", component: require('./components/menus/MenuList.vue'), meta: { forAdmin: true } },
+        { path: "/menus/create", component: require('./components/menus/MenuCreate.vue'), meta: { forAdmin: true } },
+        { path: "/menus/:id/edit", component: require('./components/menus/MenuEdit.vue'), meta: { forAdmin: true } },
+        { path: "/menus/:id/sort", component: require('./components/menus/MenuSort.vue'), meta: { forAdmin: true } },
+
+        { path: "/menu-links/:id", component: require('./components/menuLinks/MenuLinks.vue'), meta: { forAdmin: true } },
+        { path: "/menu-links/:id/create", component: require('./components/menuLinks/MenuLinkCreate.vue'), meta: { forAdmin: true } },
+        { path: "/menu-links/:id/edit", component: require('./components/menuLinks/MenuLinkEdit.vue'), meta: { forAdmin: true } },
+
         // { path: "/blocks", component: require('./components/blocks/BlockList.vue'), meta: { forAdmin: true } },
         // { path: "/blocks/create", component: require('./components/blocks/BlockCreate.vue'), meta: { forAdmin: true } },
         // { path: "/blocks/:id/edit", component: require('./components/blocks/BlockEdit.vue'), meta: { forAdmin: true } },

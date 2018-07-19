@@ -18,7 +18,6 @@
                 <font-awesome-icon icon="cogs"/>
                 <ul>
                     <li><router-link tag="a" :to="'/settings/1/edit'">SEO</router-link></li>
-                    <li><router-link tag="a" :to="'/themes'">Teme</router-link></li>
                     <li><router-link tag="a" :to="'/menus'">Meni</router-link></li>
                 </ul>
             </li>

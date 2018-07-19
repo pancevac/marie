@@ -18,7 +18,7 @@ class Blog extends Model
     public static $paginate = 50;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass assignable
      *
      * @var array
      */

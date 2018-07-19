@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class BannersController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of Banner model
      *
      * @return \Illuminate\Http\Response
      */
@@ -23,9 +23,9 @@ class BannersController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * method used to store a newly created Banner model
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateBannerRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(CreateBannerRequest $request){
@@ -38,7 +38,7 @@ class BannersController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * method used to display the specified Banner model
      *
      * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
@@ -50,9 +50,9 @@ class BannersController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * method used to update the specified Banner model
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateBannerRequest  $request
      * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
@@ -66,7 +66,7 @@ class BannersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * method ised to remove the specified Banner model
      *
      * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
