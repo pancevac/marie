@@ -1,0 +1,21 @@
+.slide {
+  display: flex;
+
+  &--landscape {
+    flex-direction: column;
+  }
+
+  &--portrait {
+    .slide_info {
+      width: 33.3333%;
+    }
+  }
+
+  &_image {
+    flex-grow: 1;
+  }
+
+  &_info {
+    flex-shrink: 0;
+  }
+}

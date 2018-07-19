@@ -281,5 +281,6 @@ export default {
     overflow: hidden;
     font-size: initial;
     white-space: initial;
+    vertical-align: top;
   }
 </style>
