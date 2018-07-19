@@ -53,9 +53,9 @@ export const router = new VueRouter({
         // { path: "/products", component: require('./components/products/ProductList.vue'), meta: { forAuth: true } },
         // { path: "/products/create", component: require('./components/products/ProductCreate.vue'), meta: { forAuth: true } },
         // { path: "/products/:id/edit", component: require('./components/products/ProductEdit.vue'), meta: { forAuth: true } },
-        //
-        // { path: "/settings/:id/edit", component: require('./components/settings/SettingEdit.vue'), meta: { forAdmin: true } },
-        //
+
+        { path: "/settings/:id/edit", component: require('./components/settings/SettingEdit.vue'), meta: { forAdmin: true } },
+
         // { path: "/themes", component: require('./components/themes/ThemeList.vue'), meta: { forAdmin: true } },
         // { path: "/themes/create", component: require('./components/themes/ThemeCreate.vue'), meta: { forAdmin: true } },
         // { path: "/themes/:id/edit", component: require('./components/themes/ThemeEdit.vue'), meta: { forAdmin: true } },

@@ -24,6 +24,8 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('posts', 'Api\PostsController');
     Route::post('posts/search', 'Api\PostsController@search');
 
+    Route::resource('settings', 'Api\SettingsController');
+
     Route::resource('subscribers', 'Api\SubscribersController');
 
     Route::resource('tags', 'Api\TagsController');
