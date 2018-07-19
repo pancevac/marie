@@ -17,12 +17,20 @@
         v-on:click='onDotClick(index)'
       ></button>
     </div>
+    <div v-if='controls' class="controls">
+      <button class="controls_prev" v-on:click='goTo(slide - 1)'></button>
+      <button class="controls_next" v-on:click='goTo(slide + 1)'></button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   props: {
+    controls: {
+      type: Boolean,
+      default: false,
+    },
     dots: {
       type: Boolean,
       default: false,
@@ -39,7 +47,7 @@ export default {
   data() {
     return {
       x: 0,
-      animate: true,
+      animate: false,
       length: this.loop ? 3 : 1,
       perView: 1,
       slide: 0,
@@ -166,7 +174,7 @@ export default {
      */
     onDotClick(index) {
       const n = this.loop ? 0 : 1;
-      this.setActive(index - n, true);
+      this.goTo(index - n);
     },
 
     /**
@@ -204,11 +212,19 @@ export default {
         nextSlide = currentSlide - (1 + slidesMoved);
       }
 
+      this.goTo(nextSlide);
+    },
+
+    /**
+     * Slides to the given slide.
+     * 
+     * @param {number} index
+     */
+    goTo(index) {
       const min = 0;
       const max = this.length - this.perView;
-      // Make sure value is in range.
-      const slide = Math.max(min, Math.min(nextSlide, max));
-      this.setActive(slide);
+      const slide = Math.max(min, Math.min(index, max));
+      this.setActive(slide, true);
     },
 
     /**
