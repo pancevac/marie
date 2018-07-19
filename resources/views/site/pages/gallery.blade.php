@@ -12,27 +12,23 @@
           <simple-carousel>
 
             <div class="slider-item">
-              <div class="slide slide--landscape">
-                <div class="slide_image">
-                  <div class="image image--16-9"></div>
-                </div>
-                <div class="p-3 slide_info" style="background-color: #f7f7f7;">
-                  <h2 class="text-sans-serif h6 mb-2">Image title</h2>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus obcaecati quo corporis quos molestias illum modi iste placeat.</p>
-                </div>
-              </div>
+              <slide
+                src="https://images.pexels.com/photos/234881/pexels-photo-234881.jpeg?auto=compress&cs=tinysrgb&h=350"
+                alt="more girls!"
+              >
+                <h2 class="text-sans-serif h6 mb-2">Some title</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus obcaecati quo corporis quos molestias illum modi iste placeat.</p>
+              </slide>
             </div>
 
             <div class="slider-item">
-              <div class="slide slide--portrait">
-                <div class="slide_image">
-                  <div class="image image--3-4"></div>
-                </div>
-                <div class="p-3 slide_info" style="background-color: #f7f7f7;">
-                  <h2 class="text-sans-serif h6 mb-2">Image title</h2>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus obcaecati quo corporis quos molestias illum modi iste placeat.</p>
-                </div>
-              </div>
+              <slide
+                src="https://images.pexels.com/photos/37319/underwear-beauty-model-western-model-offered.jpg?auto=compress&cs=tinysrgb&h=350"
+                alt="chick"
+              >
+                <h2 class="text-sans-serif h6 mb-2">Some title</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus obcaecati quo corporis quos molestias illum modi iste placeat.</p>
+              </slide>
             </div>
 
           </simple-carousel>
