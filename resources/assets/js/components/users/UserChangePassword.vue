@@ -38,10 +38,10 @@
                 </div>
                 <div class="col-sm-4">
                     <upload-image-helper
-                            :image="user.imagePath"
+                            :image="user.image_path"
                             :defaultImage="'img/user-image.png'"
                             :titleImage="'korisnika'"
-                            :error="error"
+                            :error="error.image"
                             @uploadImage="prepare($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
@@ -60,7 +60,9 @@
         data(){
           return {
               fillable: ['oldpassword', 'password', 'password_confirmation', 'image'],
-              error: null
+              error: {
+                  image: null,
+              }
           }
         },
         components: {
@@ -95,7 +97,7 @@
                     });
             },
             prepare(image){
-                this.user.imagePath = image.src;
+                this.user.image_path = image.src;
                 this.user.image = image.file;
             },
         }

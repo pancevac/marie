@@ -48,10 +48,20 @@
                     <upload-image-helper
                             :image="post.image_path"
                             :defaultImage="null"
-                            :titleImage="'članka'"
-                            :error="error"
-                            :dimensions="''"
+                            :titleImage="'slajdera'"
+                            :error="error.image"
+                            :dimensions="'800x450 px'"
                             @uploadImage="prepare($event)"
+                            @removeRow="remove($event)"
+                    ></upload-image-helper>
+
+                    <upload-image-helper
+                            :image="post.image_box_path"
+                            :defaultImage="null"
+                            :titleImage="'članka'"
+                            :error="error.image_box"
+                            :dimensions="'600x600 px'"
+                            @uploadImage="prepareBox($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
 
@@ -85,17 +95,21 @@
     export default {
         data(){
           return {
-              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'is_visible', 'blog_ids', 'tag_ids'],
-              image: {},
+              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'image_box', 'publish_at', 'is_visible', 'blog_ids', 'tag_ids'],
               post: {
                   title: null,
                   blog_ids: [],
+                  image: '',
+                  image_box: '',
                   tag_ids: [],
                   is_visible: false,
               },
               lists: false,
               tags: false,
-              error: null,
+              error: {
+                  image: null,
+                  image_box: null,
+              },
               blog_ids: [],
           }
         },
@@ -138,6 +152,10 @@
             prepare(image){
                 this.post.image_path = image.src;
                 this.post.image = image.file;
+            },
+            prepareBox(image){
+                this.post.image_box_path = image.src;
+                this.post.image_box = image.file;
             },
             getList(){
                 axios.get('api/blogs/tree')

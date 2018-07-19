@@ -39,10 +39,20 @@
                         <upload-image-helper
                                 :image="post.image_path"
                                 :defaultImage="null"
-                                :titleImage="'članka'"
-                                :error="error"
-                                :dimensions="'800x600 px'"
+                                :titleImage="'slajdera'"
+                                :error="error.image"
+                                :dimensions="'800x450 px'"
                                 @uploadImage="prepare($event)"
+                                @removeRow="remove($event)"
+                        ></upload-image-helper>
+
+                        <upload-image-helper
+                                :image="post.image_box_path"
+                                :defaultImage="null"
+                                :titleImage="'članka'"
+                                :error="error.image_box"
+                                :dimensions="'600x600 px'"
+                                @uploadImage="prepareBox($event)"
                                 @removeRow="remove($event)"
                         ></upload-image-helper>
 
@@ -112,10 +122,13 @@
     export default {
         data(){
           return {
-              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'is_visible', 'blog_ids', 'tag_ids'],
+              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'image_box', 'publish_at', 'is_visible', 'blog_ids', 'tag_ids'],
               selected: {},
               post: false,
-              error: null,
+              error: {
+                  image: false,
+                  image_box: false,
+              },
               lists: false,
               gallery: {},
               tags: false,
@@ -153,14 +166,18 @@
                         //this.gallery = res.data.photos;
 
                         this.post = res.data.post;
-                        this.post.image_path = res.data.post.image;
+                        this.post.image_path = this.post.image;
+                        this.post.image = null;
+                        this.post.image_box_path = this.post.image_box;
+                        this.post.image_box = null;
 
                         this.post.blog_ids = res.data.blog_ids;
                         this.post.tag_ids = res.data.tag_ids;
-                        console.log(this.post.tag_ids);
 
                         this.lists = res.data.blogs;
                         this.tags = res.data.tags;
+
+                        this.trigger = true;
                     })
                     .catch(e => {
                         console.log(e);
@@ -172,10 +189,6 @@
                 let data = fillForm(this.fillable, this.post, 'PUT');
                 axios.post('api/posts/' + this.post.id, data)
                     .then(res => {
-                        this.post = res.data.post;
-                        this.post.image_path = res.data.post.image;
-                        this.post.blog_ids = res.data.blog_ids;
-                        //this.post.tag_ids = res.data.tag_ids;
                         swal({
                             position: 'center',
                             type: 'success',
@@ -204,8 +217,12 @@
                 this.getGallery();
             },
             prepare(image){
-                this.post.imagePath = image.src;
+                this.post.image_path = image.src;
                 this.post.image = image.file;
+            },
+            prepareBox(image){
+                this.post.image_box_path = image.src;
+                this.post.image_box = image.file;
             },
         },
         watch: {

@@ -19,8 +19,8 @@ class PostsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreatePostRequest $request){
-        $post = Post::create($request->except('image'));
-        $post->update(['image' => $post->storeImage()]);
+        $post = Post::create($request->except('image', 'image_box'));
+        $post->update(['image' => $post->storeImage(), 'image_box' => $post->storeImage('image_box', 'image_box')]);
         $post->blog()->sync(explode(',', request('blog_ids')));
         $post->tag()->sync(!empty(request('tag_ids'))? explode(',', request('tag_ids')) : []);
 
@@ -53,8 +53,8 @@ class PostsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(CreatePostRequest $request, Post $post){
-        $post->update($request->except('image'));
-        $post->update(['image' => $post->storeImage()]);
+        $post->update($request->except('image', 'image_box'));
+        $post->update(['image' => $post->storeImage(), 'image_box' => $post->storeImage('image_box', 'image_box')]);
         $post->blog()->sync(explode(',', request('blog_ids')));
         $post->tag()->sync(!empty(request('tag_ids'))? explode(',', request('tag_ids')) : []);
 

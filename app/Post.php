@@ -19,11 +19,18 @@ class Post extends Model
     public static $paginate = 50;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass assignable
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'title', 'slug', 'short', 'body', 'image', 'publish_at', 'views', 'is_visible'];
+    protected $fillable = ['user_id', 'title', 'slug', 'short', 'body', 'image', 'image_box', 'publish_at', 'views', 'is_visible'];
+
+    /**
+     * append to Post model crop_image attribute
+     *
+     * @var array
+     */
+    protected $appends = ['crop_image'];
 
     /**
      * The attributes that are use for search
@@ -61,6 +68,15 @@ class Post extends Model
      */
     public function setIsVisibleAttribute($value){
         $this->attributes['is_visible'] = !empty($value)?: 0;
+    }
+
+    /**
+     * method user to return crop_image attribute
+     *
+     * @return mixed
+     */
+    public function getCropImageAttribute(){
+        return \Imagecache::get($this->image, '800x342')->src;
     }
 
     /**
