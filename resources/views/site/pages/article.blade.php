@@ -26,7 +26,15 @@
           </div>
 
           <div class="article_thumbs">
-            @image_gallery()
+            @image_gallery([
+              'images' => [
+                'https://images.pexels.com/photos/903171/pexels-photo-903171.jpeg?auto=compress&cs=tinysrgb&h=350',
+                'https://images.pexels.com/photos/866027/pexels-photo-866027.jpeg?auto=compress&cs=tinysrgb&h=350',
+                'https://images.pexels.com/photos/907826/pexels-photo-907826.jpeg?auto=compress&cs=tinysrgb&h=350',
+                'https://images.pexels.com/photos/905336/pexels-photo-905336.jpeg?auto=compress&cs=tinysrgb&h=350',
+                'https://images.pexels.com/photos/866019/pexels-photo-866019.jpeg?auto=compress&cs=tinysrgb&h=350',
+              ],
+            ])
             @endimage_gallery
           </div>
 
