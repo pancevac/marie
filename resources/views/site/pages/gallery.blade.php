@@ -7,7 +7,15 @@
     <div class="content-wrap">
 
       <div class="content-main">
-        <div>show gallery stuff and crap...</div>
+        <div class="d-flex justify-content-between py-2">
+          <div></div>
+          <button class="btn btn--secondary px-2">
+            <svg class="icon" role="presentation">
+              <use xlink:href="#icon_gallery"></use>
+            </svg>
+            <span class="ml-1">sve slike</span>
+          </button>
+        </div>
         <div class="mb-3 gallery" style="overflow-x: hidden;">
           <simple-carousel controls>
 
