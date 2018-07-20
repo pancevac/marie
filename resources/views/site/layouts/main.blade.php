@@ -11,6 +11,7 @@
   @include('site.partials.graphics')
 
   <div id="app" class="content">
+    @include('site.partials.sidenav')
     @include('site.partials.header')
 
     @yield('content')
