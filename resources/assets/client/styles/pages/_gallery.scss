@@ -1,22 +1,42 @@
 .gallery {
+  position: relative;
+
+  .controls {
+    position: absolute;
+    top: -8px;
+    left: 0;
+    display: inline-flex;
+    z-index: 1;
+    transform: translateY(-100%);
+  }
+
   .control {
-    color: $text-secondary-on-light;
+    color: $text-primary-on-light;
     margin: 0;
     padding: 0 16px;
     display: inline-flex;
-    height: 36px;
+    height: 32px;
     background: none;
     border: 0;
     outline: none;
     cursor: pointer;
+    opacity: .5;
+
+    &:hover {
+      opacity: 1;
+    }
 
     &--prev {
+      padding-left: 0;
+
       &::before {
         content: "\226A predhodna";
       }
     }
 
     &--next {
+      padding-right: 0;
+
       &::before {
         content: "sledeca \226B";
       }

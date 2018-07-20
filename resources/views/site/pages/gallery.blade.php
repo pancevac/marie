@@ -7,16 +7,17 @@
     <div class="content-wrap">
 
       <div class="content-main">
-        <div class="d-flex justify-content-between py-2">
+        <div class="d-flex justify-content-between py-2 border-top">
           <div></div>
           <button class="btn btn--secondary px-2">
             <svg class="icon" role="presentation">
               <use xlink:href="#icon_gallery"></use>
             </svg>
-            <span class="ml-1">sve slike</span>
+            <span class="ml-1 d-none d-sm-inline">sve slike</span>
           </button>
         </div>
-        <div class="mb-3 gallery" style="overflow-x: hidden;">
+        <div class="mb-3 gallery">
+          <div style="overflow-x: hidden;">
           <simple-carousel controls>
 
             <div class="slider-item">
@@ -40,6 +41,7 @@
             </div>
 
           </simple-carousel>
+          </div>
 
         </div>
 
