@@ -85,7 +85,7 @@ class Post extends Model
      * @param $query
      * @return mixed
      */
-    public function scopePublished($query){
+    public function scopeVisible($query){
         return $query->where('is_visible', 1);
     }
 

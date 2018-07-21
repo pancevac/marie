@@ -34,9 +34,6 @@
                     <template v-if="admin">
                         <li><router-link tag="a" :to="'/categories'">Kategorije</router-link></li>
                         <li><router-link tag="a" :to="'/brands'">Brendovi</router-link></li>
-                        <li><router-link tag="a" :to="'/collections'">Kolekcije</router-link></li>
-                        <li><router-link tag="a" :to="'/properties'">Osobine</router-link></li>
-                        <li><router-link tag="a" :to="'/attributes'">Atributi</router-link></li>
                     </template>
                 </ul>
             </li>

@@ -41,4 +41,13 @@ class User extends Authenticatable
     public function setPasswordAttribute($value){
         $this->attributes['password'] = Hash::make($value);
     }
+
+    /**
+     * method used to make has-many connection between User and Product model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function product(){
+        return $this->hasMany(Product::class);
+    }
 }

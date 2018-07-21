@@ -57,7 +57,7 @@ class Blog extends Model
      * @param $value
      */
     public function setLevelAttribute($value){
-        $this->attributes['level'] = !empty($value)?: 1;
+        $this->attributes['level'] = !empty($value)? $value: 1;
     }
 
     /**
@@ -66,7 +66,7 @@ class Blog extends Model
      * @param $value
      */
     public function setParentAttribute($value){
-        $this->attributes['parent'] = !empty($value)?: 1;
+        $this->attributes['parent'] = !empty($value)? $value: 0;
     }
 
     /**
@@ -103,7 +103,7 @@ class Blog extends Model
      * @param $query
      * @return mixed
      */
-    public function scopePublished($query){
+    public function scopeVisible($query){
         return $query->where('is_visible', 1);
     }
 

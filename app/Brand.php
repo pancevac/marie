@@ -2,12 +2,13 @@
 
 namespace App;
 
-use App\Traits\SearchableTraits;
+use App\Traits\UploudableImageTrait;
 use Illuminate\Database\Eloquent\Model;
+use File;
 
-class Tag extends Model
+class Brand extends Model
 {
-    use SearchableTraits;
+    use UploudableImageTrait;
 
     /**
      * paginate number
@@ -21,14 +22,20 @@ class Tag extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'slug', 'is_visible'];
+    protected $fillable = ['title', 'slug', 'short', 'content', 'order', 'image', 'logo', 'is_visible'];
 
     /**
-     * The attributes that are use for search
-     *
-     * @var array
+     *method used when instance of this model is created
      */
-    protected static $searchable = ['title'];
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($brand) {
+            if(!empty($brand->image)) File::delete($brand->image);
+            if(!empty($brand->logo)) File::delete($brand->logo);
+        });
+    }
 
     /**
      * method used to set slug attribute
@@ -49,7 +56,7 @@ class Tag extends Model
     }
 
     /**
-     * method use to centralise is visible Tag logic
+     * method use to centralise is visible Blog logic
      *
      * @param $query
      * @return mixed
@@ -59,11 +66,11 @@ class Tag extends Model
     }
 
     /**
-     * method used to make belongs-to-many connection between Tag and Post model
+     * method used to make belongs-to-many connection between Brand and Product model
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function post(){
-        return $this->belongsToMany(Post::class);
+    public function product(){
+        return $this->hasMany(Product::class);
     }
 }
