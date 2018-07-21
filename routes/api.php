@@ -18,6 +18,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::resource('banners', 'Api\BannersController');
 
+    Route::resource('brands', 'Api\BrandsController');
+
     Route::get('blogs/tree', 'Api\BlogsController@tree');
     Route::resource('blogs', 'Api\BlogsController');
 

@@ -29,10 +29,10 @@ export const router = new VueRouter({
         { path: "/banners/create", component: require('./components/banners/BannerCreate.vue'), meta: { forAdmin: true } },
         { path: "/banners/:id/edit", component: require('./components/banners/BannerEdit.vue'), meta: { forAdmin: true } },
 
-        // { path: "/brands", component: require('./components/brands/BrandList.vue'), meta: { forAdmin: true } },
-        // { path: "/brands/create", component: require('./components/brands/BrandCreate.vue'), meta: { forAdmin: true } },
-        // { path: "/brands/:id/edit", component: require('./components/brands/BrandEdit.vue'), meta: { forAdmin: true } },
-        //
+        { path: "/brands", component: require('./components/brands/BrandList.vue'), meta: { forAdmin: true } },
+        { path: "/brands/create", component: require('./components/brands/BrandCreate.vue'), meta: { forAdmin: true } },
+        { path: "/brands/:id/edit", component: require('./components/brands/BrandEdit.vue'), meta: { forAdmin: true } },
+
         // { path: "/collections", component: require('./components/collections/CollectionList.vue'), meta: { forAdmin: true } },
         // { path: "/collections/create", component: require('./components/collections/CollectionCreate.vue'), meta: { forAdmin: true } },
         // { path: "/collections/:id/edit", component: require('./components/collections/CollectionEdit.vue'), meta: { forAdmin: true } },

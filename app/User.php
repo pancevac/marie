@@ -43,6 +43,16 @@ class User extends Authenticatable
     }
 
     /**
+     * method use to centralise is_admin User logic
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeIsAdmin($query){
+        return $query->where('role_id', 2);
+    }
+
+    /**
      * method used to make has-many connection between User and Product model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

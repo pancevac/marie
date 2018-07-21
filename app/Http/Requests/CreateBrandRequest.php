@@ -13,7 +13,7 @@ class CreateBrandRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,21 @@ class CreateBrandRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required',
+            'slug' => 'required',
+        ];
+    }
+
+    /**
+     * Get the validation rules messages
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'title.required' => 'Naziv je obavezan',
+            'slug.required' => 'Slug je obavezan',
         ];
     }
 }

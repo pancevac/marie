@@ -46,13 +46,13 @@ class BrandsController extends Controller
      */
     public function show(Brand $brand){
         return response()->json([
-            'blog' => $brand,
+            'brand' => $brand,
         ]);
     }
 
 
     /**
-     * method used to update blog and return
+     * method used to update brand and return
      *
      * @param CreateBrandRequest $request
      * @param Brand $brand
