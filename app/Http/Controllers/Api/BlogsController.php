@@ -15,7 +15,7 @@ class BlogsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(){
-        $blogs = Blog::with('parentBlog')->orderBy('created_at', 'DESC')->paginate(50);
+        $blogs = Blog::with('parentBlog')->orderBy('created_at', 'DESC')->paginate(Blog::$paginate);
 
         return response()->json([
             'blogs' => $blogs,

@@ -6,7 +6,7 @@ use App\Traits\UploudableImageTrait;
 use Illuminate\Database\Eloquent\Model;
 use File;
 
-class Blog extends Model
+class Category extends Model
 {
     use UploudableImageTrait;
 
@@ -22,7 +22,7 @@ class Blog extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'slug', 'short', 'seo_title', 'seo_keywords', 'order', 'parent', 'level', 'image', 'is_visible'];
+    protected $fillable = ['title', 'slug', 'short', 'order', 'parent', 'level', 'image', 'is_visible'];
 
     /**
      *method used when instance of this model is created
@@ -31,14 +31,14 @@ class Blog extends Model
     {
         parent::boot();
 
-        self::deleting(function($blog){
-            self::where('parent', $blog->id)->get()->each(function($item){
+        self::deleting(function($category){
+            self::where('parent', $category->id)->get()->each(function($item){
                 $item->update(['parent' => 0]);
             });
         });
 
-        static::deleting(function ($post) {
-            if(!empty($post->image)) File::delete($post->image);
+        static::deleting(function ($category) {
+            if(!empty($category->image)) File::delete($category->image);
         });
     }
 
@@ -79,11 +79,11 @@ class Blog extends Model
     }
 
     /**
-     * method used to return list of blogs without parents
+     * method used to return list of categories without parents
      *
      * @return mixed
      */
-    public static function getNoParentBlogList(){
+    public static function getNoParentCategoryList(){
         return self::where('parent', 0)->published()->orderBy('order', 'ASC')->pluck('title', 'id')->prepend('Izaberi kategoriju', 0);
     }
 
@@ -108,11 +108,11 @@ class Blog extends Model
     }
 
     /**
-     * method used to make has-one connection to parent Blog model
+     * method used to make has-one connection to parent Category model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function parentBlog() {
+    public function parentCategory() {
         return $this->hasOne(self::class, 'id', 'parent');
     }
 
@@ -126,12 +126,11 @@ class Blog extends Model
     }
 
     /**
-     * method used to make belongs-to-many connection between Blog and Blog model
+     * method used to make belongs-to-many connection between Category and Product model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function post(){
-        return $this->belongsToMany(Post::class);
+    public function product(){
+        return $this->belongsToMany(Product::class);
     }
-
 }
