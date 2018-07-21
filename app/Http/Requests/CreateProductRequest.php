@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateBrandRequest extends FormRequest
+class CreateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,8 @@ class CreateBrandRequest extends FormRequest
         return [
             'title' => 'required',
             'slug' => 'required',
+            'link' => 'required',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif',
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png,gif',
         ];
     }
 
@@ -41,10 +41,9 @@ class CreateBrandRequest extends FormRequest
         return [
             'title.required' => 'Naziv je obavezan',
             'slug.required' => 'Slug je obavezan',
+            'link.required' => 'Link je obavezan',
             'image.image' => 'Slika nije u ispravnom formatu',
             'image.mimes' => 'Slika nije u jpg, jpeg, png ili gif formatu',
-            'logo.image' => 'Slika nije u ispravnom formatu',
-            'logo.mimes' => 'Slika nije u jpg, jpeg, png ili gif formatu',
         ];
     }
 }

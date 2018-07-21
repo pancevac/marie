@@ -48,7 +48,7 @@
                             :image="brand.image_path"
                             :defaultImage="null"
                             :titleImage="'brenda'"
-                            :error="error"
+                            :error="error.image"
                             @uploadImage="prepare($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
@@ -57,7 +57,7 @@
                             :image="brand.logo_path"
                             :defaultImage="null"
                             :titleImage="'logoa'"
-                            :error="error"
+                            :error="error.logo"
                             @uploadImage="prepareLogo($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
@@ -78,7 +78,10 @@
           return {
               fillable: ['title', 'slug', 'short', 'content', 'order', 'image', 'logo', 'is_visible'],
               brand: false,
-              error: null,
+              error: {
+                  image: null,
+                  logo: null,
+              },
           }
         },
         components: {
