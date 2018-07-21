@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->integer('brand_id')->unsigned()->index();
             $table->string('title');
             $table->string('slug');
+            $table->string('code');
             $table->text('short')->nullable();
             $table->text('content')->nullable();
             $table->string('link');

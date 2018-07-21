@@ -82,4 +82,34 @@ class ProductsController extends Controller
             'message' => 'deleted',
         ]);
     }
+
+    /**
+     * Posts search
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search(Request $request){
+        $category = request('category');
+        $text = request('text');
+
+        $products = Product::select('products.*')->join('category_product', 'products.id', '=', 'category_product.product_id')
+            ->join('categories', 'category_product.category_id', '=', 'categories.id')
+            ->where(function($query) use ($category){
+                if($category > 0){
+                    $query->where('categories.id', $category);
+                }
+            })
+            ->where(function ($query) use ($text){
+                if(!empty($text)){
+                    $query->where('products.title', 'like', '%'.$text.'%')->orWhere('products.slug', 'like', '%'.$text.'%')
+                        ->orWhere('products.id', 'like', '%'.$text.'%')->orWhere('products.code', 'like', '%'.$text.'%');
+                }
+            })->groupBy('products.id')->orderBy('products.id', 'DESC')->paginate(50);
+
+        $products->map(function($product){ $product->edit = false; return $product; } );
+
+        return response()->json([
+            'products' => $products
+        ]);
+    }
 }

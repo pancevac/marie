@@ -23,7 +23,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'title', 'slug', 'short', 'body', 'image', 'image_box', 'publish_at', 'views', 'is_visible'];
+    protected $fillable = ['user_id', 'title', 'slug', 'short', 'content', 'image', 'image_box', 'publish_at', 'views', 'is_visible'];
 
     /**
      * append to Post model crop_image attribute

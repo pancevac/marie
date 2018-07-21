@@ -121,24 +121,24 @@
 
     export default {
         data(){
-          return {
-              fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'image_box', 'publish_at', 'is_visible', 'blog_ids', 'tag_ids'],
-              selected: {},
-              post: false,
-              error: {
-                  image: false,
-                  image_box: false,
-              },
-              lists: false,
-              gallery: {},
-              tags: false,
-              dropzoneOptions: {
-                  url: 'api/posts/' + this.$route.params.id + '/gallery',
-                  thumbnailWidth: 150,
-                  maxFilesize: 0.5,
-                  headers: { "Authorization": "Bearer " + this.$auth.getToken() }
-              },
-          }
+            return {
+                fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'image_box', 'publish_at', 'is_visible', 'blog_ids', 'tag_ids'],
+                selected: {},
+                post: false,
+                error: {
+                    image: false,
+                    image_box: false,
+                },
+                lists: false,
+                gallery: {},
+                tags: false,
+                dropzoneOptions: {
+                    url: 'api/posts/' + this.$route.params.id + '/gallery',
+                    thumbnailWidth: 150,
+                    maxFilesize: 0.5,
+                    headers: { "Authorization": "Bearer " + this.$auth.getToken() }
+                },
+            }
         },
         computed: {
             post_id(){
@@ -198,9 +198,9 @@
                         });
                         this.error = null;
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
             deletePhoto(photo){
                 axios.post('api/galleries/' + photo.id + '/destroy')
@@ -209,9 +209,9 @@
                             return photo.id != item.id;
                         });
                     }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
+                    console.log(e.response);
+                    this.error = e.response.data.errors;
+                });
             },
             showSuccess(){
                 this.getGallery();

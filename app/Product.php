@@ -22,7 +22,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'brand_id', 'title', 'slug', 'short', 'content', 'link', 'gender', 'image', 'price', 'outlet_price', 'published_at', 'is_visible'];
+    protected $fillable = ['user_id', 'brand_id', 'title', 'slug', 'short', 'content', 'link', 'code', 'gender', 'image', 'price', 'outlet_price', 'published_at', 'is_visible'];
 
     /**
      *method used when instance of this model is created

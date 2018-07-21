@@ -34,6 +34,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('posts/search', 'Api\PostsController@search');
 
     Route::resource('products', 'Api\ProductsController');
+    Route::post('products/search', 'Api\ProductsController@search');
 
     Route::resource('settings', 'Api\SettingsController');
 
