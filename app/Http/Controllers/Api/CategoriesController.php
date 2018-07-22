@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Category;
-use App\Http\Requests\CreateCategoriesRequest;
+use App\Http\Requests\CreateCategoryRequest;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,10 +26,10 @@ class CategoriesController extends Controller
     /**
      * method used to store new category and return
      *
-     * @param CreateCategoriesRequest $request
+     * @param CreateCategoryRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(CreateCategoriesRequest $request){
+    public function store(CreateCategoryRequest $request){
         $category = Category::create($request->except('image'));
         $category->update(['image' => $category->storeImage()]);
 
@@ -47,8 +47,8 @@ class CategoriesController extends Controller
      */
     public function show(Category $category){
         return response()->json([
-            'blog' => $category->load('parenCategory'),
-            'lists' => Category::select('id', 'title')->where(['parent' => 0, 'is_visible' => 1])->where('id', '<>', $category->id)->get(),
+            'category' => $category->load('parentCategory'),
+            'categories' => Category::select('id', 'title')->where(['parent' => 0, 'is_visible' => 1])->where('id', '<>', $category->id)->get(),
         ]);
     }
 
@@ -56,11 +56,11 @@ class CategoriesController extends Controller
     /**
      * method used to update blog and return
      *
-     * @param CreateCategoriesRequest $request
+     * @param CreateCategoryRequest $request
      * @param Category $category
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(CreateCategoriesRequest $request, Category $category){
+    public function update(CreateCategoryRequest $request, Category $category){
         $category->update($request->except('image'));
         $category->update(['image' => $category->storeImage()]);
 
@@ -93,6 +93,48 @@ class CategoriesController extends Controller
     public function tree(){
         return response()->json([
             'categories' => Category::tree(),
+        ]);
+    }
+
+    /**
+     * method used to return list of categories
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function lists(){
+        $parent = request('parent')?: false;
+        $categories = Category::where(function ($query) use ($parent){
+                if($parent){
+                    $query->where('parent', 0);
+                }
+            })->visible()->orderBy('created_at', 'DESC')->get();
+
+        return response()->json([
+            'categories' => $categories,
+            'lists' => $categories->pluck('title', 'id'),
+        ]);
+    }
+
+    /**
+     * method used to return tree of categories
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sort(){
+        $categories = Category::tree();
+
+        return response()->json([
+            'categories' => $categories,
+        ]);
+    }
+
+    public function saveOrder(){
+        Category::orderCategories(request('categories'), 0);
+
+        $categories = Category::tree();
+
+        return response()->json([
+            'categories' => $categories,
         ]);
     }
 }

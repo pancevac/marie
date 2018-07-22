@@ -15,14 +15,13 @@ trait SearchableTraits
      */
     protected static function search()
     {
-        $items = self::query();
+        $query = self::query();
         foreach (request()->all() as $key => $attribute) {
             if (in_array($key, self::$searchable)) {
-                $items->$key($attribute);
+                $query->$key($attribute);
             }
         }
-
-        return $items;
+        return $query;
     }
 
     /**
@@ -53,8 +52,22 @@ trait SearchableTraits
         if(!empty($blog)){
             return $query->with([$blog => function ($query) use ($blog){
                 $query->where('id', $blog);
-
             }]);
+        }
+    }
+
+    /**
+     * method used to search model by category
+     *
+     * @param Builder $query
+     * @param $category
+     * @return mixed
+     */
+    public function scopeList(Builder $query, $category)
+    {
+        if(!empty($category)){
+            return $query->join('category_product', 'products.id', '=', 'category_product.product_id')
+                ->where('category_product.category_id', $category);
         }
     }
 

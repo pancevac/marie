@@ -18,10 +18,17 @@ Route::middleware('auth:api')->group(function () {
 
     Route::resource('banners', 'Api\BannersController');
 
+    Route::get('brands/lists', 'Api\BrandsController@lists');
     Route::resource('brands', 'Api\BrandsController');
 
     Route::get('blogs/tree', 'Api\BlogsController@tree');
     Route::resource('blogs', 'Api\BlogsController');
+
+    Route::get('categories/tree', 'Api\CategoriesController@tree');
+    Route::get('categories/sort', 'Api\CategoriesController@sort');
+    Route::get('categories/lists', 'Api\CategoriesController@lists');
+    Route::post('categories/order', 'Api\CategoriesController@saveOrder');
+    Route::resource('categories', 'Api\CategoriesController');
 
     Route::resource('menus', 'Api\MenusController');
 

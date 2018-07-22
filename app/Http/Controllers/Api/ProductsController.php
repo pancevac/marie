@@ -9,18 +9,6 @@ use App\Http\Controllers\Controller;
 
 class ProductsController extends Controller
 {
-    /**
-     * method used to show products paginate by 50
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index(){
-        $products = Product::orderBy('created_at', 'DESC')->paginate(50);
-
-        return response()->json([
-            'products' => $products,
-        ]);
-    }
 
     /**
      * method used to store new product and return
@@ -31,6 +19,8 @@ class ProductsController extends Controller
     public function store(CreateProductRequest $request){
         $product = Product::create(request()->except('image'));
         $product->update(['image' => $product->storeImage()]);
+
+        $product->category()->sync(explode(',', request('category_ids')));
 
         return response()->json([
             'product' => $product,
@@ -47,6 +37,7 @@ class ProductsController extends Controller
     public function show(Product $product){
         return response()->json([
             'product' => $product,
+            'category_ids' => $product->category()->visible()->pluck('id'),
         ]);
     }
 
@@ -62,8 +53,11 @@ class ProductsController extends Controller
         $product->update(request()->except('image'));
         $product->update(['image' => $product->storeImage()]);
 
+        $product->category()->sync(explode(',', request('category_ids')));
+
         return response()->json([
             'product' => $product,
+            'category_ids' => $product->category()->visible()->pluck('id'),
         ]);
     }
 
@@ -84,32 +78,15 @@ class ProductsController extends Controller
     }
 
     /**
-     * Posts search
+     * method used to search and return products
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function search(Request $request){
-        $category = request('category');
-        $text = request('text');
-
-        $products = Product::select('products.*')->join('category_product', 'products.id', '=', 'category_product.product_id')
-            ->join('categories', 'category_product.category_id', '=', 'categories.id')
-            ->where(function($query) use ($category){
-                if($category > 0){
-                    $query->where('categories.id', $category);
-                }
-            })
-            ->where(function ($query) use ($text){
-                if(!empty($text)){
-                    $query->where('products.title', 'like', '%'.$text.'%')->orWhere('products.slug', 'like', '%'.$text.'%')
-                        ->orWhere('products.id', 'like', '%'.$text.'%')->orWhere('products.code', 'like', '%'.$text.'%');
-                }
-            })->groupBy('products.id')->orderBy('products.id', 'DESC')->paginate(50);
-
-        $products->map(function($product){ $product->edit = false; return $product; } );
+    public function search(){
+        $products = Product::search(Product::setCategoryValue())->with('brand')->paginate(Product::$paginate);
 
         return response()->json([
-            'products' => $products
+            'products' => $products,
         ]);
     }
 }

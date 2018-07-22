@@ -30,11 +30,13 @@
 
                             <text-field :value="product.link" :label="'Link'" :error="error? error.link : ''" :required="true" @changeValue="product.link = $event"></text-field>
 
+                            <text-field :value="product.code" :label="'Šifra proizvoda'" :error="error? error.code : ''" :required="true" @changeValue="product.code = $event"></text-field>
+
                             <select-field v-if="brands" :error="error? error.brand_id : ''" :options="brands" :labela="'Brend'" @changeValue="product.brand_id = $event"></select-field>
 
                             <select-field v-if="genders" :error="error? error.gender : ''" :options="genders" :labela="'Pol'" @changeValue="product.gender = $event"></select-field>
 
-                            <date-time-picker :label="'Publikovano od'" :value="product.publish_at" :error="error? error.publish_at : ''" @changeValue="product.publish_at = $event"></date-time-picker>
+                            <date-time-picker :label="'Publikovano od'" :value="product.published_at" :error="error? error.published_at : ''" @changeValue="product.published_at = $event"></date-time-picker>
 
                             <text-area-field :value="product.short" :label="'Kratak opis'" :error="error? error.short : ''" :required="true" @changeValue="product.short = $event"></text-area-field>
 
@@ -66,12 +68,18 @@
                     <div class="card" v-if="categories">
                         <div class="card-body">
                             <h3>Kategorije</h3>
+                            <p v-if="error.category_ids"><small class="form-text text-muted" v-if="error != null && error.category_ids">{{ error.category_ids[0] }}</small></p>
                             <ul class="no-parent">
                                 <li v-for="category in categories" :id="`list_${category.id}`">
                                     <label><input type="checkbox" v-model="product.category_ids" :value="category.id"> {{ category.title }}</label>
                                     <ul class="blogs" v-if="category.children.length > 0">
                                         <li v-for="sub_category in category.children" :id="`list_${sub_category.id}`">
                                             <label><input type="checkbox" v-model="product.category_ids" :value="sub_category.id"> {{ sub_category.title }}</label>
+                                            <ul class="blogs" v-if="sub_category.children.length > 0">
+                                                <li v-for="sub_category2 in sub_category.children" :id="`list_${sub_category2.id}`">
+                                                    <label><input type="checkbox" v-model="product.category_ids" :value="sub_category2.id"> {{ sub_category2.title }}</label>
+                                                </li>
+                                            </ul>
                                         </li>
                                     </ul>
                                 </li>
@@ -93,18 +101,24 @@
     export default {
         data(){
           return {
-              fillable: ['user_id', 'brand_id', 'title', 'slug', 'short', 'content', 'image', 'link', 'gender', 'price', 'outlet_price', 'publish_at', 'is_visible', 'categories_ids'],
+              fillable: ['user_id', 'brand_id', 'title', 'slug', 'short', 'content', 'image', 'link', 'code', 'gender', 'price', 'outlet_price', 'published_at', 'is_visible', 'category_ids'],
               product: {
                   title: null,
-                  categories_ids: [],
-                  image: '',
-                  is_visible: false,
+                  category_ids: [],
+                  price: 1,
+                  outlet_price: 1,
               },
               categories: false,
+              brands: false,
               error: {
                   image: null,
               },
               category_ids: [],
+              genders: [
+                  { id: 1, title: 'Muški'},
+                  { id: 2, title: 'Ženski'},
+                  { id: 3, title: 'Unisex'},
+              ]
           }
         },
         computed: {
@@ -121,6 +135,7 @@
         },
         mounted(){
             this.getCategories();
+            this.getBrands();
         },
         methods: {
             submit(){
@@ -128,7 +143,6 @@
                 let data = fillForm(this.fillable, this.product)
                 axios.post('api/products', data)
                     .then(res => {
-                        this.product = res.data.product;
                         swal({
                             position: 'center',
                             type: 'success',
@@ -150,6 +164,15 @@
                 axios.get('api/categories/tree')
                     .then(res => {
                         this.categories = res.data.categories;
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
+            getBrands(){
+                axios.get('api/brands/lists')
+                    .then(res => {
+                        this.brands = res.data.brands;
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;

@@ -41,7 +41,7 @@
                                 <td>{{ row.title }}</td>
                                 <td>{{ row.brand.title }}</td>
                                 <td>{{ row.is_visible? 'Da' : 'Ne' }}</td>
-                                <td>{{ row.publish_at }}</td>
+                                <td>{{ row.published_at }}</td>
                                 <td>
                                     <font-awesome-icon icon="eye" @click="previewRow(row)" />
                                     <router-link tag="a" :to="'products/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
@@ -87,16 +87,26 @@
             },
         },
         mounted(){
-            this.getProducts();
+            this.getCategories();
         },
         methods: {
+            getCategories(){
+                axios.get('api/categories/lists?parent=1')
+                    .then(res => {
+                        this.categories = res.data.lists;
+                        this.getProducts();
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            },
             getProducts(){
                 this.$store.dispatch('search/changeSearchProductPage', 1);
                 axios.post('api/products/search', this.searchProduct)
                     .then(res => {
-                        this.categories = res.data.categories;
                         this.products = res.data.products.data;
                         this.paginate = res.data.products;
+                        console.log(this.products);
                     })
                     .catch(e => {
                         console.log(e);

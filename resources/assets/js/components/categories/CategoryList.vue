@@ -6,7 +6,7 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li>Kategorije članka</li>
+                            <li>Kategorije</li>
                         </ul>
                     </div>
                 </div>
@@ -15,7 +15,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Kategorije članka</h5>
+                        <h5>Kategorije</h5>
+                        <font-awesome-icon icon="random" @click="sortRows()" class="new-link-add left-one-place" />
                         <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
                     </div>
                 </div>
@@ -34,14 +35,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="row in blogs">
+                            <tr v-for="row in categories">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.title }}</td>
-                                <td v-if="row.parent_blog">{{ row.parent_blog.title }}</td> <td v-else>/</td>
+                                <td v-if="row.parent_category">{{ row.parent_category.title }}</td> <td v-else>/</td>
                                 <td>{{ row.is_visible? 'Da' : 'Ne' }}</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
-                                    <router-link tag="a" :to="'blogs/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
+                                    <router-link tag="a" :to="'categories/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
                                 </td>
                             </tr>
@@ -67,30 +68,33 @@
     export default {
         data(){
             return {
-                blogs: {},
+                categories: {},
                 paginate: {}
             }
         },
         components: {
             'paginate-helper': PaginateHelper,
-            'font-awesome-icon': FontAwesomeIcon
+            'font-awesome-icon': FontAwesomeIcon,
         },
         mounted(){
-            this.getBlogs();
+            this.getCategories();
         },
         methods: {
-            getBlogs(){
-                axios.get('api/blogs')
+            getCategories(){
+                axios.get('api/categories')
                     .then(res => {
-                        this.blogs = res.data.blogs.data;
-                        this.paginate = res.data.blogs;
+                        this.categories = res.data.categories.data;
+                        this.paginate = res.data.categories;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             editRow(id){
-                this.$router.push('blogs/' + id + '/edit');
+                this.$router.push('categories/' + id + '/edit');
+            },
+            sortRows(){
+                this.$router.push('/categories/sort');
             },
             deleteRow(row){
                 swal({
@@ -104,9 +108,9 @@
                     cancelButtonText: 'Odustani'
                 }).then((result) => {
                     if (result.value) {
-                        axios.delete('api/blogs/' + row.id)
+                        axios.delete('api/categories/' + row.id)
                             .then(res => {
-                                this.blogs = this.blogs.filter(function (item) {
+                                this.categories = this.categories.filter(function (item) {
                                     return row.id != item.id;
                                 });
                                 swal(
@@ -122,17 +126,17 @@
                 });
             },
             clickToLink(index){
-                axios.get('api/blogs?page=' + index)
+                axios.get('api/categories?page=' + index)
                     .then(res => {
-                        this.blogs = res.data.blogs.data;
-                        this.paginate = res.data.blogs;
+                        this.categories = res.data.categories.data;
+                        this.paginate = res.data.categories;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             addRow(){
-                this.$router.push('/blogs/create');
+                this.$router.push('/categories/create');
             }
         }
     }

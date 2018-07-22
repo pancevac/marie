@@ -88,6 +88,28 @@ class Category extends Model
     }
 
     /**
+     * method used to save nested orders of categories
+     *
+     * @param $links
+     * @param int $parent
+     * @param int $level
+     * @param int $order
+     */
+    public static function orderCategories($links, $parent = 0, $level = 1, $order = 0){
+        if(count($links)>0){
+            foreach ($links as $link){
+                $old = self::find($link['id']);
+                if(!empty($old) && ($old->parent != $parent || $old->order != ++$order || $old->level != $level)){
+                    $old->update(['parent' => $parent, 'order' => $order, 'level' => $level]);
+                }
+                if(!empty($link['children'])){
+                    self::orderCategories($link['children'], $link['id'], $level+1);
+                }
+            }
+        }
+    }
+
+    /**
      * method used to return custom level deep tree of Blog model
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]

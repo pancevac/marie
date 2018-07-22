@@ -82,4 +82,17 @@ class BrandsController extends Controller
             'message' => 'deleted',
         ]);
     }
+
+    /**
+     * method used to return list of brands
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function lists(){
+        $brands = Brand::visible()->orderBy('created_at', 'DESC')->get();
+
+        return response()->json([
+            'brands' => $brands,
+        ]);
+    }
 }
