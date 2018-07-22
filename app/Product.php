@@ -30,7 +30,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected static $searchable = ['title', 'list'];
+    protected static $searchable = ['title', 'category'];
 
     /**
      *method used when instance of this model is created
@@ -77,9 +77,7 @@ class Product extends Model
      * @return array
      */
     public static function setCategoryValue(){
-        $data = request()->all();
-        $data['category'] = request('list');
-        return $data;
+        request()->merge(['category' => request('list')]);
     }
 
     /**

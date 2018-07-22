@@ -37,7 +37,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected static $searchable = ['title'];
+    protected static $searchable = ['title', 'blog'];
 
     /**
      * The "booting" method of the model.
@@ -77,6 +77,15 @@ class Post extends Model
      */
     public function getCropImageAttribute(){
         return \Imagecache::get($this->image, '800x342')->src;
+    }
+
+    /**
+     * method used to set request('blog') value for search posts
+     *
+     * @return array
+     */
+    public static function setBlogValue(){
+        request()->merge(['blog' => request('list')]);
     }
 
     /**

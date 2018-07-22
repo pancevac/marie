@@ -94,4 +94,23 @@ class BlogsController extends Controller
             'blogs' => Blog::tree(),
         ]);
     }
+
+    /**
+     * method used to return list of blogs
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function lists(){
+        $parent = request('parent')?: false;
+        $blogs = Blog::where(function ($query) use ($parent){
+            if($parent){
+                $query->where('parent', 0);
+            }
+        })->visible()->orderBy('created_at', 'DESC')->get();
+
+        return response()->json([
+            'blogs' => $blogs,
+            'lists' => $blogs->pluck('title', 'id'),
+        ]);
+    }
 }

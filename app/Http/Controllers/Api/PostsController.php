@@ -38,7 +38,7 @@ class PostsController extends Controller
     public function show(Post $post){
         return response()->json([
             'blogs' => Blog::tree(),
-            'tags' => Tag::select('id', 'title')->published()->get(),
+            'tags' => Tag::select('id', 'title')->visible()->get(),
             'post' => $post,
             'blog_ids' => $post->blog()->pluck('id'),
             'tag_ids' => $post->tag()->get(['title', 'id']),
@@ -86,6 +86,7 @@ class PostsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function search(){
+        Post::setBlogValue();
         return response()->json([
             'posts' => Post::search()->with('blog')->paginate(Post::$paginate),
         ]);

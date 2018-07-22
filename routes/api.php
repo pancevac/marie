@@ -22,6 +22,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('brands', 'Api\BrandsController');
 
     Route::get('blogs/tree', 'Api\BlogsController@tree');
+    Route::get('blogs/lists', 'Api\BlogsController@lists');
     Route::resource('blogs', 'Api\BlogsController');
 
     Route::get('categories/tree', 'Api\CategoriesController@tree');

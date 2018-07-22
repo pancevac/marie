@@ -128,6 +128,11 @@ class CategoriesController extends Controller
         ]);
     }
 
+    /**
+     * method used to save category sort order
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function saveOrder(){
         Category::orderCategories(request('categories'), 0);
 

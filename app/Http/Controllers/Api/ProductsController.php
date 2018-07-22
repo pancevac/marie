@@ -83,7 +83,8 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function search(){
-        $products = Product::search(Product::setCategoryValue())->with('brand')->paginate(Product::$paginate);
+        Product::setCategoryValue();
+        $products = Product::search()->with('brand')->paginate(Product::$paginate);
 
         return response()->json([
             'products' => $products,

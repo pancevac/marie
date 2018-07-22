@@ -21,6 +21,7 @@ trait SearchableTraits
                 $query->$key($attribute);
             }
         }
+
         return $query;
     }
 
@@ -50,9 +51,8 @@ trait SearchableTraits
     public function scopeBlog(Builder $query, $blog)
     {
         if(!empty($blog)){
-            return $query->with([$blog => function ($query) use ($blog){
-                $query->where('id', $blog);
-            }]);
+            return $query->join('blog_post', 'posts.id', '=', 'blog_post.post_id')
+                ->where('blog_post.blog_id', $blog);
         }
     }
 
@@ -63,7 +63,7 @@ trait SearchableTraits
      * @param $category
      * @return mixed
      */
-    public function scopeList(Builder $query, $category)
+    public function scopeCategory(Builder $query, $category)
     {
         if(!empty($category)){
             return $query->join('category_product', 'products.id', '=', 'category_product.product_id')

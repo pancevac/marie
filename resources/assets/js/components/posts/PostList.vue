@@ -87,14 +87,23 @@
             },
         },
         mounted(){
-            this.getPosts();
+            this.getBlogs();
         },
         methods: {
+            getBlogs(){
+                axios.get('api/blogs/lists?parent=1')
+                    .then(res => {
+                        this.blogs = res.data.lists;
+                        this.getPosts();
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            },
             getPosts(){
                 this.$store.dispatch('search/changeSearchPostPage', 1);
                 axios.post('api/posts/search', this.searchPost)
                     .then(res => {
-                        this.blogs = res.data.blogs;
                         this.posts = res.data.posts.data;
                         this.paginate = res.data.posts;
                     })
