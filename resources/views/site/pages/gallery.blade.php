@@ -1,6 +1,17 @@
 @extends('site.layouts.main')
 
 @section('content')
+  <modal>
+    <div class="modal_header">
+      modal header
+    </div>
+    <div class="modal_body">
+      body
+    </div>
+    <div class="modal_footer">
+      footer
+    </div>
+  </modal>
   <div class="container pt-4">
     <h1 class="h4 text-serif text-capitalize mb-3">Article title and stuff</h1>
 
@@ -9,12 +20,12 @@
       <div class="content-main">
         <div class="d-flex justify-content-between py-2 border-top">
           <div></div>
-          <button class="btn btn--secondary px-2">
+          <toggler class-name="btn btn--secondary px-2" event="show:modal">
             <svg class="icon" role="presentation">
               <use xlink:href="#icon_gallery"></use>
             </svg>
             <span class="ml-1 d-none d-sm-inline">sve slike</span>
-          </button>
+          </toggler>
         </div>
         <div class="mb-3 gallery">
           <div style="overflow-x: hidden;">

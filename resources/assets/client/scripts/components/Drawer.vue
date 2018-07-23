@@ -31,13 +31,14 @@ export default {
   },
 
   mounted() {
-    this.$root.$on('show-drawer', this.show);
+    this.$root.$on('show:drawer', this.show);
     window.addEventListener('keyup', this.onKeyUp);
   },
 
   destroyed() {
+    this.$root.$off('show:drawer', this.show);
     window.removeEventListener('keyup', this.onKeyUp);
-  }
+  },
 }
 </script>
 
