@@ -10,7 +10,7 @@
 export default {
   data() {
     return {
-      open: false,
+      open: true,
     };
   },
 
@@ -22,10 +22,21 @@ export default {
     hide() {
       this.open = false;
     },
+
+    onKeyUp(evt) {
+      if (evt.keyCode === 27 && this.open) {
+        this.hide();
+      }
+    },
   },
 
   mounted() {
-    this.$root.$on('show-drawer', this.show)
+    this.$root.$on('show-drawer', this.show);
+    window.addEventListener('keyup', this.onKeyUp);
+  },
+
+  destroyed() {
+    window.removeEventListener('keyup', this.onKeyUp);
   }
 }
 </script>
@@ -51,7 +62,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    width: calc(100% - 56%);
+    width: calc(100% - 56px);
     max-width: 320px;
     height: 100%;
     background-color: #212121;

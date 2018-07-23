@@ -1,0 +1,20 @@
+.sidenav {
+  padding: 16px 0;
+  color: $text-primary-on-dark;
+}
+
+.sidenav-link {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  padding: 0 32px;
+  font-weight: $font-weight-bold;
+  font-size: 20px;
+  text-transform: uppercase;
+
+  &:hover,
+  &:focus {
+    color: $theme-secondary;
+    text-decoration: none;
+  }
+}
