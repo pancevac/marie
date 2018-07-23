@@ -17,15 +17,7 @@
 </head>
 <body>
 <div id="app">
-    <top-bar></top-bar>
-    <right-bar></right-bar>
-    <left-bar></left-bar>
-
-    <router-view></router-view>
-
-    <footer>
-        <p>Developed by Mini STUDIO Publishing Group</p>
-    </footer>
+    <app></app>
 </div>
 
 <!-- Scripts -->

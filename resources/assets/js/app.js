@@ -11,6 +11,8 @@ window.Vue = require('vue');
 window.Slug = require('slug');
 Slug.defaults.mode = 'rfc3986';
 
+Vue.component('app', require('./components/app.vue'));
+
 /** NAVIGATION **/
 Vue.component('side-bar', require('./components/nav/sideBar.vue'));
 Vue.component('top-bar', require('./components/nav/topBar.vue'));

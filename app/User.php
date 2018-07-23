@@ -60,4 +60,22 @@ class User extends Authenticatable
     public function product(){
         return $this->hasMany(Product::class);
     }
+
+    /**
+     * method used to make belongs-to-many connection between User and Role model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function role(){
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * method used to make belongs-to-many connection between User and Permission model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function permission(){
+        return $this->belongsToMany(Permission::class);
+    }
 }
