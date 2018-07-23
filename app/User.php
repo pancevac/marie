@@ -43,6 +43,15 @@ class User extends Authenticatable
     }
 
     /**
+     * method used to set block attribute
+     *
+     * @param $value
+     */
+    public function setBlockAttribute($value){
+        $this->attributes['block'] = !empty($value)?: 0;
+    }
+
+    /**
      * method use to centralise is_admin User logic
      *
      * @param $query

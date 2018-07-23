@@ -15,7 +15,7 @@ class RolesController extends Controller
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function index(){
-        $roles = Role::sort();
+        $roles = Role::orderBy('id', 'DESC')->paginate(50);
 
         return response([
             'roles' => $roles,
@@ -76,5 +76,19 @@ class RolesController extends Controller
         return response([
             'message' => 'Role is deleted',
         ], 200);
+    }
+
+    /**
+     * method used to return list of roles
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function lists(){
+        $roles = Role::select('id', 'name as title')->visible()->orderBy('created_at', 'DESC')->get();
+
+        return response()->json([
+            'roles' => $roles,
+            'lists' => $roles->pluck('title', 'id'),
+        ]);
     }
 }

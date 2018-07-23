@@ -38,6 +38,16 @@ class Permission extends Model
     }
 
     /**
+     * method use to centralise is visible Blog logic
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeVisible($query){
+        return $query->where('is_visible', 1);
+    }
+
+    /**
      * method used to make belongs-to-many connection between Permission and User model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

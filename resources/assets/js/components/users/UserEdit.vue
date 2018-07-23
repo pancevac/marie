@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-8" v-if="user">
+                <div class="col-sm-8" v-if="roles">
                     <div class="card">
                         <form @submit.prevent="submit()">
 
@@ -32,13 +32,7 @@
 
                             <password-field :value="user.password_confirmation" :label="'Potvrda lozinke'" :required="true" @changeValue="user.password_confirmation = $event"></password-field>
 
-                            <div class="form-group">
-                                <label for="role">Pravo pristupa</label>
-                                <select name="role" class="form-control" id="role" v-model="user.role_id">
-                                    <option value="1" :selected="user.role_id == 1">Urednik</option>
-                                    <option value="2" :selected="user.role_id == 2">Admin</option>
-                                </select>
-                            </div>
+                            <select-multiple-field :options="roles" :value="user.role_ids" :error="error? error.role_ids : ''" :labela="'Uloge'" @changeValue="user.role_ids = $event"></select-multiple-field>
 
                             <checkbox-field :value="user.block" :label="'Blokiran'" @changeValue="user.block = $event"></checkbox-field>
 
@@ -64,9 +58,12 @@
     export default {
         data(){
           return {
-              fillable: ['name', 'email', 'password', 'password_confirmation', 'image', 'role_id', 'block'],
-              user: false,
-              error: null
+              fillable: ['name', 'email', 'password', 'password_confirmation', 'image', 'role_id', 'block', 'role_ids'],
+              user: {
+                  role_ids: [],
+              },
+              error: null,
+              roles: false,
           }
         },
         components: {
@@ -81,8 +78,11 @@
                 axios.get('api/users/' + this.$route.params.id)
                     .then(res => {
                         this.user = res.data.user;
+                        this.user.role_ids = res.data.role_ids;
                         this.user.imagePath = res.data.user.image;
                         this.user.image = null;
+
+                        this.roles = res.data.roles;
                     })
                     .catch(e => {
                         console.log(e);
@@ -95,6 +95,7 @@
                     .then(res => {
                         this.user = res.data.user;
                         this.user.imagePath = res.data.user.image;
+                        this.user.role_ids = res.data.role_ids;
                         swal({
                             position: 'center',
                             type: 'success',

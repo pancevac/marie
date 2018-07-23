@@ -176,8 +176,6 @@
 
                         this.lists = res.data.blogs;
                         this.tags = res.data.tags;
-
-                        this.trigger = true;
                     })
                     .catch(e => {
                         console.log(e);

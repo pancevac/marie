@@ -38,11 +38,16 @@ Route::middleware('auth:api')->group(function () {
     Route::get('menu-links/{id}/sort', 'Api\MenuLinksController@sort');
     Route::post('menu-links/{id}/order', 'Api\MenuLinksController@saveOrder');
 
+    Route::resource('permissions', 'Api\PermissionsController');
+
     Route::resource('posts', 'Api\PostsController');
     Route::post('posts/search', 'Api\PostsController@search');
 
     Route::resource('products', 'Api\ProductsController');
     Route::post('products/search', 'Api\ProductsController@search');
+
+    Route::get('roles/lists', 'Api\RolesController@lists');
+    Route::resource('roles', 'Api\RolesController');
 
     Route::resource('settings', 'Api\SettingsController');
 

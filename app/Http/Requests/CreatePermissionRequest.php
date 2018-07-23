@@ -26,7 +26,21 @@ class CreatePermissionRequest extends FormRequest
         return [
             'name' => 'required|unique:permissions,name,'.$this->segment(3),
             'guard_name' => 'required|unique:permissions,guard_name,'.$this->segment(3),
-            'permission_group_id' => 'required',
+        ];
+    }
+
+    /**
+     * Get the validation rules messages
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Ime je obavezno',
+            'name.unique' => 'Ime mora biti jedinstveno',
+            'guard_name.required' => 'Zaštitničko ime je obavezno',
+            'guard_name.unique' => 'Zaštitničko ime mora biti jedinstveno',
         ];
     }
 }

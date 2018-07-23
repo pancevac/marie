@@ -32,13 +32,7 @@
 
                             <password-field :value="user.password_confirmation" :label="'Potvrda lozinke'" :required="true" @changeValue="user.password_confirmation = $event"></password-field>
 
-                            <div class="form-group">
-                                <label for="role">Pravo pristupa</label>
-                                <select name="role" class="form-control" id="role" v-model="user.role_id">
-                                    <option value="1" selected>Urednik</option>
-                                    <option value="2">Admin</option>
-                                </select>
-                            </div>
+                            <select-multiple-field v-if="roles" :error="error? error.role_ids : ''" :options="roles" :labela="'Uloge'" @changeValue="user.role_ids = $event"></select-multiple-field>
 
                             <checkbox-field :value="user.block" :label="'Blokiran'" @changeValue="user.block = $event"></checkbox-field>
 
@@ -49,6 +43,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
+
                     <upload-image-helper
                             :image="user.imagePath"
                             :defaultImage="'img/user-image.png'"
@@ -57,6 +52,7 @@
                             @uploadImage="prepare($event)"
                             @removeRow="remove($event)"
                     ></upload-image-helper>
+
                 </div>
             </div>
         </div>
@@ -71,10 +67,11 @@
     export default {
         data(){
           return {
-              fillable: ['name', 'email', 'password', 'password_confirmation', 'image', 'role_id', 'block'],
+              fillable: ['name', 'email', 'password', 'password_confirmation', 'image', 'role_id', 'block', 'role_ids'],
               user: {
                   role_id: 0,
               },
+              roles: false,
               error: null
           }
         },
@@ -82,7 +79,19 @@
             'font-awesome-icon': FontAwesomeIcon,
             'upload-image-helper': UploadImageHelper,
         },
+        mounted(){
+            this.getRoles();
+        },
         methods: {
+            getRoles(){
+                axios.get('api/roles/lists')
+                    .then(res => {
+                        this.roles = res.data.roles;
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
+            },
             submit(){
                 let data = fillForm(this.fillable, this.user);
                 axios.post('api/users', data)

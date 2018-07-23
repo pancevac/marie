@@ -26,7 +26,7 @@ class EditUserRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$this->segment(3),
-            'password' => 'confirmed|min:6',
+            'password' => 'nullable|confirmed|min:6',
         ];
     }
 

@@ -33,14 +33,14 @@ export const router = new VueRouter({
         { path: "/brands/create", component: require('./components/brands/BrandCreate.vue'), meta: { forAdmin: true } },
         { path: "/brands/:id/edit", component: require('./components/brands/BrandEdit.vue'), meta: { forAdmin: true } },
 
-        // { path: "/collections", component: require('./components/collections/CollectionList.vue'), meta: { forAdmin: true } },
-        // { path: "/collections/create", component: require('./components/collections/CollectionCreate.vue'), meta: { forAdmin: true } },
-        // { path: "/collections/:id/edit", component: require('./components/collections/CollectionEdit.vue'), meta: { forAdmin: true } },
-        //
-        // { path: "/properties", component: require('./components/properties/PropertyList.vue'), meta: { forAdmin: true } },
-        // { path: "/properties/create", component: require('./components/properties/PropertyCreate.vue'), meta: { forAdmin: true } },
-        // { path: "/properties/:id/edit", component: require('./components/properties/PropertyEdit.vue'), meta: { forAdmin: true } },
-        //
+        { path: "/roles", component: require('./components/roles/RoleList.vue'), meta: { forAdmin: true } },
+        { path: "/roles/create", component: require('./components/roles/RoleCreate.vue'), meta: { forAdmin: true } },
+        { path: "/roles/:id/edit", component: require('./components/roles/RoleEdit.vue'), meta: { forAdmin: true } },
+
+        { path: "/permissions", component: require('./components/permissions/PermissionList.vue'), meta: { forAdmin: true } },
+        { path: "/permissions/create", component: require('./components/permissions/PermissionCreate.vue'), meta: { forAdmin: true } },
+        { path: "/permissions/:id/edit", component: require('./components/permissions/PermissionEdit.vue'), meta: { forAdmin: true } },
+
         // { path: "/attributes", component: require('./components/attributes/AttributeList.vue'), meta: { forAdmin: true } },
         // { path: "/attributes/create", component: require('./components/attributes/AttributeCreate.vue'), meta: { forAdmin: true } },
         // { path: "/attributes/:id/edit", component: require('./components/attributes/AttributeEdit.vue'), meta: { forAdmin: true } },

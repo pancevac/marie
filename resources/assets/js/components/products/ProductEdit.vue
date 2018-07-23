@@ -107,6 +107,7 @@
                   category_ids: [],
               },
               categories: false,
+              brands: false,
               error: {
                   image: null,
               },
@@ -132,6 +133,7 @@
         },
         mounted(){
             this.getProduct();
+            this.getBrands();
         },
         methods: {
             getProduct(){
@@ -146,6 +148,15 @@
                     console.log(e.response);
                     this.error = e.response.data.errors;
                 });
+            },
+            getBrands(){
+                axios.get('api/brands/lists')
+                    .then(res => {
+                        this.brands = res.data.brands;
+                    }).catch(e => {
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             submit(){
                 this.product.user_id = this.user.id;

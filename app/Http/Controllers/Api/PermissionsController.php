@@ -16,7 +16,7 @@ class PermissionsController extends Controller
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function index(){
-        $permissions = Permission::with('permissionGroup')->sort();
+        $permissions = Permission::orderBy('id', 'DESC')->paginate(50);
 
         return response([
             'permissions' => $permissions,
@@ -46,7 +46,7 @@ class PermissionsController extends Controller
     public function show(Permission $permission){
 
         return response([
-            'permission' => $permission->load('permissionGroup'),
+            'permission' => $permission,
         ], 200);
     }
 

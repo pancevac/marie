@@ -28,4 +28,19 @@ class CreateRoleRequest extends FormRequest
             'guard_name' => 'required|unique:roles,guard_name,'.$this->segment(3),
         ];
     }
+
+    /**
+     * Get the validation rules messages
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Ime je obavezno',
+            'name.unique' => 'Ime mora biti jedinstveno',
+            'guard_name.required' => 'Zaštitničko ime je obavezno',
+            'guard_name.unique' => 'Zaštitničko ime mora biti jedinstveno',
+        ];
+    }
 }
