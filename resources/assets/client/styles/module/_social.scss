@@ -1,0 +1,16 @@
+.social {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.social-link {
+  display: inline-flex;
+  padding: 4px;
+  color: $text-primary-on-dark;
+
+  &:hover,
+  &:focus {
+    color: $theme-secondary;
+  }
+}
