@@ -7,12 +7,10 @@
 </template>
 
 <script>
+import hider from './hider';
+
 export default {
-  data() {
-    return {
-      open: true,
-    };
-  },
+  mixins: [hider],
 
   mounted() {
     this.$root.$on('show:modal', this.show);
@@ -20,16 +18,6 @@ export default {
 
   destroyed() {
     this.$root.$off('show:modal', this.show);
-  },
-
-  methods: {
-    show() {
-      this.open = true;
-    },
-
-    hide() {
-      this.open = false;
-    },
   },
 }
 </script>
