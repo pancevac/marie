@@ -33,6 +33,10 @@
 <script>
 export default {
   props: {
+    index: {
+      type: Number,
+      default: 0,
+    },
     controls: {
       type: Boolean,
       default: false,
@@ -109,8 +113,8 @@ export default {
       this.disableClicks = false;
       this.delta = 0;
 
-      // reset state
-      this.setActive(this.loop ? 1 : 0);
+      // reset states
+      this.goTo(this.loop ? this.index + 1 : this.index);
     },
 
     /**

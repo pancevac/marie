@@ -18,7 +18,7 @@
         </div>
         <div class="mb-3 gallery">
           <div style="overflow-x: hidden;">
-          <simple-carousel controls>
+          <simple-carousel controls :index="0">
 
             <div class="slider-item">
               <slide
