@@ -1,18 +1,23 @@
 <template>
   <form id="search-form" v-on:submit='onSubmit'>
     <div class="search-widget">
-      <button class="icon-btn search-widget_search" type="submit">
+      <button class="icon-btn search-widget_search"
+        title="Search"
+        type="submit"
+      >
         <svg class="icon" role="presentation">
           <use xlink:href="#icon_search"></use>
         </svg>
       </button>
       <input type="text"
         ref='input'
+        title="Query"
         placeholder="Pretraži"
         v-model='value'
       >
       <div class="search-widget_border"></div>
       <button class="icon-btn search-widget_close"
+        title="Close"
         type="reset"
         v-on:click='hide'
       >
