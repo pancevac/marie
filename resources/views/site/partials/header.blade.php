@@ -7,7 +7,7 @@
   style="background-image: url(https://images.pexels.com/photos/355770/pexels-photo-355770.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)"
 >
   <div class="container announcement_container">
-    <a href="/" style="color: inherit;">
+    <a href="/" class="logo-wrap">
       <svg class="logo logo--header">
         <use xlink:href="#logo"></use>
       </svg>
@@ -15,6 +15,16 @@
   </div>
 </div>
 @endif
+
+<div class="top-bar">
+  <div class="container top-bar_wrap">
+    <a href="/" class="logo-wrap">
+      <svg class="logo logo--header">
+        <use xlink:href="#logo"></use>
+      </svg>
+    </a>
+  </div>
+</div>
 
 <header class="header">
   <div class="container header-wrap">

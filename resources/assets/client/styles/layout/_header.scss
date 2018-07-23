@@ -21,3 +21,19 @@
   transform: translateY(-50%);
   background-color: #212121;
 }
+
+.top-bar {
+  background-color: #212121;
+  color: #FFF;
+
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+
+  &_wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 96px;
+  }
+}
