@@ -1,6 +1,6 @@
 <div class="related-item">
   <a href="#article">
-    <div class="image image--16-9"></div>
+    <div class="js-lazy-image image image--16-9 tint tint--light tint--hover"></div>
   </a>
   <div class="related-item_label">
     <a href="#label">category</a>

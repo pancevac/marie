@@ -37,7 +37,7 @@
           @for($i = 0; $i < 4; $i++)
           <div class="slider-item home-popular_item">
             <a href="#">
-              <div class="image image--1-1"></div>
+              <div class="image image--1-1 tint tint--light tint--hover"></div>
             </a>
             <div class="home-popular_title">
               <a href="#">Popular article title, medium long...</a>

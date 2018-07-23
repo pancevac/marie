@@ -5,17 +5,13 @@
   $image = 'image js-lazy-image image--'.($isFeatured ? '21-9' : '1-1');
   $details = 'details'.($isFeatured ? ' details--fixed' : '');
   $body = 'teaser_body'.(!$isFeatured ? ' text-truncate' : '');
-
-  // tmp
-  $src = 'http://www.marieclaire.cz/sites/default/files/styles/610x300/public/images/sss.jpg?itok=owuHqDmB&c=5b30b38503a12e315a9eb6ece685bd2d';
-  $src = '';
 @endphp
 
 <div class="{{$teaser}}">
   <div class="teaser_media">
     <a href="#">
-      <div class="{{$image}}"
-        data-src="{{$src}}"
+      <div class="{{$image}} tint tint--light tint--hover"
+        data-src=""
         data-alt="image alt"
       ></div>
     </a>
