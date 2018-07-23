@@ -3,10 +3,6 @@
   padding: 32px 0;
   color: white;
   
-  &_container {
-    display: flex;
-  }
-  
   &_nav {
     max-width: 50%;
   }
@@ -20,8 +16,16 @@
     li {
       text-transform: uppercase;
       font-weight: $font-weight-light;
-      margin-right: 16px;
-      min-width: 130px;
+      padding: 0 8px;
+      width: 100%;
+
+      @include media-breakpoint-up(sm) {
+        width: 50%;
+      }
+      
+      @include media-breakpoint-up(md) {
+        width: 33.3333%;
+      }
       
       a {
         font-size: 12px;
@@ -33,6 +37,20 @@
           color: $text-secondary-on-dark;
         }
       }
+    }
+  }
+}
+
+.subfooter {
+  background-color: #121212;
+  color: $text-hint-on-dark;
+  font-size: 12px;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: $text-secondary-on-dark;
     }
   }
 }

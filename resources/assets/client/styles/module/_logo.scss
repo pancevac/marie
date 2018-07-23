@@ -31,4 +31,8 @@
       @include logo(470px);
     }
   }
+
+  &--footer {
+    @include logo(156px);
+  }
 }
