@@ -1,4 +1,7 @@
-$_logo-ratio_: 38.89 / 215.95;
+@mixin logo($w) {
+  width: $w;
+  height: (38.89 / 215.95) * $w;
+}
 
 .logo {
   display: inline-flex;
@@ -12,19 +15,20 @@ $_logo-ratio_: 38.89 / 215.95;
       opacity: .9;
     }
   }
+
+  &--nav {
+    @include logo(86px);
+  }
   
   &--header {
-    width: 220px;
-    height: 220px * $_logo-ratio_;
+    @include logo(220px);
 
     @include media-breakpoint-up(sm) {
-      width: 280px;
-      height: 280px * $_logo-ratio_;
+      @include logo(280px);
     }
 
     @include media-breakpoint-up(md) {
-      width: 470px;
-      height: 470px * $_logo-ratio_;
+      @include logo(470px);
     }
   }
 }

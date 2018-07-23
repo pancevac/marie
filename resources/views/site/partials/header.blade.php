@@ -18,7 +18,7 @@
 
 <div class="top-bar">
   <div class="container top-bar_wrap">
-    <a href="/" class="logo-wrap">
+    <a href="/" rel="home" class="logo-wrap" title="marie claire">
       <svg class="logo logo--header">
         <use xlink:href="#logo"></use>
       </svg>
@@ -30,6 +30,14 @@
   <div class="container header-wrap">
   
     <menu-toggler></menu-toggler>
+
+    <div class="px-1 d-none d-md-block">
+      <a href="/" rel="home" class="logo-wrap" title="marie claire">
+        <svg class="logo logo--nav">
+          <use xlink:href="#logo"></use>
+        </svg>
+      </a>
+    </div>
 
     <tab-bar>
       <div class="nav-item">
