@@ -7,17 +7,19 @@
 </template>
 
 <script>
-import hider from './hider';
+import toggler from '../mixins/toggler';
 
 export default {
-  mixins: [hider],
+  mixins: [toggler],
 
   mounted() {
     this.$root.$on('show:modal', this.show);
+    window.addEventListener('keyup', this.onKeyUp);
   },
 
   destroyed() {
     this.$root.$off('show:modal', this.show);
+    window.removeEventListener('keyup', this.onKeyUp);
   },
 }
 </script>

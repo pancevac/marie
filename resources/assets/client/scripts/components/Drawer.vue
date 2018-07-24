@@ -7,28 +7,10 @@
 </template>
 
 <script>
+import toggler from '../mixins/toggler';
+
 export default {
-  data() {
-    return {
-      open: false,
-    };
-  },
-
-  methods: {
-    show() {
-      this.open = true;
-    },
-
-    hide() {
-      this.open = false;
-    },
-
-    onKeyUp(evt) {
-      if (evt.keyCode === 27 && this.open) {
-        this.hide();
-      }
-    },
-  },
+  mixins: [toggler],
 
   mounted() {
     this.$root.$on('show:drawer', this.show);
