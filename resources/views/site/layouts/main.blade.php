@@ -17,6 +17,8 @@
     @yield('content')
   </div>
   @include('site.partials.footer')
+  <script src="{{ url('client/scripts/manifest.js') }}"></script>
+  <script src="{{ url('client/scripts/vendor.js') }}"></script>
   <script src="{{ url('client/scripts/main.js') }}"></script>
 </body>
 </html>

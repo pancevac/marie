@@ -3,6 +3,8 @@
 /public/css
 /public/js
 /public/client/scripts/main.js
+/public/client/scripts/vendor.js
+/public/client/scripts/manifest.js
 /public/client/styles/main.css
 /public/themes/marie/css
 /public/themes/marie/js
