@@ -6,6 +6,10 @@ const proxy_url = process.env.BROWSERSYNC_PROXY_URL || DEFAULT_PROXY_ULR;
 
 mix.browserSync({
   proxy: proxy_url,
+  files: [
+    'resources/**/*.*',
+  ],
+  notify: false,
 });
 
 /*
