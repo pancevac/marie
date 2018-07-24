@@ -11,11 +11,6 @@ import toggler from '../mixins/toggler';
 
 export default {
   mixins: [toggler],
-  data() {
-    return {
-      open: true,
-    };
-  },
 
   mounted() {
     this.$root.$on('show:drawer', this.show);

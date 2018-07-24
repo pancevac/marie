@@ -61,7 +61,7 @@
       </div>
 
       <aside class="content-aside">
-        <div class="aside-box" style="width:300px; height:300px; background:hotpink;">banner</div>
+        <div class="aside-box" style="width:100%; padding-top: 100%; background:hotpink;"></div>
         <div class="aside-box">
           @include('site.partials.subscription')
         </div>
