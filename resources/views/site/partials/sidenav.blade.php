@@ -1,7 +1,7 @@
 <drawer>
   <div>
     <div class="p-4 d-flex align-items-center" style="color: white;">
-      <a href="/" class="logo-wrap">
+      <a href="/" class="logo-wrap" title="Maria Claire logo">
         <svg class="logo logo--sidenav">
           <use xlink:href="#logo"></use>
         </svg>
@@ -10,7 +10,7 @@
         style="margin-right: -16px;"
         event="hide:drawer"
       >
-        <svg class="icon" role="presentation">
+        <svg class="icon" role="presentation" title="Hide sidenav">
           <use xlink:href="#icon_close"></use>
         </svg>
       </toggler>
