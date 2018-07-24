@@ -14,6 +14,10 @@ export default {
       this.open = false;
     },
 
+    toggle() {
+      this.open = !this.open;
+    },
+
     /**
      * keyup event handler.
      * Hides the element on `Esc` key press.

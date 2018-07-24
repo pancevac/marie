@@ -24,7 +24,7 @@
     background-color: #FFF;
     margin: auto;
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(sm) {
       width: calc(100% - 64px);
       max-width: 600px;
       height: auto;
@@ -42,16 +42,16 @@
   &_header {
     border-top-right-radius: inherit;
     border-top-left-radius: inherit;
-    padding: 8px 8px 0;
+    padding: 16px 16px 0;
   }
 
   &_body {
-    padding: 16px 8px;
+    padding: 16px;
   }
 
   &_footer {
     border-bottom-right-radius: inherit;
     border-bottom-left-radius: inherit;
-    padding: 8px;
+    padding: 16px;
   }
 }
