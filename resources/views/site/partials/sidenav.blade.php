@@ -1,5 +1,20 @@
 <drawer>
   <div>
+    <div class="p-4 d-flex align-items-center" style="color: white;">
+      <a href="/" class="logo-wrap">
+        <svg class="logo logo--sidenav">
+          <use xlink:href="#logo"></use>
+        </svg>
+      </a>
+      <toggler class-name="icon-btn ml-auto"
+        style="margin-right: -16px;"
+        event="hide:drawer"
+      >
+        <svg class="icon" role="presentation">
+          <use xlink:href="#icon_close"></use>
+        </svg>
+      </toggler>
+    </div>
     <nav>
       <ul class="sidenav">
         <li class="sidenav-item">

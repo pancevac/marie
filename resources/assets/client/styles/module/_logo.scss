@@ -19,7 +19,11 @@
   &--nav {
     @include logo(86px);
   }
-  
+
+  &--sidenav {
+    @include logo(180px);
+  }
+
   &--header {
     @include logo(220px);
 
