@@ -6,8 +6,8 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li><router-link tag="a" :to="'/permissions'">Dozvole</router-link></li>
-                            <li>Kreiranje dozvole</li>
+                            <li><router-link tag="a" :to="'/permission-groups'">Grupe dozvola</router-link></li>
+                            <li>Kreiranje grupe dozvole</li>
                         </ul>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
             <div class="row bela">
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Kreiranje dozvole</h5>
+                        <h5>Kreiranje grupe dozvole</h5>
                     </div>
                 </div>
 
@@ -24,13 +24,11 @@
                     <div class="card">
                         <form @submit.prevent="submit()">
 
-                            <text-field :value="permission.name" :label="'Ime'" :error="error? error.name : ''" :required="true" @changeValue="permission.name = $event"></text-field>
+                            <text-field :value="permission_group.name" :label="'Ime'" :error="error? error.name : ''" :required="true" @changeValue="permission_group.name = $event"></text-field>
 
-                            <text-field :value="permission.guard_name" :label="'Zaštićeno ime'" :error="error? error.guard_name : ''" :required="true" @changeValue="permission.guard_name = $event"></text-field>
+                            <text-field :value="permission_group.order" :label="'Redosled'" :error="error? error.order : ''" :required="true" @changeValue="permission_group.order = $event"></text-field>
 
-                            <select-field v-if="permission_groups" :error="error? error.permission_group_id : ''" :options="permission_groups" :labela="'Grupa dozvole'" @changeValue="permission.permission_group_id = $event"></select-field>
-
-                            <checkbox-field :value="permission.is_visible" :label="'Publikovano'" @changeValue="permission.is_visible = $event"></checkbox-field>
+                            <checkbox-field :value="permission_group.is_visible" :label="'Publikovano'" @changeValue="permission_group.is_visible = $event"></checkbox-field>
 
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Kreiraj</button>
@@ -53,11 +51,8 @@
     export default {
         data(){
           return {
-              fillable: ['permission_group_id', 'name', 'guard_name', 'is_visible'],
-              permission_groups: false,
-              permission: {
-                  name: null,
-              },
+              fillable: ['name', 'order', 'is_visible'],
+              permission_group: {},
               error: null,
           }
         },
@@ -69,22 +64,10 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
         },
-        mounted(){
-            this.getPermissionGroups();
-        },
         methods: {
-            getPermissionGroups(){
-                axios.get('api/permission-groups/lists')
-                    .then(res => {
-                        this.permission_groups = res.data.permission_groups;
-                    }).catch(e => {
-                        console.log(e.response);
-                        this.error = e.response.data.errors;
-                    });
-            },
             submit(){
-                let data = fillForm(this.fillable, this.permission)
-                axios.post('api/permissions', data)
+                let data = fillForm(this.fillable, this.permission_group)
+                axios.post('api/permission-groups', data)
                     .then(res => {
                         swal({
                             position: 'center',
@@ -93,17 +76,12 @@
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        this.$router.push('/permissions');
+                        this.$router.push('/permission-groups');
                     }).catch(e => {
                         console.log(e.response);
                         this.error = e.response.data.errors;
                     });
             },
-        },
-        watch: {
-            'permission.name'(){
-                this.permission.guard_name = Slug(this.permission.name);
-            }
         },
     }
 </script>

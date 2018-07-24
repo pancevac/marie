@@ -40,6 +40,9 @@ Route::middleware('auth:api')->group(function () {
 
     Route::resource('permissions', 'Api\PermissionsController');
 
+    Route::get('permission-groups/lists', 'Api\PermissionGroupsController@lists');
+    Route::resource('permission-groups', 'Api\PermissionGroupsController');
+
     Route::resource('posts', 'Api\PostsController');
     Route::post('posts/search', 'Api\PostsController@search');
 
@@ -48,6 +51,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('roles/lists', 'Api\RolesController@lists');
     Route::resource('roles', 'Api\RolesController');
+    Route::post('roles/{id}/permissions', 'Api\RolesController@permissions');
 
     Route::resource('settings', 'Api\SettingsController');
 

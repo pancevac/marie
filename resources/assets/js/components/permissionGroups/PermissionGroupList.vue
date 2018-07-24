@@ -6,7 +6,7 @@
                     <div id="breadcrumbs">
                         <ul class="list-group list-group-flush">
                             <li><router-link tag="a" :to="'/home'">Početna</router-link></li>
-                            <li>Uloge</li>
+                            <li>Grupa dozvola</li>
                         </ul>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
 
                 <div class="col-md-12">
                     <div class="card">
-                        <h5>Uloge</h5>
+                        <h5>Grupa dozvola</h5>
                         <font-awesome-icon icon="plus" @click="addRow()" class="new-link-add" />
                     </div>
                 </div>
@@ -27,19 +27,16 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">ime</th>
-                            <th scope="col">zaštićeno ime</th>
                             <th scope="col">publikovano</th>
                             <th>akcija</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="row in roles">
+                        <tr v-for="row in permission_groups">
                             <td>{{ row.id }}</td>
                             <td>{{ row.name }}</td>
-                            <td>{{ row.guard_name }}</td>
                             <td>{{ row.is_visible? 'Da' : 'Ne' }}</td>
                             <td>
-                                <font-awesome-icon icon="chess" @click="permissionRow(row['id'])"/>
                                 <font-awesome-icon icon="pencil-alt" @click="editRow(row['id'])"/>
                                 <font-awesome-icon icon="times" @click="deleteRow(row)" />
                             </td>
@@ -65,7 +62,7 @@
     export default {
         data(){
             return {
-                roles: {},
+                permission_groups: {},
                 paginate: {}
             }
         },
@@ -74,24 +71,21 @@
             'font-awesome-icon': FontAwesomeIcon,
         },
         mounted(){
-            this.getRoles();
+            this.getPermissionGroups();
         },
         methods: {
-            getRoles(){
-                axios.get('api/roles')
+            getPermissionGroups(){
+                axios.get('api/permission-groups')
                     .then(res => {
-                        this.roles = res.data.roles.data;
-                        this.paginate = res.data.roles;
+                        this.permission_groups = res.data.permission_groups.data;
+                        this.paginate = res.data.permission_groups;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             editRow(id){
-                this.$router.push('roles/' + id + '/edit');
-            },
-            permissionRow(id){
-                this.$router.push('roles/' + id + '/permission');
+                this.$router.push('permission-groups/' + id + '/edit');
             },
             deleteRow(row){
                 swal({
@@ -104,9 +98,9 @@
                     confirmButtonText: 'Da, obriši!'
                 }).then((result) => {
                     if (result.value) {
-                        axios.delete('api/roles/' + row.id)
+                        axios.delete('api/permission-groups/' + row.id)
                             .then(res => {
-                                this.roles = this.roles.filter(function (item) {
+                                this.permission_groups = this.permission_groups.filter(function (item) {
                                     return row.id != item.id;
                                 });
                                 swal(
@@ -122,18 +116,18 @@
                 })
             },
             clickToLink(index){
-                axios.get('api/roles?page=' + index)
+                axios.get('api/permission-groups?page=' + index)
                     .then(res => {
-                        this.roles = res.data.roles.data;
-                        this.paginate = res.data.roles;
+                        this.permission_groups = res.data.permission_groups.data;
+                        this.paginate = res.data.permission_groups;
                     })
                     .catch(e => {
                         console.log(e);
                     });
             },
             addRow(){
-                this.$router.push('/roles/create');
+                this.$router.push('/permission-groups/create');
             }
-        }
+        },
     }
 </script>

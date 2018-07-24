@@ -2,7 +2,5 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/client/styles/main.css": "/client/styles/main.css",
-    "/client/scripts/main.js": "/client/scripts/main.js",
-    "/client/scripts/vendor.js": "/client/scripts/vendor.js",
-    "/client/scripts/manifest.js": "/client/scripts/manifest.js"
+    "/client/scripts/main.js": "/client/scripts/main.js"
 }

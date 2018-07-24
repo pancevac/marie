@@ -20,6 +20,7 @@
                     <li><router-link tag="a" :to="'/settings/1/edit'">SEO</router-link></li>
                     <li><router-link tag="a" :to="'/menus'">Meni</router-link></li>
                     <li><router-link tag="a" :to="'/roles'">Uloge</router-link></li>
+                    <li><router-link tag="a" :to="'/permission-groups'">Grupe dozvola</router-link></li>
                     <li><router-link tag="a" :to="'/permissions'">Dozvole</router-link></li>
                 </ul>
             </li>

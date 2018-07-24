@@ -36,14 +36,15 @@ export const router = new VueRouter({
         { path: "/roles", component: require('./components/roles/RoleList.vue'), meta: { forAdmin: true } },
         { path: "/roles/create", component: require('./components/roles/RoleCreate.vue'), meta: { forAdmin: true } },
         { path: "/roles/:id/edit", component: require('./components/roles/RoleEdit.vue'), meta: { forAdmin: true } },
+        { path: "/roles/:id/permission", component: require('./components/roles/RolePermission.vue'), meta: { forAdmin: true } },
 
         { path: "/permissions", component: require('./components/permissions/PermissionList.vue'), meta: { forAdmin: true } },
         { path: "/permissions/create", component: require('./components/permissions/PermissionCreate.vue'), meta: { forAdmin: true } },
         { path: "/permissions/:id/edit", component: require('./components/permissions/PermissionEdit.vue'), meta: { forAdmin: true } },
 
-        // { path: "/attributes", component: require('./components/attributes/AttributeList.vue'), meta: { forAdmin: true } },
-        // { path: "/attributes/create", component: require('./components/attributes/AttributeCreate.vue'), meta: { forAdmin: true } },
-        // { path: "/attributes/:id/edit", component: require('./components/attributes/AttributeEdit.vue'), meta: { forAdmin: true } },
+        { path: "/permission-groups", component: require('./components/permissionGroups/PermissionGroupList.vue'), meta: { forAdmin: true } },
+        { path: "/permission-groups/create", component: require('./components/permissionGroups/PermissionGroupCreate.vue'), meta: { forAdmin: true } },
+        { path: "/permission-groups/:id/edit", component: require('./components/permissionGroups/PermissionGroupEdit.vue'), meta: { forAdmin: true } },
 
         { path: "/categories", component: require('./components/categories/CategoryList.vue'), meta: { forAdmin: true } },
         { path: "/categories/create", component: require('./components/categories/CategoryCreate.vue'), meta: { forAdmin: true } },

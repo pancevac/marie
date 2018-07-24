@@ -19,7 +19,7 @@ class Permission extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'guard_name', 'is_visible'];
+    protected $fillable = ['permission_group_id', 'name', 'guard_name', 'is_visible'];
 
     /**
      * The attributes that are used for sorting
@@ -63,5 +63,14 @@ class Permission extends Model
      */
     public function role(){
         return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * method used to make belongs-to connection between Permission and PermissionGroup model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function permissionGroup(){
+        return $this->belongsTo(PermissionGroup::class);
     }
 }

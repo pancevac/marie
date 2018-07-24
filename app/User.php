@@ -7,6 +7,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
+use File;
 
 class User extends Authenticatable
 {
@@ -32,6 +33,19 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot(){
+        parent::boot();
+
+        static::deleting(function ($user) {
+            if(!empty($user->image)) File::delete($user->image);
+        });
+    }
 
     /**
      * set user's hash password

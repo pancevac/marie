@@ -28,6 +28,7 @@
                             <th scope="col">id</th>
                             <th scope="col">ime</th>
                             <th scope="col">zaštićeno ime</th>
+                            <th scope="col">grupa</th>
                             <th scope="col">publikovano</th>
                             <th>akcija</th>
                         </tr>
@@ -37,6 +38,7 @@
                             <td>{{ row.id }}</td>
                             <td>{{ row.name }}</td>
                             <td>{{ row.guard_name }}</td>
+                            <td>{{ row.permission_group.name }}</td>
                             <td>{{ row.is_visible? 'Da' : 'Ne' }}</td>
                             <td>
                                 <font-awesome-icon icon="pencil-alt" @click="editRow(row['id'])"/>

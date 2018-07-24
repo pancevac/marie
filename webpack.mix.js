@@ -34,13 +34,18 @@ mix.options({
     processCssUrls: false // Process/optimize relative stylesheet url()'s. Set to false, if you don't want them touched.
 });
 
-// server side.
-mix.js('resources/assets/js/app.js', 'public/js')  
+mix.js('resources/assets/js/app.js', 'public/js')
+    .js('resources/assets/client/scripts/main.js', 'public/client/scripts')
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .sass('resources/assets/client/styles/main.scss', 'public/client/styles');
 
-// client side.
-mix.js('resources/assets/client/scripts/main.js', 'public/client/scripts')
-  .extract(['vue']);
-
-// style bundler.
-mix.sass('resources/assets/sass/app.scss', 'public/css')
-.sass('resources/assets/client/styles/main.scss', 'public/client/styles');
+// // server side.
+// mix.js('resources/assets/js/app.js', 'public/js');
+//
+// // client side.
+// mix.js('resources/assets/client/scripts/main.js', 'public/client/scripts')
+//   .extract(['vue']);
+//
+// // style bundler.
+// mix.sass('resources/assets/sass/app.scss', 'public/css')
+// .sass('resources/assets/client/styles/main.scss', 'public/client/styles');

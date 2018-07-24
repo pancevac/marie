@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-8" v-if="roles">
+                <div class="col-sm-8" v-if="user">
                     <div class="card">
                         <form @submit.prevent="submit()">
 
@@ -59,9 +59,7 @@
         data(){
           return {
               fillable: ['name', 'email', 'password', 'password_confirmation', 'image', 'role_id', 'block', 'role_ids'],
-              user: {
-                  role_ids: [],
-              },
+              user: false,
               error: null,
               roles: false,
           }
@@ -77,12 +75,12 @@
             getUser(){
                 axios.get('api/users/' + this.$route.params.id)
                     .then(res => {
+                        this.roles = res.data.roles;
+
                         this.user = res.data.user;
                         this.user.role_ids = res.data.role_ids;
                         this.user.imagePath = res.data.user.image;
                         this.user.image = null;
-
-                        this.roles = res.data.roles;
                     })
                     .catch(e => {
                         console.log(e);

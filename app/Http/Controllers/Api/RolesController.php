@@ -15,7 +15,7 @@ class RolesController extends Controller
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function index(){
-        $roles = Role::orderBy('id', 'DESC')->paginate(50);
+        $roles = Role::orderBy('id', 'DESC')->paginate(Role::$paginate);
 
         return response([
             'roles' => $roles,
@@ -89,6 +89,21 @@ class RolesController extends Controller
         return response()->json([
             'roles' => $roles,
             'lists' => $roles->pluck('title', 'id'),
+        ]);
+    }
+
+
+    /**
+     * method used to save permissions to current Role model
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function permissions($id){
+        Role::find($id)->permission()->sync(request('permission_ids'));
+
+        return response()->json([
+            'message' => 'Saved',
         ]);
     }
 }

@@ -24,6 +24,7 @@ class CreatePermissionRequest extends FormRequest
     public function rules()
     {
         return [
+            'permission_group_id' => 'required|numeric',
             'name' => 'required|unique:permissions,name,'.$this->segment(3),
             'guard_name' => 'required|unique:permissions,guard_name,'.$this->segment(3),
         ];
@@ -37,6 +38,8 @@ class CreatePermissionRequest extends FormRequest
     public function messages()
     {
         return [
+            'permission_group_id.required' => 'Grupe dozvole je obavezna',
+            'permission_group_id.numeric' => 'Grupe dozvole je obavezna',
             'name.required' => 'Ime je obavezno',
             'name.unique' => 'Ime mora biti jedinstveno',
             'guard_name.required' => 'Zaštitničko ime je obavezno',

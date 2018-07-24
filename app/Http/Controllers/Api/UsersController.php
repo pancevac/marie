@@ -54,7 +54,7 @@ class UsersController extends Controller
         return response()->json([
             'user' => $user,
             'roles' => Role::select('id', 'name as title')->visible()->orderBy('created_at', 'DESC')->get(),
-            'role_ids' => $user->role()->pluck('id'),
+            'role_ids' => $user->role()->get(['name as title', 'id']),
         ]);
     }
 
@@ -72,7 +72,7 @@ class UsersController extends Controller
 
         return response()->json([
             'user' => $user,
-            'role_ids' => $user->role()->pluck('id'),
+            'role_ids' => $user->role()->get(['name as title', 'id']),
         ]);
     }
 
@@ -83,7 +83,6 @@ class UsersController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(User $user){
-        if(!empty($user->image)) File::delete($user->image);
         $user->delete();
 
         return response()->json([
