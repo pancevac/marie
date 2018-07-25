@@ -1,4 +1,4 @@
-<drawer>
+<temporary-drawer>
   <div>
     <div class="p-4 d-flex align-items-center" style="color: white;">
       <a href="/" class="logo-wrap" title="Maria Claire logo">
@@ -39,4 +39,4 @@
       @include('site.partials.social')
     </div>
   </div>
-</drawer>
+</temporary-drawer>

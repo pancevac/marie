@@ -1,0 +1,47 @@
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  contain: strict;
+  overflow: hidden;
+  z-index: 100;
+  pointer-events: none;
+
+  &[data-open] {
+    pointer-events: auto;
+  }
+
+  &_drawer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 56px);
+    max-width: 320px;
+    height: 100%;
+    background-color: #212121;
+    transform: translateX(-102%);
+    transition: transform .21s .06s cubic-bezier(.4, 0, .4, 1);
+    will-change: transform;
+
+    .drawer[data-open] & {
+      transform: translateX(0);
+    }
+
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 2px;
+      height: 100%;
+      content: "";
+      background-color: #FFF;
+      opacity: .5;
+    }
+  }
+}
+
+temporary-drawer {
+  display: none;
+}

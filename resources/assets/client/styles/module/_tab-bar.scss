@@ -26,3 +26,10 @@
     pointer-events: none;
   }
 }
+
+// Before JS kicks in ;)
+tab-bar {
+  display: flex;
+  overflow: hidden;
+  flex-wrap: nowrap;
+}
