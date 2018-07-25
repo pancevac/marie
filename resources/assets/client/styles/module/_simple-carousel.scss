@@ -1,0 +1,26 @@
+.simple-carousel {
+  display: block;
+  white-space: nowrap;
+  overflow-x: visible;
+  will-change: transform;
+  transform: translateX(0);
+  font-size: 0;
+}
+
+.simple-carousel > * {
+  display: inline-block;
+  overflow: hidden;
+  font-size: initial;
+  white-space: initial;
+  vertical-align: top;
+}
+
+simple-carousel {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+
+  > * {
+    flex-shrink: 0;
+  }
+}

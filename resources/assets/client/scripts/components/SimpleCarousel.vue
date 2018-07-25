@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="host"
+    <div class="simple-carousel"
       ref="host"
       v-on:touchstart='onTouchStart'
       v-on:mousedown='onTouchStart'
@@ -291,22 +291,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-  .host {
-    display: block;
-    white-space: nowrap;
-    overflow-x: visible;
-    will-change: transform;
-    transform: translateX(0);
-    font-size: 0;
-  }
-
-  .host > .slider-item {
-    display: inline-block;
-    overflow: hidden;
-    font-size: initial;
-    white-space: initial;
-    vertical-align: top;
-  }
-</style>
