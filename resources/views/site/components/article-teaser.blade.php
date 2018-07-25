@@ -9,7 +9,7 @@
 
 <div class="{{$teaser}}">
   <div class="teaser_media">
-    <a href="#">
+    <a href="#" title="image alt">
       <div class="{{$image}} tint tint--light tint--hover"
         data-src=""
         data-alt="image alt"

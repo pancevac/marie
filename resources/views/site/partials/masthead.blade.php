@@ -9,8 +9,11 @@
           <div class="masthead-item_title"><a href="#">Article title #{{$i + 1}} long text follows...</a></div>
         </div>
         <div class="masthead-item_image">
-          <a href="#">
-            <div class="image image--16-9"></div>
+          <a href="#" title="alt tag">
+            <div class="image image--16-9 js-lazy-image"
+              data-src=""
+              data-alt="alt tag"
+            ></div>
           </a>
         </div>
       </div>
