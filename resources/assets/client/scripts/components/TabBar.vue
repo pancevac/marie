@@ -1,12 +1,12 @@
 <template>
-  <div class="wrap" ref="wrap">
-    <div class="host"
+  <div class="tab-bar-wrap" ref="wrap">
+    <div class="tab-bar"
       v-on:touchstart='onTouchStart'
       v-on:mousedown='onTouchStart'
       v-on:click='onClick'
       v-bind:style='{transform: translateX}'
     >
-      <div class="track" ref="track">
+      <div class="tab-bar_track" ref="track">
         <slot></slot>
       </div>
     </div>
@@ -154,28 +154,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-  .host {
-    display: block;
-    white-space: nowrap;
-    overflow-x: visible;
-    transform: translateX(0);
-    will-change: transform;
-    font-size: 0;
-  }
-
-  .wrap {
-    overflow: hidden;
-  }
-
-  .track {
-    display: inline-block;
-    overflow: hidden;
-    font-size: initial;
-  }
-
-  .track > * {
-    display: inline-block;
-  }
-</style>

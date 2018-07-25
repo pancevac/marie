@@ -1,0 +1,28 @@
+.tab-bar {
+  display: block;
+  white-space: nowrap;
+  overflow-x: visible;
+  transform: translateX(0);
+  will-change: transform;
+  font-size: 0;
+
+  &_track {
+    display: inline-block;
+    overflow: hidden;
+    font-size: initial;
+  }
+  
+  &_track > * {
+    display: inline-block;
+  }
+}
+
+.tab-bar-wrap {
+  overflow: hidden;
+
+  .search-open & {
+    opacity: 0;
+    transition: opacity .12s;
+    pointer-events: none;
+  }
+}
