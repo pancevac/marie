@@ -9,21 +9,21 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-left: -8px;
-  margin-right: -8px;
+  margin-left: -(2 * $baseline);
+  margin-right: -(2 * $baseline);
 
   @include media-breakpoint-up(sm) {
-    margin-left: -16px;
-    margin-right: -16px;
+    margin-left: -(4 * $baseline);
+    margin-right: -(4 * $baseline);
   }
 }
 
 .col {
   min-width: 0;
-  padding: 0 8px;
+  padding: 0 (2 * $baseline);
 
   @include media-breakpoint-up(sm) {
-    padding: 0 16px;
+    padding: 0 (4 * $baseline);
   }
 
   &--6 {

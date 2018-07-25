@@ -1,5 +1,5 @@
 .sidenav {
-  padding: 16px 0;
+  padding: (4 * $baseline) 0;
   color: $text-primary-on-dark;
 }
 
@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   height: 42px;
-  padding: 0 32px;
+  padding: 0 (8 * $baseline);
   font-weight: $font-weight-bold;
   font-size: 20px;
   text-transform: uppercase;

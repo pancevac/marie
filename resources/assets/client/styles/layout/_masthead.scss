@@ -1,12 +1,12 @@
 .masthead {
   overflow-x: hidden;
   position: relative;
-  margin: 32px 0;
+  margin: (8 * $baseline) 0;
 
   .dots {
     position: absolute;
-    padding: 8px;
-    bottom: 8px;
+    padding: (2 * $baseline);
+    bottom: (2 * $baseline);
     left: 175px;
     transform: translateX(-50%);
 
@@ -32,7 +32,7 @@
     justify-content: center;
     flex-shrink: 0;
     width: 100%;
-    padding: 8px 16px;
+    padding: (2 * $baseline) (4 * $baseline);
     background-color: rgba($color: #ffffff, $alpha: .8);
     
     @include media-breakpoint-down(md) {
@@ -44,7 +44,7 @@
     
     @include media-breakpoint-up(lg) {
       width: 350px;
-      padding: 16px 32px;
+      padding: (4 * $baseline) (8 * $baseline);
       border: 2px solid black;
       background-color: #FFF;
     }
@@ -63,7 +63,7 @@
 
     @include media-breakpoint-up(lg) {
       font-size: 22px;
-      margin-top: 8px;
+      margin-top: (2 * $baseline);
     }
   }
 

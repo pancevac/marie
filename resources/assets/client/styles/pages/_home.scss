@@ -1,20 +1,20 @@
 .home-popular {
   overflow-x: hidden;
-  margin-left: -8px;
-  margin-right: -8px;
+  margin-left: -(2 * $baseline);
+  margin-right: -(2 * $baseline);
 
   @include media-breakpoint-up(sm) {
-    margin-left: -16px;
-    margin-right: -16px;
+    margin-left: -(4 * $baseline);
+    margin-right: -(4 * $baseline);
   }
 
   &_item {
     width: 50%;
-    padding: 0 8px;
+    padding: 0 (2 * $baseline);
 
     @include media-breakpoint-up(sm) {
       width: 33.3333%;
-      padding: 0 16px;
+      padding: 0 (4 * $baseline);
     }
 
     @include media-breakpoint-up(lg) {
@@ -30,6 +30,6 @@
     line-height: 1.3;
     height: 3.9em;
     overflow: hidden;
-    margin: 16px 0 8px;
+    margin: (4 * $baseline) 0 (2 * $baseline);
   }
 }

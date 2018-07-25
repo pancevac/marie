@@ -42,16 +42,16 @@
   &_header {
     border-top-right-radius: inherit;
     border-top-left-radius: inherit;
-    padding: 16px 16px 0;
+    padding: (4 * $baseline) (4 * $baseline) 0;
   }
 
   &_body {
-    padding: 16px;
+    padding: (4 * $baseline);
   }
 
   &_footer {
     border-bottom-right-radius: inherit;
     border-bottom-left-radius: inherit;
-    padding: 16px;
+    padding: (4 * $baseline);
   }
 }

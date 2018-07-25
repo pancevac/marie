@@ -25,7 +25,7 @@
     font-weight: $font-weight-bold;
     color: $text-primary-on-light;
     text-decoration: none;
-    margin: 0 0 16px;
+    margin: 0 0 (4 * $baseline);
 
     .teaser--featured & {
       font-size: 1.875rem;

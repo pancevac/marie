@@ -3,7 +3,7 @@
 
   .controls {
     position: absolute;
-    top: -8px;
+    top: -(2 * $baseline);
     left: 0;
     display: inline-flex;
     z-index: 1;
@@ -13,7 +13,7 @@
   .control {
     color: $text-primary-on-light;
     margin: 0;
-    padding: 0 16px;
+    padding: 0 (4 * $baseline);
     display: inline-flex;
     height: 32px;
     background: none;
