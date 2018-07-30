@@ -1,13 +1,13 @@
 @extends('site.layouts.beautybox')
 
 @section('content')
-  <div style="background-color: powderblue;">
-    <div class="container" style="height: 464px;">
-      hero image and stuff...
-    </div>
+  <div class="py-4" style="background-color: #b5e2f5;">
+    @beautybox_hero()
+    @endbeautybox_hero
   </div>
+
   <div class="container">
-    
+
     <div class="mb-5">
       <p class="mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, praesentium? Qui voluptatem corporis in error repudiandae dignissimos inventore repellat. Eligendi esse voluptatum vitae distinctio, dignissimos pariatur tempore harum voluptas amet?</p>
       <div class="text-center">
@@ -28,7 +28,7 @@
 
     <h2 class="text-uppercase text-center mb-4 h5">partneri</h2>
 
-    <div>
+    <div class="mb-5">
       partners and stuff...
     </div>
 

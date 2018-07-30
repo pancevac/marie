@@ -1,3 +1,60 @@
+.beautybox-hero {
+  position: relative;
+
+  &_content {
+    padding: 0 16px;
+
+    @include media-breakpoint-up(md) {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+  }
+
+  &_desc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: uppercase;
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  &_subtitle {
+    font-weight: $font-weight-light;
+  }
+
+  &_title {
+    font-size: 60px;
+    font-weight: bolder;
+  }
+
+  &_underline {
+    font-size: 24px;
+    font-weight: $font-weight-regular;
+  }
+
+  &_image {
+    width: 100%;
+    
+    @include media-breakpoint-up(sm) {
+      margin: 0 auto;
+      width: 80%;
+    }
+    
+    @include media-breakpoint-up(md) {
+      margin-right: 0;
+      margin-left: auto;
+      width: 60%;
+    }
+
+    > img {
+      max-width: 100%;
+    }
+  }
+}
+
 .beautybox-products {
   display: flex;
   flex-wrap: wrap;

@@ -30,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component($components.'.related-item', 'related_item');
         Blade::component($components.'.image-gallery', 'image_gallery');
 
+        Blade::component($components.'.beautybox.hero', 'beautybox_hero');
         Blade::component($components.'.beautybox.product', 'beautybox_product');
     }
 }
