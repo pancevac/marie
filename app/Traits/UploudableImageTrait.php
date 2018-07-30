@@ -12,9 +12,7 @@ trait UploudableImageTrait{
     protected $folder = 'uploads/';
 
     protected $_relations = [
-        'Product' => 'photo',
         'Post' => 'gallery',
-        'Brand' => 'slider',
     ];
 
     public function storeImage( $fieldName = 'image', $attributeName = 'image') {
@@ -62,7 +60,7 @@ trait UploudableImageTrait{
             $this->$string()->save(new $className([
                 'file_name' => $fileName,
                 'file_path' => $filePath,
-                'publish' => 1
+                'is_visible' => 1
             ]));
 
             return 'done';

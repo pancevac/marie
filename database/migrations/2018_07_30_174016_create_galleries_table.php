@@ -19,7 +19,8 @@ class CreateGalleriesTable extends Migration
             $table->integer('gallery_id')->unsigned()->index();
             $table->string('title')->nullable();
             $table->text('desc')->nullable();
-            $table->string('image')->nullable();
+            $table->string('file_name')->nullable();
+            $table->string('file_path')->nullable();
             $table->integer('order')->default(1);
             $table->boolean('is_visible')->default(1);
             $table->timestamps();

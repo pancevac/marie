@@ -24,6 +24,7 @@ export const router = new VueRouter({
         { path: "/posts", component: require('./components/posts/PostList.vue'), meta: { forAdmin: true } },
         { path: "/posts/create", component: require('./components/posts/PostCreate.vue'), meta: { forAdmin: true } },
         { path: "/posts/:id/edit", component: require('./components/posts/PostEdit.vue'), meta: { forAdmin: true } },
+        { path: "/posts/:id/gallery", component: require('./components/posts/PostGallery.vue'), meta: { forAdmin: true } },
 
         { path: "/banners", component: require('./components/banners/BannerList.vue'), meta: { forAdmin: true } },
         { path: "/banners/create", component: require('./components/banners/BannerCreate.vue'), meta: { forAdmin: true } },

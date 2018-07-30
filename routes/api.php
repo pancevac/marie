@@ -31,6 +31,11 @@ Route::middleware('auth:api')->group(function () {
     Route::post('categories/order', 'Api\CategoriesController@saveOrder');
     Route::resource('categories', 'Api\CategoriesController');
 
+    Route::get('galleries/{post_id}', 'Api\GalleriesController@show');
+    Route::post('galleries/{post_id}', 'Api\GalleriesController@update');
+    Route::post('galleries/{post_id}/serialize', 'Api\GalleriesController@serialize');
+    Route::post('galleries/{id}/destroy', 'Api\GalleriesController@destroy');
+
     Route::resource('menus', 'Api\MenusController');
 
     Route::get('menu-links/lists', 'Api\MenuLinksController@lists');
@@ -45,6 +50,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::resource('posts', 'Api\PostsController');
     Route::post('posts/search', 'Api\PostsController@search');
+    Route::get('posts/{id}/gallery', 'Api\PostsController@gallery');
+    Route::post('posts/{id}/gallery', 'Api\PostsController@galleryUpdate');
 
     Route::resource('products', 'Api\ProductsController');
     Route::post('products/search', 'Api\ProductsController@search');

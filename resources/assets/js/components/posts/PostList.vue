@@ -44,6 +44,7 @@
                                 <td>{{ row.publish_at }}</td>
                                 <td>
                                     <font-awesome-icon icon="eye" @click="previewRow(row)" />
+                                    <router-link tag="a" :to="'posts/' + row['id'] + '/gallery'" class="edit-link"><font-awesome-icon icon="images"/></router-link>
                                     <router-link tag="a" :to="'posts/' + row['id'] + '/edit'" class="edit-link"><font-awesome-icon icon="pencil-alt"/></router-link>
                                     <font-awesome-icon icon="times" @click="deleteRow(row)" />
                                 </td>
@@ -113,6 +114,9 @@
             },
             editRow(id){
                 this.$router.push('posts/' + id + '/edit');
+            },
+            galleryRow(id){
+                this.$router.push('posts/' + id + '/gallery');
             },
             deleteRow(row){
                 swal({
