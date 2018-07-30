@@ -14,6 +14,8 @@
 
     <div>
       products and stuff...
+      @beautybox_product()
+      @endbeautybox_product
     </div>
 
     <h2 class="text-uppercase text-center mb-4 h5">partneri</h2>
@@ -26,6 +28,11 @@
 
     <div>
       instagram plugin and stuff...
+    </div>
+
+    <div class="text-center py-5 small">
+      <div>Legal crap and stuff</div>
+      <div>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum rerum hic quas! Atque nostrum dolores excepturi!</div>
     </div>
 
   </div>
