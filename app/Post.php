@@ -125,4 +125,13 @@ class Post extends Model
     public function tag(){
         return $this->belongsToMany(Tag::class);
     }
+
+    /**
+     * method used to make morph-many connection between Post and Gallery model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function gallery(){
+        return $this->morphMany(Gallery::class, 'gallery');
+    }
 }

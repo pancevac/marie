@@ -88,7 +88,7 @@ class PostsController extends Controller
     public function search(){
         Post::setBlogValue();
         return response()->json([
-            'posts' => Post::search()->with('blog')->paginate(Post::$paginate),
+            'posts' => Post::search()->with('blog')->orderBy('publish_at', 'DESC')->paginate(Post::$paginate),
         ]);
     }
 }

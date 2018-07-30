@@ -64,7 +64,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('users/{id}/change-password', 'Api\UsersController@changePassword');
 
     Route::get('user', function (Request $request) {
-        return $request->user();
+        return $request->user()->load('role');
     });
 
 });

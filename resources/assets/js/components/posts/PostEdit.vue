@@ -59,6 +59,7 @@
                         <div class="card" v-if="lists">
                             <div class="card-body">
                                 <h3>Kategorije</h3>
+                                <small class="form-text text-muted" v-if="error != null && error.blog_ids">{{ error.blog_ids[0] }}</small>
                                 <ul class="no-parent">
                                     <li v-for="blog in lists" :id="`list_${blog.id}`">
                                         <label><input type="checkbox" v-model="post.blog_ids" :value="blog.id"> {{ blog.title }}</label>

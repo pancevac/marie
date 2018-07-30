@@ -19,7 +19,7 @@ class TagsController extends Controller
      */
     public function index(){
         return response()->json([
-            'tags' => Tag::select('id', 'title')->published()->get(),
+            'tags' => Tag::select('id', 'title')->visible()->get(),
         ]);
     }
 
