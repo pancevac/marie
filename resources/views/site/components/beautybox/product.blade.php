@@ -1,8 +1,10 @@
 <div class="beautybox-product">
-  <div class="image image--1-1 js-lazy-image"
+  <a href="#" title="image-alt">
+    <div class="image image--1-1 js-lazy-image"
     data-src=""
     data-alt=""
-  ></div>
+    ></div>
+  </a>
   <h3 class="beautybox-product_title text-center">Product title and stuff</h3>
   <div class="beautybox-product_overlay">
     <div class="beautybox-product_desc">

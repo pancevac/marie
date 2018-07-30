@@ -12,10 +12,13 @@
     </div>
     <h2 class="text-uppercase text-center mb-4 h5">sadržaj beauty box-a</h2>
 
-    <div>
-      products and stuff...
-      @beautybox_product()
-      @endbeautybox_product
+    <div class="beautybox-products">
+      @for($i = 0; $i < 5; $i++)
+      <div class="beautybox-products_item">
+        @beautybox_product()
+        @endbeautybox_product
+      </div>
+      @endfor
     </div>
 
     <h2 class="text-uppercase text-center mb-4 h5">partneri</h2>
