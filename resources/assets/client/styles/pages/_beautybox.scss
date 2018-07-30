@@ -79,7 +79,7 @@
   }
 }
 
-.beautybox-products {
+.beautybox-list {
   display: flex;
   flex-wrap: wrap;
   margin-left: -(2 * $baseline);
@@ -178,5 +178,30 @@
   &_link {
     font-weight: $font-weight-bold;
     color: $theme-secondary;
+  }
+}
+
+.beautyshop-partner {
+  margin-bottom: 16px;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 32px;
+  }
+
+  &_image {
+    text-align: center;
+
+    > img {
+      max-width: 100%;
+      filter: grayscale(100%);
+      opacity: .5;
+    }
+
+    &:hover {
+      > img {
+        filter: none;
+        opacity: 1;
+      }
+    }
   }
 }
