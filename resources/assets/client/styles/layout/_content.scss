@@ -26,6 +26,7 @@
 }
 
 .content-aside {
+  contain: content;
   width: 100%;
   max-width: 332px;
   flex-shrink: 0;

@@ -38,11 +38,11 @@ export default {
   },
 
   methods: {
+    /**
+      * Image onload event handler.
+      * Sets the proper orientation based on the image dimensions.
+      */
     onLoad(evt) {
-      /**
-       * Image onload event handler.
-       * Sets the proper orientation based on the image dimensions.
-       */
       const img = evt.target;
       const w = img.naturalWidth;
       const h = img.naturalHeight;

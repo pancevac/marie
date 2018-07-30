@@ -9,6 +9,7 @@
 
   &-wrap {
     color: inherit !important;
+    will-change: opacity;
 
     &:hover,
     &:focus {
