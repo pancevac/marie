@@ -1,10 +1,13 @@
 .pagination {
-  font-family: $font-family-serif;
   justify-content: center;
 }
 
 .page-item {
   color: $text-secondary-on-light;
+
+  &:hover {
+    color: $text-primary-on-light;
+  }
 
   &.active {
     color: $text-primary-on-light;
