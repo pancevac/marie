@@ -7,12 +7,17 @@
     </div>
   </div>
   <div class="container">
-    <div>
+    
+    <div class="mb-5">
       <p class="mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, praesentium? Qui voluptatem corporis in error repudiandae dignissimos inventore repellat. Eligendi esse voluptatum vitae distinctio, dignissimos pariatur tempore harum voluptas amet?</p>
+      <div class="text-center">
+        <img src="http://beautybox.marieclaire.cz/imgs/marieclaire_sig.png" alt="marie claire signature">
+      </div>
     </div>
+
     <h2 class="text-uppercase text-center mb-4 h5">sadržaj beauty box-a</h2>
 
-    <div class="beautybox-products mb-4">
+    <div class="beautybox-products mb-5">
       @for($i = 0; $i < 5; $i++)
       <div class="beautybox-products_item">
         @beautybox_product()
