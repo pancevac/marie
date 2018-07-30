@@ -19,6 +19,7 @@
     text-transform: uppercase;
     line-height: 1.1;
     text-align: center;
+    margin-bottom: 16px;
   }
 
   &_subtitle {
@@ -33,6 +34,29 @@
   &_underline {
     font-size: 24px;
     font-weight: $font-weight-regular;
+  }
+
+  &_actions {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    
+    @include media-breakpoint-up(sm) {
+      flex-direction: row;
+    }
+  }
+
+  &_price {
+    font-weight: $font-weight-bold;
+    font-size: 36px;
+    line-height: 1;
+    vertical-align: middle;
+    margin-bottom: 16px;
+
+    @include media-breakpoint-up(sm) {
+      margin: 0 0 0 (4 * $baseline);
+    }
   }
 
   &_image {

@@ -5,9 +5,14 @@
       <strong class="beautybox-hero_title">beauty box</strong>
       <span  class="beautybox-hero_underline">by vacasan</span>
     </h1>
-    <div>
-      <a class="btn btn--primary" href="#">kupi</a>
-      <span>12.000,99 din</span>
+    <div class="beautybox-hero_actions">
+      <a class="btn btn--primary btn--lg" href="#">
+        <svg class="icon mr-2" role="presentation">
+          <use xlink:href="#icon_cart"></use>
+        </svg>
+        kupi
+      </a>
+      <span class="beautybox-hero_price">899din</span>
     </div>
   </div>
   <div class="beautybox-hero_image">
