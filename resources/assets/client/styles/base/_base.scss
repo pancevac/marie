@@ -36,3 +36,8 @@ ol {
   color: inherit;
   opacity: .5;
 }
+
+::selection {
+  background-color: $theme-secondary;
+  color: #FFF;
+}
