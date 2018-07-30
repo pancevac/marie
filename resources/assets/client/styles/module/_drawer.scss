@@ -20,7 +20,7 @@
     width: calc(100% - 56px);
     max-width: 320px;
     height: 100%;
-    background-color: #212121;
+    background-color: $theme-primary;
     transform: translateX(-102%);
     transition: transform .21s .06s cubic-bezier(.4, 0, .4, 1);
     will-change: transform;

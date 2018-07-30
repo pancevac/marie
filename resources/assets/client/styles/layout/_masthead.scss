@@ -45,7 +45,7 @@
     @include media-breakpoint-up(lg) {
       width: 350px;
       padding: (4 * $baseline) (8 * $baseline);
-      border: 2px solid black;
+      border: 2px solid $theme-primary;
       background-color: #FFF;
     }
   }

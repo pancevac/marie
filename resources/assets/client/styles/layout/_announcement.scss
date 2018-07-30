@@ -1,6 +1,6 @@
 .announcement {
   display: none;
-  background-color: #212121;
+  background-color: #BABABA;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     height: 234px;
-    color: #333;
+    color: $theme-primary;
 
     @include media-breakpoint-down(md) {
       justify-content: center;

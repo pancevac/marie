@@ -19,11 +19,11 @@
   top: 50%;
   right: (4 * $baseline);
   transform: translateY(-50%);
-  background-color: #212121;
+  background-color: $theme-primary;
 }
 
 .top-bar {
-  background-color: #212121;
+  background-color: $theme-primary;
   color: #FFF;
 
   @include media-breakpoint-up(md) {
