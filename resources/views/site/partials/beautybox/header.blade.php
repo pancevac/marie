@@ -1,21 +1,3 @@
-@php
-  $isRoot = Request::is('/');
-@endphp
-
-@if($isRoot)
-<div class="announcement"
-  style="background-image: url(https://images.pexels.com/photos/355770/pexels-photo-355770.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)"
->
-  <div class="container announcement_container">
-    <a href="/" class="logo-wrap">
-      <svg class="logo logo--header">
-        <use xlink:href="#logo"></use>
-      </svg>
-    </a>
-  </div>
-</div>
-@endif
-
 <div class="top-bar">
   <div class="container top-bar_wrap">
     <a href="/" rel="home" class="logo-wrap" title="marie claire">
@@ -45,22 +27,13 @@
 
     <tab-bar>
       <div class="nav-item">
-        <a class="nav-link" href="/category">moda</a>
+        <a class="nav-link" href="#">prolećni</a>
       </div>
       <div class="nav-item">
-        <a class="nav-link" href="/category">lepota</a>
+        <a class="nav-link" href="#">zimski</a>
       </div>
       <div class="nav-item">
-        <a class="nav-link" href="/category">lifestyle</a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link" href="/category">ljubav</a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link" href="/category">biznis</a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link" href="/beautybox">beauty box</a>
+        <a class="nav-link" href="#">sephora</a>
       </div>
     </tab-bar>
 
