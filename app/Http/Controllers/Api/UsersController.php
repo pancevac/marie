@@ -21,7 +21,7 @@ class UsersController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(){
-        $users = User::orderBy('created_at', 'DESC')->paginate(50);
+        $users = User::with('role')->orderBy('created_at', 'DESC')->paginate(50);
 
         return response()->json([
             'users' => $users,

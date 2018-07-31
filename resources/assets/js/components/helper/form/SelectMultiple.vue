@@ -17,6 +17,9 @@
         },
         props: ['options', 'value', 'labela', 'required', 'error'],
         components: { Multiselect },
+        mounted(){
+            this.$emit('changeValue', this.filtered());
+        },
         methods: {
             customLabel (option) {
                 return `${option.title}`

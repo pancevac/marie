@@ -11,12 +11,12 @@
   @include('site.partials.graphics')
 
   <div id="app" class="content">
-    @include('site.partials.sidenav')
-    @include('site.partials.header')
+    @include(env('APP_THEME') . '.partials.sidenav')
+    @include(env('APP_THEME') . '.partials.header')
 
     @yield('content')
   </div>
-  @include('site.partials.footer')
+  @include(env('APP_THEME') . '.partials.footer')
   <script src="{{ url('client/scripts/main.js') }}"></script>
 </body>
 </html>

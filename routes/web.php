@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', 'DevController@render');
+Route::get('/', 'PagesController@homepage');
 
 // filemanager
 Route::middleware('auth')->get('filemanager/show', 'FilemanagerController@index');

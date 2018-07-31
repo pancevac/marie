@@ -30,7 +30,7 @@
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.name }}</td>
                                 <td>{{ row.email }}</td>
-                                <td>{{ row.role_id }}</td>
+                                <td v-if="row.role">[<span v-for="role in row.role">{{ role.name }}</span>,]</td><td v-else>/</td>
                                 <td>{{ row.created_at }}</td>
                                 <td>
                                     <font-awesome-icon icon="pencil-alt" @click="editRow(row['id'])"/>

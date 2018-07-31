@@ -6,6 +6,8 @@ use App\Traits\SearchableTraits;
 use App\Traits\UploudableImageTrait;
 use Illuminate\Database\Eloquent\Model;
 use File;
+use Illuminate\Support\Facades\Cache;
+use phpDocumentor\Reflection\DocBlock\Tags\See;
 
 class Post extends Model
 {
@@ -23,7 +25,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'title', 'slug', 'short', 'content', 'image', 'image_box', 'publish_at', 'views', 'is_visible'];
+    protected $fillable = ['user_id', 'title', 'slug', 'short', 'content', 'image', 'image_box', 'publish_at', 'views', 'slider', 'is_visible'];
 
     /**
      * append to Post model crop_image attribute
@@ -71,6 +73,15 @@ class Post extends Model
     }
 
     /**
+     * method used to set slider attribute
+     *
+     * @param $value
+     */
+    public function setSliderAttribute($value){
+        $this->attributes['slider'] = !empty($value)?: 0;
+    }
+
+    /**
      * method user to return crop_image attribute
      *
      * @return mixed
@@ -86,6 +97,67 @@ class Post extends Model
      */
     public static function setBlogValue(){
         request()->merge(['blog' => request('list')]);
+    }
+
+    /**
+     * method used to return slider posts to homepage
+     *
+     * @param int $limit
+     * @return mixed
+     */
+    public static function getSlider($limit=4){
+        return Cache::remember('1home.slider', Helper::getMinutesToTheNextHour(), function () use ($limit){
+            return self::with('blog')->where('slider', 1)->orderBy('publish_at', 'DESC')->visible()->take($limit)->get();
+        });
+    }
+
+    /**
+     * method used to return latest posts to homepage
+     *
+     * @param int $limit
+     * @return mixed
+     */
+    public static function getLatest($category=false, $limit=7){
+        if($category){
+            return [];
+        }else{
+            return Cache::remember('1home.latest', Helper::getMinutesToTheNextHour(), function () use ($limit){
+                return self::with('blog')->orderBy('publish_at', 'DESC')->visible()->take(7)->get();
+            });
+        }
+    }
+
+    /**
+     * method used to return most viewed posts to homepage
+     *
+     * @param int $limit
+     * @return mixed
+     */
+    public static function getViewed($category=false, $limit=4){
+        if($category){
+            return [];
+        }else{
+            return Cache::remember('1home.viewed', Helper::getMinutesToTheNextHour(), function () use ($limit){
+                return self::with('blog')->orderBy('views', 'DESC')->visible()->take($limit)->get();
+            });
+        }
+    }
+
+    /**
+     * method used to return post link
+     *
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function getLink(){
+        if($this->blog){
+            $url = '';
+            foreach ($this->blog as $blog){
+                $url .= $blog->slug . '/';
+            }
+            return url($url . $this->slug . '/' . $this->id);
+        }else{
+            return '#';
+        }
     }
 
     /**

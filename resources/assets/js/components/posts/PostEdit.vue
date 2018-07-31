@@ -20,18 +20,18 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
-                    <div class="card">
-                        <h5>Gallery images</h5>
-                        <hr>
-                        <div id="gallery" v-if="gallery">
-                            <div v-for="photo in gallery" class="photo">
-                                <font-awesome-icon icon="times" @click="deletePhoto(photo)" />
-                                <img :src="photo.tmb" class="img-thumbnail" alt="post.title">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="col-md-12">-->
+                    <!--<div class="card">-->
+                        <!--<h5>Gallery images</h5>-->
+                        <!--<hr>-->
+                        <!--<div id="gallery" v-if="gallery">-->
+                            <!--<div v-for="photo in gallery" class="photo">-->
+                                <!--<font-awesome-icon icon="times" @click="deletePhoto(photo)" />-->
+                                <!--<img :src="photo.tmb" class="img-thumbnail" alt="post.title">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <div class="col-md-4">
                     <div class="card" v-if="post">
@@ -75,9 +75,9 @@
 
                     </div><!-- .card -->
 
-                    <div class="card">
-                        <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" @vdropzone-success="showSuccess()"></vue-dropzone>
-                    </div>
+                    <!--<div class="card">-->
+                        <!--<vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" @vdropzone-success="showSuccess()"></vue-dropzone>-->
+                    <!--</div>-->
 
                 </div>
                 <div class="col-md-8">
@@ -97,6 +97,8 @@
                                     <text-area-ckeditor-field :value="post.body" :label="'Opis'" :error="error? error.body : ''" :required="true" @changeValue="post.body = $event"></text-area-ckeditor-field>
 
                                     <select-multiple-field :options="tags" :error="error? error.tag_ids : ''" :value="post.tag_ids" @changeValue="post.tag_ids = $event"></select-multiple-field>
+
+                                    <checkbox-field :value="post.slider" :label="'Prikazuje se u slajderu'" @changeValue="post.slider = $event"></checkbox-field>
 
                                     <checkbox-field :value="post.is_visible" :label="'Publikovano'" @changeValue="post.is_visible = $event"></checkbox-field>
 
@@ -123,7 +125,7 @@
     export default {
         data(){
             return {
-                fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'image_box', 'publish_at', 'is_visible', 'blog_ids', 'tag_ids'],
+                fillable: ['user_id', 'title', 'slug', 'short', 'body', 'image', 'image_box', 'publish_at', 'slider', 'is_visible', 'blog_ids', 'tag_ids'],
                 selected: {},
                 post: false,
                 error: {
@@ -195,11 +197,14 @@
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        this.error = null;
+                        this.error = {
+                            image: false,
+                            image_box: false,
+                        };
                     }).catch(e => {
-                    console.log(e.response);
-                    this.error = e.response.data.errors;
-                });
+                        console.log(e.response);
+                        this.error = e.response.data.errors;
+                    });
             },
             deletePhoto(photo){
                 axios.post('api/galleries/' + photo.id + '/destroy')

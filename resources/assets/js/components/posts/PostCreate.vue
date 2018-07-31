@@ -36,6 +36,8 @@
 
                             <select-multiple-field v-if="tags" :error="error? error.tag_ids : ''" :options="tags" :labela="'Tagovi'" @changeValue="post.tag_ids = $event"></select-multiple-field>
 
+                            <checkbox-field :value="post.slider" :label="'Prikazuje se u slajderu'" @changeValue="post.slider = $event"></checkbox-field>
+
                             <checkbox-field :value="post.is_visible" :label="'Publikovano'" @changeValue="post.is_visible = $event"></checkbox-field>
 
                             <div class="form-group">
@@ -86,7 +88,7 @@
     export default {
         data(){
           return {
-              fillable: ['user_id', 'title', 'slug', 'short', 'content', 'image', 'image_box', 'publish_at', 'is_visible', 'blog_ids', 'tag_ids'],
+              fillable: ['user_id', 'title', 'slug', 'short', 'content', 'image', 'image_box', 'publish_at', 'slider', 'is_visible', 'blog_ids', 'tag_ids'],
               post: {
                   title: null,
                   blog_ids: [],

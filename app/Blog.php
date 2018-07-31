@@ -79,6 +79,15 @@ class Blog extends Model
     }
 
     /**
+     * method used to return blog link
+     *
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function getLink(){
+        return url($this->slug . '/');
+    }
+
+    /**
      * method used to return list of blogs without parents
      *
      * @return mixed
