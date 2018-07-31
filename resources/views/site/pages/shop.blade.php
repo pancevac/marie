@@ -10,7 +10,7 @@
       </div>
       
       <div style="width: 66.6666%; margin-left: auto;">
-        <div class="row shop-list mb-5">
+        <div class="row shop-list mb-4">
           @for($i = 0; $i < 6; $i++)
           <div class="col shop-list_item">
             @shop_product()
@@ -18,6 +18,8 @@
           </div>
           @endfor
         </div>
+
+        @include('site.partials.pagination')
       </div>
 
     </div>
