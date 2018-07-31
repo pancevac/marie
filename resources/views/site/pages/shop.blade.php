@@ -6,11 +6,18 @@
     <div>
 
       <div>
-        shop items and stuff...
-      </div>
-
-      <div>
         filters and stuff...
+      </div>
+      
+      <div style="width: 66.6666%; margin-left: auto;">
+        <div class="col mb-5">
+          @for($i = 0; $i < 6; $i++)
+          <div class="col">
+            @shop_product()
+            @endshop_product
+          </div>
+          @endfor
+        </div>
       </div>
 
     </div>
