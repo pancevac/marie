@@ -12,7 +12,7 @@
   margin-left: -(2 * $baseline);
   margin-right: -(2 * $baseline);
 
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
     margin-left: -(4 * $baseline);
     margin-right: -(4 * $baseline);
   }
@@ -20,34 +20,15 @@
 
 .col {
   min-width: 0;
+  display: inline-block;
+  flex-shrink: 1;
   padding: 0 (2 * $baseline);
 
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
     padding: 0 (4 * $baseline);
   }
 
   &--6 {
     flex: 1 1 50%;   
-  }
-}
-
-.grid-list {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -(2 * $baseline);
-  margin-right: -(2 * $baseline);
-
-  @include media-breakpoint-up(md) {
-    margin-left: -(4 * $baseline);
-    margin-right: -(4 * $baseline);
-  }
-
-  &_item {
-    padding: 0 (2 * $baseline);
-    flex-shrink: 1;
-
-    @include media-breakpoint-up(md) {
-      padding: 0 (4 * $baseline);
-    }
   }
 }

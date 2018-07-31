@@ -17,9 +17,9 @@
 
     <h2 class="text-uppercase text-center mb-4 h5">sadržaj beauty box-a</h2>
 
-    <div class="grid-list mb-5">
+    <div class="row mb-5">
       @for($i = 0; $i < 6; $i++)
-      <div class="grid-list_item beautybox-list_item">
+      <div class="col beautybox-list_item">
         @beautybox_product()
         @endbeautybox_product
       </div>
@@ -28,9 +28,9 @@
 
     <h2 class="text-uppercase text-center mb-4 h5">partneri</h2>
 
-    <div class="grid-list mb-5">
+    <div class="row mb-5">
       @for($i = 0; $i < 6; $i++)
-      <div class="grid-list_item beautybox-list_item">
+      <div class="col beautybox-list_item">
         @beautybox_partner()
         @endbeautybox_partner
       </div>
