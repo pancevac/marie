@@ -7,7 +7,9 @@
   </a>
   <div>Product name and stuff</div>
   <div>999 rsd</div>
-  <div>
-    <a href="#" class="btn btn--primary btn--block">pogledaj</a>
-  </div>
+  <a class="btn btn--primary btn--block"
+    href="#"
+    target="_blank"
+    rel="noopener noreferrer"
+  >pogledaj</a>
 </div>
