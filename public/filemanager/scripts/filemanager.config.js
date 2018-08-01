@@ -17,7 +17,7 @@
         "chars_only_latin": true,
         "dateFormat": "d M Y H:i",
         "serverRoot": true,
-        "fileRoot": "marie/public/storage/uploads/media/",
+        "fileRoot": "marie/public/storage/media/",
         "relPath": false,
         "logger": false,
         "capabilities": ["select", "download", "rename", "move", "delete", "replace"],

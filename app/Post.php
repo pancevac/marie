@@ -202,6 +202,23 @@ class Post extends Model
     }
 
     /**
+     * method used to return images post link
+     *
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function getImagesLink(){
+        if($this->blog){
+            $url = 'slike/';
+            foreach ($this->blog as $blog){
+                $url .= $blog->slug . '/';
+            }
+            return url($url . $this->slug . '/' . $this->id);
+        }else{
+            return '#';
+        }
+    }
+
+    /**
      * method use to centralise is visible Post logic
      *
      * @param $query

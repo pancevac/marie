@@ -9,7 +9,7 @@
             <div class="content-main">
                 <div class="d-flex justify-content-between py-2 border-top">
                     <div></div>
-                    <a class="btn btn--secondary px-2" href="{{ $post->getGalleryLink() }}">
+                    <a class="btn btn--secondary px-2" href="{{ $post->getImagesLink() }}">
                         <svg class="icon" role="presentation">
                             <use xlink:href="#icon_gallery"></use>
                         </svg>

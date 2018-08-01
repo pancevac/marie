@@ -11,10 +11,11 @@
 
                     <div class="article_header">
                         <div class="image image--21-9"
-                             data-src="{{ $post->image? url($post->image) : '' }}"
+                             data-src="{{ $post->image? url(\Imagecache::get($post->image, '650x278')->src) : '' }}"
                              data-alt="{{ $post->title }}"></div>
                         <div class="article_details">
-                            author: {{ $post->user->name }}, datum: {{ \Carbon\Carbon::parse($post->publish_at)->format('d.m.Y.') }}
+                            author: {{ $post->user->name }},
+                            datum: {{ \Carbon\Carbon::parse($post->publish_at)->format('d.m.Y.') }}
                         </div>
                     </div>
 
@@ -23,12 +24,9 @@
                     </div>
 
                     @if(!empty($post->gallery))
-                    <div class="article_thumbs">
-                        @image_gallery([
-                            'images' => $post->gallery,
-                        ])
-                        @endimage_gallery
-                    </div>
+                        <div class="article_thumbs">
+                            @image_gallery(['images' => $post->gallery, 'post' => $post]) @endimage_gallery
+                        </div>
                     @endif
 
                 </div><!-- ./article -->
