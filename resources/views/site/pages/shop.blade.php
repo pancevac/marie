@@ -7,12 +7,12 @@
 
       <div class="filters">
 
-        <toggler as="div" class="filters_head" event="toggle:filter">
+        <toggler as="div" class="filters_head" event="toggle:filters">
           <span>Filteri</span>
           <span class="icon">&#9660;</span>
         </toggler>
 
-        <div class="filters_body">
+        <collapsible class="filters_body" name="filters">
 
           <div class="filter">
             <div class="filter_name">Filter name</div>
@@ -33,7 +33,7 @@
             </ul>
           </div>
 
-        </div>
+        </collapsible>
 
       </div>
       
