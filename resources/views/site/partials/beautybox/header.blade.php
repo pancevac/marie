@@ -11,7 +11,7 @@
 <header class="header">
   <div class="container header-wrap">
   
-    <toggler class-name="icon-btn flex-shrink-0" event="show:drawer">
+    <toggler class="icon-btn flex-shrink-0" event="show:drawer">
       <svg class="icon" role="presentation" title="Toggle navigation">
         <use xlink:href="#icon_menu"></use>
       </svg>

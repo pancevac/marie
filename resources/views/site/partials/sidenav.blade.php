@@ -6,7 +6,7 @@
                     <use xlink:href="#logo"></use>
                 </svg>
             </a>
-            <toggler class-name="icon-btn ml-auto"
+            <toggler class="icon-btn ml-auto"
                      style="margin-right: -16px;"
                      event="hide:drawer"
             >

@@ -7,10 +7,10 @@
 
       <div class="filters">
 
-        <div class="filters_head with-action">
+        <toggler as="div" class="filters_head" event="filter:toggle">
           <span>Filteri</span>
           <span class="icon">&#9660;</span>
-        </div>
+        </toggler>
 
         <div class="filters_body">
 
