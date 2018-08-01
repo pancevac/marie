@@ -7,7 +7,7 @@
          style="background-image: url(https://images.pexels.com/photos/355770/pexels-photo-355770.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)"
     >
         <div class="container announcement_container">
-            <a href="/" class="logo-wrap">
+            <a href="{{ url('/') }}" class="logo-wrap">
                 <svg class="logo logo--header">
                     <use xlink:href="#logo"></use>
                 </svg>

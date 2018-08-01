@@ -4,6 +4,7 @@ namespace App;
 
 use App\Traits\SearchableTraits;
 use App\Traits\UploudableImageTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use File;
 use Illuminate\Support\Facades\Cache;
@@ -106,7 +107,7 @@ class Post extends Model
      * @return mixed
      */
     public static function getSlider($limit=4){
-        return Cache::remember('1home.slider', Helper::getMinutesToTheNextHour(), function () use ($limit){
+        return Cache::remember('home.slider', Helper::getMinutesToTheNextHour(), function () use ($limit){
             return self::with('blog')->where('slider', 1)->orderBy('publish_at', 'DESC')->visible()->take($limit)->get();
         });
     }
@@ -119,10 +120,12 @@ class Post extends Model
      */
     public static function getLatest($category=false, $limit=7){
         if($category){
-            return [];
+            return Cache::remember($category->slug . '.latest', Helper::getMinutesToTheNextHour(), function () use ($category, $limit){
+                return $category->post()->with('blog')->orderBy('publish_at', 'DESC')->visible()->paginate($limit);
+            });
         }else{
-            return Cache::remember('1home.latest', Helper::getMinutesToTheNextHour(), function () use ($limit){
-                return self::with('blog')->orderBy('publish_at', 'DESC')->visible()->take(7)->get();
+            return Cache::remember('home.latest', Helper::getMinutesToTheNextHour(), function () use ($limit){
+                return self::with('blog')->orderBy('publish_at', 'DESC')->visible()->paginate($limit);
             });
         }
     }
@@ -135,10 +138,30 @@ class Post extends Model
      */
     public static function getViewed($category=false, $limit=4){
         if($category){
-            return [];
+            return Cache::remember($category->slug . '.viewed', Helper::getMinutesToTheNextHour(), function () use ($category, $limit){
+                return $category->post()->with('blog')->orderBy('views', 'DESC')->visible()->take($limit)->get();
+            });
         }else{
-            return Cache::remember('1home.viewed', Helper::getMinutesToTheNextHour(), function () use ($limit){
+            return Cache::remember('home.viewed', Helper::getMinutesToTheNextHour(), function () use ($limit){
                 return self::with('blog')->orderBy('views', 'DESC')->visible()->take($limit)->get();
+            });
+        }
+    }
+
+    /**
+     * method used to return most do not miss it posts
+     *
+     * @param int $limit
+     * @return mixed
+     */
+    public static function getDoNotMissIt($category=false, $limit=6, $months=2){
+        if($category){
+            return Cache::remember($category->slug . '.do_not_miss_it', Helper::getMinutesToTheNextHour(), function () use ($category, $limit, $months){
+                return $category->post()->with('blog')->where('publish_at', '>', Carbon::now()->subMonth($months))->take($limit)->get();
+            });
+        }else{
+            return Cache::remember('home.do_not_miss_it', Helper::getMinutesToTheNextHour(), function () use ($limit, $months){
+                return self::with('blog')->where('publish_at', '>', Carbon::now()->subMonth($months))->inRandomOrder()->take($limit)->get();
             });
         }
     }

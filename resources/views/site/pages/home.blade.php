@@ -9,12 +9,7 @@
             <div class="content-main">
 
                 @foreach($latest->slice(0, 3) as $post)
-                    @include(env('APP_THEME') . '.temp.article-teaser', ['featured' => true, 'post' => $post])
-                    {{--@article_teaser([--}}
-                        {{--'post' => $post,--}}
-                        {{--'featured' => false,--}}
-                    {{--])--}}
-                    {{--@endarticle_teaser--}}
+                    @article_teaser([ 'post' => $post, 'featured' => true, ]) @endarticle_teaser
                 @endforeach
 
             </div>
@@ -59,9 +54,7 @@
 
                     @foreach($latest->slice(3) as $post)
                         <div class="col col--6">
-                            @include(env('APP_THEME') . '.temp.article-teaser', ['post' => $post])
-                            {{--@article_teaser()--}}
-                            {{--@endarticle_teaser--}}
+                            @article_teaser(['post' => $post]) @endarticle_teaser
                         </div>
                     @endforeach
 

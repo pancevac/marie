@@ -40,5 +40,8 @@ class ViewsComposerServiseProvider extends ServiceProvider
         view()->composer(env('APP_THEME') .'.partials.sidenav', function($view) use ($menu){
             $view->with('menu', $menu);
         });
+        view()->composer(env('APP_THEME') .'.partials.footer', function($view) use ($menu){
+            $view->with('menu', $menu);
+        });
     }
 }

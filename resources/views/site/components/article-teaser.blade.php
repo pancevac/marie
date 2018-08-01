@@ -9,26 +9,24 @@
 
 <div class="{{$teaser}}">
     <div class="teaser_media">
-        <a href="#" title="image alt">
+        <a href="{{ $post->getLink() }}" title="image alt">
             <div class="{{$image}} tint tint--light tint--hover"
-                 data-src=""
+                 data-src="{{ !empty($post->image)? ($isFeatured? url(\Imagecache::get($post->image, '650x278')->src) : url($post->image_box)) : '' }}"
                  data-alt="image alt"
             ></div>
         </a>
     </div>
     <div class="teaser_primary">
         <div class="{{$details}}">
-            <a href="#" class="details-item details-item--primary">category</a>
-            <span class="details-item details-item--secondary">12/3/2018</span>
+            <a href="{{ $post->blog? $post->blog->first()->getLink() : '#' }}" class="details-item details-item--primary">{{ $post->blog? $post->blog->first()->title : '' }}</a>
+            <span class="details-item details-item--secondary">{{ \Carbon\Carbon::parse($post->publish_at)->format('d/m/Y') }}</span>
         </div>
-        <h3 class="teaser_title"><a href="#">Article title</a></h3>
-        <p class="{{$body}}">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero qui, dignissimos voluptas
-            maiores voluptatem adipisci. Itaque reprehenderit maxime iure repellendus libero fugit, sequi esse rem
-            molestias velit, ea perferendis recusandae..</p>
+        <h3 class="teaser_title"><a href="{{ $post->getLink() }}">{{ $post->title }}</a></h3>
+        <p class="{{$body}}">{{ $post->short }}</p>
     </div>
     @if($hasActions)
         <div class="teaser_actions">
-            <a href="#" class="btn btn--secondary">more</a>
+            <a href="{{ $post->getLink() }}" class="btn btn--secondary">more</a>
         </div>
     @endif
 </div>

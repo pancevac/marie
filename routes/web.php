@@ -2,6 +2,8 @@
 
 Route::get('/', 'PagesController@homepage');
 
+Route::get('category/{slug}', 'PagesController@category');
+
 // filemanager
 Route::middleware('auth')->get('filemanager/show', 'FilemanagerController@index');
 
