@@ -41,9 +41,8 @@
   }
 
   &_list {
-    max-height: 8 * $item-height;
+    max-height: 10 * $item-height;
     margin: (2 * $baseline) 0;
-    overflow-y: auto;
   }
 
   &_list-item {

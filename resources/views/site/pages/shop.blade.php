@@ -16,7 +16,7 @@
 
           <div class="filter">
             <div class="filter_name">Filter name</div>
-            <ul class="filter_list">
+            <ul class="filter_list with-scrollbar">
 
               @for($i = 0; $i < 8; $i++)
               <li class="filter_list-item">
