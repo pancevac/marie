@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import {cloneElements} from '../utils';
+
 export default {
   props: {
     index: {
@@ -88,12 +90,9 @@ export default {
     if (hasChildren) {
       return;
     }
-  
+
     if (this.loop) {
-      const first = host.firstElementChild.cloneNode(true);
-      const last = host.lastElementChild.cloneNode(true);
-      host.append(first);
-      host.prepend(last);
+      cloneElements(host);
     }
 
     this.init();

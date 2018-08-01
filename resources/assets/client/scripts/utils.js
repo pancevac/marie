@@ -1,3 +1,9 @@
+// logging middleware
+export const logger = (msg) => (a) => {
+  console.log(msg);
+  return a;
+};
+
 /**
  * Preloads the image with the given src.
  *
@@ -49,3 +55,33 @@ export const classNames = (el, obj) => {
     .concat(names.filter((n) => obj[n]))
     .join(' ');
 }
+
+/**
+ * Creates new array of length `n`, with undefined values.
+ *
+ * @param {number} n length
+ * @return {undefined[]}
+ */
+export const createArray = (n) => Array.from(new Array(n));
+
+/**
+ * Clones `n` elements from the `el` elements head and tail,
+ * and appends/prepends them.
+ *
+ * @param {HTMLElement} el host element.
+ * @param {number} [n=1] how many chid elements to clone.
+ */
+export const cloneElements = (el, n=1) => {
+  const children = el.children;
+  const length = children.length;
+
+  createArray(n)
+    .map((_, i) => ({
+      head: children[i].cloneNode(true),
+      tail: children[length - (i + 1)].cloneNode(true),
+    }))
+    .forEach(({head, tail}) => {
+      el.append(head);
+      el.prepend(tail);
+    });
+};
