@@ -14,14 +14,22 @@
 
         <div class="filters_body">
 
-          <div class="filter"><!-- filter -->
+          <div class="filter">
             <div class="filter_name">Filter name</div>
             <ul class="filter_list">
-              <li class="filter_list-item">filte value</li>
-              <li class="filter_list-item">filte value</li>
-              <li class="filter_list-item">filte value</li>
+              @for($i = 0; $i < 8; $i++)
+              <li class="filter_list-item">
+                <label class="filter-item">
+                  <div class="checkbox">
+                    <input type="checkbox" name="demo">
+                    <div class="checkbox_mark"></div>
+                  </div>
+                  <span class="ml-2">hello</span>
+                </label>
+              </li>
+              @endfor
             </ul>
-          </div><!-- ./filter -->
+          </div>
 
         </div>
 
