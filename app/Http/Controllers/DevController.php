@@ -6,6 +6,6 @@ use App\Http\Controllers\Controller;
 
 class DevController extends Controller {
   public function render($view='home') {
-    return view('site.pages.'.$view);
+    return view('themes.' . env('APP_THEME') . '.pages.'.$view);
   }
 }

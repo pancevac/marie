@@ -1,9 +1,9 @@
-@extends('site.layouts.main')
+@extends('themes.' . env('APP_THEME') . '.layouts.main')
 
 @section('content')
     <div class="container">
 
-        @include('site.partials.masthead')
+        @include('themes.' . env('APP_THEME') . '.partials.masthead')
 
         <div class="content-wrap">
             <div class="content-main">
@@ -16,10 +16,10 @@
             <aside class="content-aside">
                 <div class="aside-box" style="width:100%; padding-top: 100%; background:hotpink;"></div>
                 <div class="aside-box">
-                    @include('site.partials.subscription')
+                    @include('themes.' . env('APP_THEME') . '.partials.subscription')
                 </div>
                 <div class="aside-box">
-                    @include('site.partials.newsletter')
+                    @include('themes.' . env('APP_THEME') . '.partials.newsletter')
                 </div>
             </aside>
         </div>

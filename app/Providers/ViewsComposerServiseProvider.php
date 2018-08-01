@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Helper;
 use App\MenuLink;
+use App\Setting;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +18,7 @@ class ViewsComposerServiseProvider extends ServiceProvider
     public function boot()
     {
         $this->composerMenuTop();
+        $this->composerSettings();
     }
 
     /**
@@ -34,14 +36,23 @@ class ViewsComposerServiseProvider extends ServiceProvider
             return MenuLink::tree(1);
         });
 
-        view()->composer(env('APP_THEME') .'.partials.header', function($view) use ($menu){
+        view()->composer('themes.' .env('APP_THEME') .'.partials.header', function($view) use ($menu){
             $view->with('menu', $menu);
         });
-        view()->composer(env('APP_THEME') .'.partials.sidenav', function($view) use ($menu){
+        view()->composer('themes.' . env('APP_THEME') .'.partials.sidenav', function($view) use ($menu){
             $view->with('menu', $menu);
         });
-        view()->composer(env('APP_THEME') .'.partials.footer', function($view) use ($menu){
+        view()->composer('themes.' . env('APP_THEME') .'.partials.footer', function($view) use ($menu){
             $view->with('menu', $menu);
+        });
+    }
+
+    private function composerSettings(){
+        $settings = Cache::remember('settings', Helper::getMinutesToTheNextHour(), function (){
+            return Setting::first();
+        });
+        view()->composer('themes.' . env('APP_THEME') .'.*', function($view) use ($settings){
+            $view->with('settings', $settings);
         });
     }
 }

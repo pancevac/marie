@@ -1,4 +1,4 @@
-@extends('site.layouts.main')
+@extends('themes.' . env('APP_THEME') . '.layouts.main')
 
 @section('content')
     <div class="container pt-4">
@@ -17,7 +17,7 @@
 
                 </div>
 
-                @include('site.partials.pagination')
+                @include('themes.' . env('APP_THEME') . '.partials.pagination')
 
                 <div class="mb-5 pt-2">
                     <h2 class="h6 text-serif mb-3">Ne propustite</h2>
@@ -35,10 +35,10 @@
             <aside class="content-aside">
                 <div class="aside-box" style="width:100%; padding-top: 100%; background:hotpink;"></div>
                 <div class="aside-box">
-                    @include('site.partials.subscription')
+                    @include('themes.' . env('APP_THEME') . '.partials.subscription')
                 </div>
                 <div class="aside-box">
-                    @include('site.partials.newsletter')
+                    @include('themes.' . env('APP_THEME') . '.partials.newsletter')
                 </div>
             </aside>
         </div>

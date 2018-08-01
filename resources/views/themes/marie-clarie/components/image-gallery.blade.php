@@ -1,0 +1,10 @@
+<div class="image-grid">
+    @foreach($images as $image)
+        <a href="#" title="alt tag">
+            <div class="image image--1-1 js-lazy-image"
+                 data-src={{ url($image->file_path) }}
+                         data-alt="{{ $image->title }}"
+            ></div>
+        </a>
+    @endforeach
+</div>

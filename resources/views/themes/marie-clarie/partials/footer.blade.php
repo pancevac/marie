@@ -2,14 +2,14 @@
     <div class="container d-flex justify-content-between">
         <div class="text-center">
             <div class="d-inline-flex">
-                <a href="/" rel="home" class="logo-wrap" title="marie claire">
+                <a href="{{ url('/') }}" rel="home" class="logo-wrap" title="marie claire">
                     <svg class="logo logo--footer">
                         <use xlink:href="#logo"></use>
                     </svg>
                 </a>
             </div>
             <div>
-                @include('site.partials.social')
+                @include('themes.' . env('APP_THEME') . '.partials.social')
             </div>
         </div>
         <div class="footer_nav">

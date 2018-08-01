@@ -150,6 +150,7 @@ class Post extends Model
 
     /**
      * method used to return most do not miss it posts
+     * I'm not sure which logic should be here, but we can change it later
      *
      * @param int $limit
      * @return mixed
@@ -174,6 +175,23 @@ class Post extends Model
     public function getLink(){
         if($this->blog){
             $url = '';
+            foreach ($this->blog as $blog){
+                $url .= $blog->slug . '/';
+            }
+            return url($url . $this->slug . '/' . $this->id);
+        }else{
+            return '#';
+        }
+    }
+
+    /**
+     * method used to return gallery post link
+     *
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function getGalleryLink(){
+        if($this->blog){
+            $url = 'galerija/';
             foreach ($this->blog as $blog){
                 $url .= $blog->slug . '/';
             }

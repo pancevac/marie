@@ -28,7 +28,7 @@
         </nav>
 
         <div>
-            @include('site.partials.social')
+            @include('themes.' . env('APP_THEME') . '.partials.social')
         </div>
     </div>
 </temporary-drawer>
