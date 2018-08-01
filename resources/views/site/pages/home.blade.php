@@ -9,11 +9,12 @@
             <div class="content-main">
 
                 @foreach($latest->slice(0, 3) as $post)
-                    @article_teaser([
-                        'featured' => true,
-                        'post' => $post,
-                    ])
-                    @endarticle_teaser
+                    @include(env('APP_THEME') . '.temp.article-teaser', ['featured' => true, 'post' => $post])
+                    {{--@article_teaser([--}}
+                        {{--'post' => $post,--}}
+                        {{--'featured' => false,--}}
+                    {{--])--}}
+                    {{--@endarticle_teaser--}}
                 @endforeach
 
             </div>
@@ -35,19 +36,19 @@
             <div class="home-popular">
 
                 <simple-carousel>
-                    @for($i = 0; $i < 4; $i++)
+                    @foreach($most_views as $most)
                         <div class="slider-item home-popular_item">
-                            <a href="#" title="alt tag">
+                            <a href="{{ $most->getLink() }}" title="alt tag">
                                 <div class="js-lazy-image image image--1-1 tint tint--light tint--hover"
-                                     data-src=""
+                                     data-src="{{ $most->image_box }}"
                                      data-alt="alt tag"
                                 ></div>
                             </a>
                             <div class="home-popular_title">
-                                <a href="#">Popular article title, medium long...</a>
+                                <a href="{{ $most->getLink() }}">{{ $most->title }}</a>
                             </div>
                         </div>
-                    @endfor
+                    @endforeach
                 </simple-carousel>
             </div>
         </div>
@@ -56,12 +57,13 @@
             <div class="content-main">
                 <div class="row">
 
-                    @for($i = 0; $i < 6; $i++)
+                    @foreach($latest->slice(3) as $post)
                         <div class="col col--6">
-                            @article_teaser()
-                            @endarticle_teaser
+                            @include(env('APP_THEME') . '.temp.article-teaser', ['post' => $post])
+                            {{--@article_teaser()--}}
+                            {{--@endarticle_teaser--}}
                         </div>
-                    @endfor
+                    @endforeach
 
                 </div>
             </div>

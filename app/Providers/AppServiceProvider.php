@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $components = 'site.components';
+        $components = env('APP_THEME') . '.components';
 
         Blade::component($components.'.article-teaser', 'article_teaser');
         Blade::component($components.'.related-item', 'related_item');
