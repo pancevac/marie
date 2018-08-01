@@ -9,7 +9,15 @@
   &_item {
     width: 50%;
 
+    @include media-breakpoint-up(sm) {
+      width: 33.3333%;
+    }
+
     @include media-breakpoint-up(md) {
+      width: 50%;
+    }
+
+    @include media-breakpoint-up(lg) {
       width: 33.3333%;
     }
   }

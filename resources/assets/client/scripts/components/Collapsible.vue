@@ -19,7 +19,7 @@ export default {
 
     visible: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
 

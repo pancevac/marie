@@ -25,7 +25,10 @@
   }
 
   &_body {
-    // display: none;
+    @include media-breakpoint-up(md) {
+      // gets inline styles from JS.
+      display: initial !important;
+    }
   }
 }
 
