@@ -82,8 +82,14 @@ export default {
   },
 
   mounted() {
+    const host = this.$refs.host;
+    const hasChildren = host.children.length < 1;
+    // if no child was passed, just ignore.
+    if (hasChildren) {
+      return;
+    }
+  
     if (this.loop) {
-      const host = this.$refs.host;
       const first = host.firstElementChild.cloneNode(true);
       const last = host.lastElementChild.cloneNode(true);
       host.append(first);
