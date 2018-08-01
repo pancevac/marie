@@ -1,0 +1,42 @@
+.filters {
+  border-bottom: 2px solid $theme-primary;
+  margin-bottom: 4 * $baseline;
+
+  &_head {
+    display: flex;
+    height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+  }
+
+  &_body {
+    // display: none;
+  }
+}
+
+.filter {
+  $item-height: 24px;
+
+  &_name {
+    font-size: 13px;
+    line-height: 2;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+    border-bottom: 2px solid $border-color-dark;
+  }
+
+  &_list {
+    max-height: 8 * $item-height;
+    margin: (2 * $baseline) 0;
+    overflow-y: auto;
+  }
+
+  &_list-item {
+    height: $item-height;
+    font-size: 14px;
+  }
+}

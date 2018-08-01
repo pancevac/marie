@@ -1,15 +1,33 @@
 @extends('site.layouts.main')
 
 @section('content')
-  <div class="container pt-4">
+  <div class="container">
 
     <div>
 
-      <div>
-        filters and stuff...
+      <div class="filters">
+
+        <div class="filters_head with-action">
+          <span>Filteri</span>
+          <span class="icon">&#9660;</span>
+        </div>
+
+        <div class="filters_body">
+
+          <div class="filter"><!-- filter -->
+            <div class="filter_name">Filter name</div>
+            <ul class="filter_list">
+              <li class="filter_list-item">filte value</li>
+              <li class="filter_list-item">filte value</li>
+              <li class="filter_list-item">filte value</li>
+            </ul>
+          </div><!-- ./filter -->
+
+        </div>
+
       </div>
       
-      <div style="width: 66.6666%; margin-left: auto;">
+      <div>
         <div class="row shop-list mb-4">
           @for($i = 0; $i < 6; $i++)
           <div class="col shop-list_item">
