@@ -3,7 +3,7 @@
 @section('content')
   <div class="container">
 
-    <div>
+    <div class="shop-layout">
 
       <div class="filters">
 
@@ -17,6 +17,7 @@
           <div class="filter">
             <div class="filter_name">Filter name</div>
             <ul class="filter_list">
+
               @for($i = 0; $i < 8; $i++)
               <li class="filter_list-item">
                 <label class="filter-item">
@@ -28,6 +29,7 @@
                 </label>
               </li>
               @endfor
+
             </ul>
           </div>
 

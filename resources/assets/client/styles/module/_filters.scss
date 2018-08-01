@@ -2,6 +2,13 @@
   border-bottom: 2px solid $theme-primary;
   margin-bottom: 4 * $baseline;
 
+  @include media-breakpoint-up(md) {
+    width: 240px;
+    flex-shrink: 0;
+    margin-right: 32px;
+    border: 0;
+  }
+
   &_head {
     display: flex;
     height: 48px;
@@ -11,6 +18,10 @@
     line-height: 1;
     font-weight: $font-weight-bold;
     cursor: pointer;
+
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
   }
 
   &_body {
