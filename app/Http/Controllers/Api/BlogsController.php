@@ -110,7 +110,7 @@ class BlogsController extends Controller
 
         return response()->json([
             'blogs' => $blogs,
-            'lists' => $blogs->pluck('title', 'id'),
+            'lists' => $blogs->pluck('title', 'id')->prepend('Izberi kategoriju', 0),
         ]);
     }
 }

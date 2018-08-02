@@ -1,15 +1,15 @@
 <template>
-  <button :class='className' v-on:click='dispatch'>
+  <component v-bind:is='as' v-on:click='dispatch'>
     <slot></slot>
-  </button>
+  </component>
 </template>
 
 <script>
 export default {
   props: {
-    className: {
+    as: {
       type: String,
-      default: '',
+      default: 'button',
     },
 
     event: {

@@ -5,7 +5,7 @@
                 <div class="logo-holder">
                     <div class="logo">
                         <a :href="domain" target="_blank">
-                            <img :src="domain + 'img/logo.png'" alt="Fusion Tables">
+                            <!--<img :src="domain + 'img/logo.png'" alt="Fusion Tables">-->
                         </a>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
                                 <a class="dropdown-item" href="#" @click.prevent="newProduct()">Proizvod</a>
-                                <template v-if="admin">
+                                <template>
                                     <a class="dropdown-item" href="#" @click.prevent="newBrand()">Brend</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" @click.prevent="newPost()">Članak</a>

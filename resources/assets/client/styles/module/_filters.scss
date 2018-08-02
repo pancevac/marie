@@ -1,0 +1,64 @@
+.filters {
+  border-bottom: 2px solid $theme-primary;
+  margin-bottom: 4 * $baseline;
+
+  @include media-breakpoint-up(md) {
+    width: 240px;
+    flex-shrink: 0;
+    margin-right: 32px;
+    border: 0;
+  }
+
+  &_head {
+    display: flex;
+    height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
+  }
+
+  &_body {
+    @include media-breakpoint-up(md) {
+      // gets inline styles from JS.
+      display: initial !important;
+    }
+  }
+}
+
+.filter {
+  $item-height: 26px;
+
+  &_name {
+    font-size: 13px;
+    line-height: 2;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+    border-bottom: 2px solid $border-color-dark;
+  }
+
+  &_list {
+    max-height: 10 * $item-height;
+    margin: (2 * $baseline) 0;
+  }
+
+  &_list-item {
+    height: $item-height;
+    font-size: 14px;
+  }
+}
+
+.filter-item {
+  display: flex;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  cursor: pointer;
+}

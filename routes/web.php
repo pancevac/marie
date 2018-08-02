@@ -1,24 +1,60 @@
 <?php
 
-Route::get('/', 'DevController@render');
+/**
+ * home page route
+ **/
+Route::get('/', 'PagesController@homepage');
 
-// filemanager
+/**
+ * Vladan's routes
+ */
+Route::get('beauty-box', 'DevController@render');
+Route::get('shop', 'DevController@render');
+
+/**
+ * gallery page routes
+ **/
+Route::get('galerija/{category}/{post}/{id}', 'PagesController@gallery');
+Route::get('galerija/{category1}/{category2}/{post}/{id}', 'PagesController@subGallery');
+
+/**
+ * images page routes
+ **/
+Route::get('slike/{category}/{post}/{id}', 'PagesController@images');
+Route::get('slike/{category1}/{category2}/{post}/{id}', 'PagesController@subImages');
+
+/**
+ * filemanager route
+ **/
 Route::middleware('auth')->get('filemanager/show', 'FilemanagerController@index');
 
-Route::get('home', 'HomeController@index')->name('home');
+/**
+ * auth routes
+ */
+Auth::routes();
 
+/**
+ * admin dashboard route
+ **/
 Route::get('admin', function () {
     return view('layouts.admin-app');
 });
 
-Auth::routes();
-
-Route::get('home', 'HomeController@index')->name('home');
-
-Route::get('test', 'TestController@index');
+/**
+ * category page routes
+ **/
+Route::get('{category}', 'PagesController@category');
+Route::get('{category1}/{category2}', 'PagesController@subCategory');
 
 /**
- * ostavi ovu rutu poslednju, jer je ona zamena sa osvale rute
+ * post page routes
+ **/
+Route::get('{category}/{post}/{id}', 'PagesController@post');
+Route::get('{category1}/{category2}/{post}/{id}', 'PagesController@subPost');
+
+/**
+ * test route
  */
-Route::get('{view}', 'DevController@render');
+Route::get('test', 'TestController@index');
+
 

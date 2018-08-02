@@ -1,0 +1,43 @@
+.shop-layout {
+  @include media-breakpoint-up(md) {
+    display: flex;
+    padding-top: 24px;
+  }
+}
+
+.shop-list {
+  &_item {
+    width: 50%;
+
+    @include media-breakpoint-up(sm) {
+      width: 33.3333%;
+    }
+
+    @include media-breakpoint-up(md) {
+      width: 50%;
+    }
+
+    @include media-breakpoint-up(lg) {
+      width: 33.3333%;
+    }
+  }
+}
+
+.shop-product {
+  font-size: 14px;
+  margin-bottom: 16px;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 32px;
+  }
+
+  &_name {
+    margin: 4px 0 0;
+    font-weight: $font-weight-medium;
+  }
+
+  &_price {
+    margin: 0 0 8px;
+    font-weight: $font-weight-normal;
+  }
+}
