@@ -32,12 +32,12 @@ class CreatePermissionGroupsTable extends Migration
         Schema::dropIfExists('permission_groups');
 
         Schema::table('permissions', function (Blueprint $table) {
-            Schema::dropColumn('permission_group_id');
-            Schema::dropColumn('is_visible');
+            /*$table->dropColumn('permission_group_id');*/
+            /*$table->dropColumn('is_visible');*/
         });
 
         Schema::table('roles', function (Blueprint $table) {
-            Schema::dropColumn('is_visible');
+            /*$table->dropColumn('is_visible');*/
         });
     }
 }
